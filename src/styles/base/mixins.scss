@@ -1,0 +1,31 @@
+// _mixins.scss
+
+// Desktop breakpoint (992px)
+$desktop: 992px;
+
+// Tablet breakpoint (768px)
+$tablet: 768px;
+
+// Mobile breakpoint (576px)
+$mobile: 576px;
+
+// Mixin for desktop screens
+@mixin desktop {
+  @media only screen and (min-width: $desktop) {
+    @content;
+  }
+}
+
+// Mixin for tablet screens
+@mixin tablet {
+  @media only screen and (max-width: $tablet) {
+    @content;
+  }
+}
+
+// Mixin for mobile screens
+@mixin mobile {
+  @media only screen and (max-width: $mobile) {
+    @content;
+  }
+}

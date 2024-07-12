@@ -1,0 +1,64 @@
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$success-color: #28a745;
+$danger-color: #dc3545;
+$info-color: #17a2b8;
+$warning-color: #ffc107;
+$light-color: #f8f9fa;
+$dark-color: #343a40;
+$white-color: #ccc;
+
+$base-font-family: 'Arial', sans-serif;
+
+
+$desktop: 992px;
+$tablet: 768px;
+$mobile: 576px;
+
+
+$spacing-xs: 8px;
+$spacing-sm: 16px;
+$spacing-md: 24px;
+$spacing-lg: 32px;
+$spacing-xl: 40px;
+
+
+$border-radius: 4px;
+
+$z-index-modal: 1000;
+$z-index-dropdown: 900;
+$z-index-overlay: 600;
+$z-index-toast: 500;
+$z-index-tooltip: 400;
+$z-index-sticky: 1050;
+$z-index-navbar: 1100;
+$z-index-sidebar: 1080;
+
+
+$input-border-color: #dd0f0f;
+
+$margin-sizes: (
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 2rem
+);
+
+@each $size, $value in $margin-sizes {
+  .margin-top-#{$size} {
+    margin-top: $value !important;
+  }
+
+  .margin-bottom-#{$size} {
+    margin-bottom: $value !important;
+  }
+
+  .margin-left-#{$size} {
+    margin-left: $value !important;
+  }
+
+  .margin-right-#{$size} {
+    margin-right: $value !important;
+  }
+}
