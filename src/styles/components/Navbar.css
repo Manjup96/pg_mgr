@@ -1,0 +1,139 @@
+.navbar .menu .nav-link.active {
+  background-color: #1871c9; /* Background color for the active link */
+  color: white; /* Text color for the active link */
+  border-radius: 5px; /* Optional: Rounded corners for the active link */
+}
+
+.navbar .menu .nav-link {
+  display: flex;
+  align-items: center;
+  color: black;
+  text-decoration: none;
+}
+
+.navbar .menu .nav-link:hover {
+  background-color: #e9ecef; /* Background color on hover */
+  color: black; /* Text color on hover */
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(149, 150, 155);
+  padding: 10px 20px;
+  color: white;
+}
+.navbar .top-row, .navbar .bottom-row {
+  display: flex;
+  align-items: center;
+}
+.navbar .top-row {
+  justify-content: space-between;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.navbar .logo-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.navbar .logo {
+  display: flex;
+  align-items: center;
+}
+.navbar .link_text {
+  margin-left: 3px;
+  padding-left: 0px;
+  padding-top: 5px;
+}
+.navbar .logo img {
+  height: 47px;
+  width: 111px;
+  margin-right: 10px;
+}
+.navbar .menu {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+.navbar .menu a {
+  margin-right: 10px; /* Reduce the space between menu items */
+  color: black;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+.navbar .menu a:hover {
+  background-color: white;
+  border-radius: 5px;
+}
+.navbar .search {
+  display: flex;
+  align-items: center;
+}
+.navbar .search input {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+.navbar .search button {
+  background-color: #34495e;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+.navbar .icons {
+  display: flex;
+  align-items: center;
+}
+.navbar .icons i {
+  margin-right: 10px; /* Reduce the space between icons */
+  font-size: 20px;
+}
+.navbar .right-side {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px; /* Optional: add gap between search and icons */
+  flex-grow: 1;
+}
+.navbar .separate-background {
+  background-color: #f8f9fa;
+  width: 78%;
+  margin-left: 22%;
+}
+.navbar .menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+@media (max-width: 1024px) {
+  .navbar .right-side .search {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  .navbar .menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+  .navbar .menu.show {
+    display: flex;
+  }
+  .navbar .menu-toggle {
+    display: block;
+  }
+  .navbar .bottom-row {
+    flex-direction: column;
+    width: 100%;
+  }
+  .navbar .right-side {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .navbar .search input, .navbar .search button {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}/*# sourceMappingURL=Navbar.css.map */

@@ -29,7 +29,7 @@ function App() {
           <Route path="/meals" element={<Meals />} />
           <Route path="/accounts" element={<Accounts />} />
           <Route path="/reports" element={<Reports />} />
-          <Route path="/enquiry" element={<Enquiry />} />
+          <Route path="/enquiry" element={<Enquiry/>} />
           <Route path="/setup" element={<Setup />} />
           {/* Redirect any unknown routes to the home page */}
           <Route path="*" element={<Navigate to="/" />} />

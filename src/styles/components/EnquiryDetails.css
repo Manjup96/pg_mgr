@@ -1,0 +1,48 @@
+.tenant-table {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 16px;
+  text-align: left;
+}
+.tenant-table th, .tenant-table td {
+  padding: 12px 15px;
+}
+.tenant-table thead {
+  background-color: #f4f4f4;
+}
+.tenant-table thead th {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.tenant-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.tenant-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.tenant-table tbody tr td.actions {
+  gap: 10px;
+  width: 150px;
+}
+.tenant-table tbody tr td.actions .edit-btn, .tenant-table tbody tr td.actions .delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+.tenant-table tbody tr td.actions .edit-btn:hover, .tenant-table tbody tr td.actions .delete-btn:hover {
+  color: #000;
+}
+.tenant-table tbody tr td.actions .edit-btn {
+  color: #007bff;
+}
+.tenant-table tbody tr td.actions .edit-btn:hover {
+  color: #0056b3;
+}
+.tenant-table tbody tr td.actions .delete-btn {
+  color: #dc3545;
+}
+.tenant-table tbody tr td.actions .delete-btn:hover {
+  color: #c82333;
+}/*# sourceMappingURL=EnquiryDetails.css.map */
