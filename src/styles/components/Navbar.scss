@@ -130,13 +130,14 @@
 
   @media (max-width: 768px) {
     .menu {
-      display: none;
+      display: none; /* Initially hide menu on smaller screens */
       flex-direction: column;
       width: 100%;
     }
 
     .menu.show {
       display: flex;
+      align-items: center;
     }
 
     .menu-toggle {
@@ -145,7 +146,8 @@
 
     .bottom-row {
       flex-direction: column;
-      width: 100%;
+      /* width: 100%; */
+      margin-left: 40px;
     }
 
     .right-side {
