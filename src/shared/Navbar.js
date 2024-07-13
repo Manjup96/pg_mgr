@@ -40,7 +40,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className={`bottom-row separate-background ${isMenuOpen ? 'show' : ''}`}>
-        <div className="menu">
+        <div className={`menu ${isMenuOpen ? 'show' : ''}`}>
           <Link className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`} to="/dashboard">
             <FaHome className="nav-icon" />
             <span className="link_text">Dashboard</span>
