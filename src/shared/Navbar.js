@@ -14,6 +14,7 @@ const Navbar = () => {
   };
 
   return (
+    
     <div className="navbar">
       <div className="top-row">
         <div className="logo-container">
@@ -32,11 +33,13 @@ const Navbar = () => {
             <i className="fas fa-user-circle"></i>
           </div>
         </div>
+        <div className='logout-nav'>
         <div className="logout-button" data-tooltip="Log out">
           <Logout />
         </div>
         <div className="menu-toggle" onClick={toggleMenu}>
           {isMenuOpen ? <FaTimes /> : <FaBars />}
+        </div>
         </div>
       </div>
       <div className={`bottom-row separate-background ${isMenuOpen ? 'show' : ''}`}>
