@@ -1,31 +1,19 @@
-// import React from 'react'
-// import Navbar from "../../shared/Navbar";
-// import { useManagerAuth } from "../../context/AuthContext";
-
-// const ComplaintsDetails = () => {
-//     const { manager } = useManagerAuth();
-//   return (
-//     <div>
-//         <Navbar />
-//         <h2>Complaints Details</h2>
-//     </div>
-//   )
-// }
-
-// export default ComplaintsDetails
-
 
 
 // import React, { useState, useEffect } from 'react';
 // import Navbar from "../../shared/Navbar";
 // import { useManagerAuth } from "../../context/AuthContext";
-// import '../../styles/components/ComplaintsDetails.scss'; // Import your SCSS file
+// import ComplaintsForm from "./ComplaintsForm";
+// import '../../styles/components/ComplaintsDetails.scss';
 
 // const ComplaintsDetails = () => {
 //     const { manager } = useManagerAuth();
 //     const [complaints, setComplaints] = useState([]);
 //     const [loading, setLoading] = useState(true);
 //     const [error, setError] = useState(null);
+//     const [showForm, setShowForm] = useState(false);
+//     const [selectedComplaint, setSelectedComplaint] = useState(null);
+//     const [viewComplaint, setViewComplaint] = useState(null); // State for viewing complaint details
 
 //     useEffect(() => {
 //         const fetchComplaints = async () => {
@@ -57,8 +45,58 @@
 //         fetchComplaints();
 //     }, []);
 
-//     const handleToggleReadMore = (id) => {
-//         // Implement toggle read more functionality if needed
+//     const handleOpenForm = (complaint) => {
+//         setSelectedComplaint(complaint);
+//         setShowForm(true);
+//     };
+
+//     const handleCloseForm = () => {
+//         setShowForm(false);
+//         setSelectedComplaint(null);
+//     };
+
+//     const handleViewDetails = (complaint) => {
+//         setViewComplaint(complaint);
+//     };
+
+//     const handleFormSubmit = async (formData) => {
+//         try {
+//             const requestOptions = {
+//                 method: "POST",
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify({
+//                     ...formData,
+//                     id: selectedComplaint ? selectedComplaint.id : undefined,
+//                     manager_email: 'ssy.balu@gmail.com',
+//                     building_name: 'building 2',
+//                 }),
+//             };
+
+//             const url = selectedComplaint
+//                 ? 'https://iiiqbets.com/pg-management/send-RESPONSE-for-Complaint-by-Manager-to-Tenant.php'
+//                 : 'https://iiiqbets.com/pg-management/Complaints-POST-API-with-manager-buiding.php';
+
+//             const response = await fetch(url, requestOptions);
+//             if (!response.ok) {
+//                 throw new Error("Network response was not ok");
+//             }
+
+//             const data = await response.json();
+//             if (selectedComplaint) {
+//                 setComplaints((prev) =>
+//                     prev.map((complaint) =>
+//                         complaint.id === selectedComplaint.id ? data : complaint
+//                     )
+//                 );
+//             } else {
+//                 setComplaints([...complaints, data]);
+//             }
+
+//             handleCloseForm();
+
+//         } catch (error) {
+//             console.error("Error submitting form:", error);
+//         }
 //     };
 
 //     if (loading) {
@@ -114,14 +152,50 @@
 //                                     <td>{complaint.comments}</td>
 //                                     <td>{complaint.Date}</td>
 //                                     <td>{complaint.resolve_date}</td>
-//                                     {/* <td className="complaint-table-actions">
-//                                         <button className="btn-edit-complaints" onClick={() => handleEdit(complaint.id)}>Edit</button>
-//                                         <button className="btn-delete-complaints" onClick={() => handleDelete(complaint.id)}>Delete</button>
-//                                     </td> */}
+//                                     <td>
+//                                         <button onClick={() => handleOpenForm(complaint)}>Edit</button>
+//                                         <button onClick={() => handleViewDetails(complaint)}>View</button>
+//                                     </td>
 //                                 </tr>
 //                             ))}
 //                         </tbody>
 //                     </table>
+//                 </div>
+//             )}
+//             {viewComplaint && (
+//                 <div className="complaint-form-modal-overlay">
+//                     <div className="complaint-form-modal-container">
+//                         <button className="close-button" onClick={() => setViewComplaint(null)}>Close</button>
+//                         <div>
+//                             <h2>Complaint Details</h2>
+//                             <p><strong>Complaint ID:</strong> {viewComplaint.id}</p>
+//                             <p><strong>Building Name:</strong> {viewComplaint.building_name}</p>
+//                             <p><strong>Manager Email:</strong> {viewComplaint.manager_email}</p>
+//                             <p><strong>Floor No:</strong> {viewComplaint.floor_no}</p>
+//                             <p><strong>Room No:</strong> {viewComplaint.room_no}</p>
+//                             <p><strong>Bed No:</strong> {viewComplaint.bed_no}</p>
+//                             <p><strong>Tenant Name:</strong> {viewComplaint.tenant_name}</p>
+//                             <p><strong>Tenant Mobile:</strong> {viewComplaint.tenant_mobile}</p>
+//                             <p><strong>Complaint Description:</strong> {viewComplaint.complaint_description}</p>
+//                             <p><strong>Complaint Type:</strong> {viewComplaint.complaint_type}</p>
+//                             <p><strong>Response:</strong> {viewComplaint.response}</p>
+//                             <p><strong>Comments:</strong> {viewComplaint.comments}</p>
+//                             <p><strong>Date:</strong> {viewComplaint.Date}</p>
+//                             <p><strong>Resolve Date:</strong> {viewComplaint.resolve_date}</p>
+//                         </div>
+//                     </div>
+//                 </div>
+//             )}
+//             {showForm && (
+//                 <div className="complaint-form-modal-overlay">
+//                     <div className="complaint-form-modal-container">
+//                         <button className="close-button" onClick={handleCloseForm}>Close</button>
+//                         <ComplaintsForm
+//                             initialData={selectedComplaint}
+//                             onCloseForm={handleCloseForm}
+//                             onSubmit={handleFormSubmit}
+//                         />
+//                     </div>
 //                 </div>
 //             )}
 //         </div>
@@ -131,19 +205,28 @@
 // export default ComplaintsDetails;
 
 
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import Navbar from "../../shared/Navbar";
 import { useManagerAuth } from "../../context/AuthContext";
-import '../../styles/components/ComplaintsDetails.scss'; // Import your SCSS file
+import ComplaintsForm from "./ComplaintsForm";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileExport, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import '../../styles/components/ComplaintsDetails.scss';
 
 const ComplaintsDetails = () => {
     const { manager } = useManagerAuth();
     const [complaints, setComplaints] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showForm, setShowForm] = useState(false);
     const [selectedComplaint, setSelectedComplaint] = useState(null);
-    const [response, setResponse] = useState("");
-    const [resolveDate, setResolveDate] = useState("");
+    const [viewComplaint, setViewComplaint] = useState(null); // State for viewing complaint details
 
     useEffect(() => {
         const fetchComplaints = async () => {
@@ -175,50 +258,58 @@ const ComplaintsDetails = () => {
         fetchComplaints();
     }, []);
 
-    const handleEdit = (complaint) => {
-        setSelectedComplaint(complaint);
-        setResponse(complaint.response);
-        setResolveDate(complaint.resolve_date);
+     const handleEditClick = (complaint) => {
+         setSelectedComplaint(complaint);
+         setShowForm(true);
+     };
+   
+
+    const handleCloseForm = () => {
+        setShowForm(false);
+        setSelectedComplaint(null);
     };
 
-    const handleUpdate = async (e) => {
-        e.preventDefault();
-        if (!selectedComplaint) return;
+    const handleViewDetails = (complaint) => {
+        setViewComplaint(complaint);
+    };
 
+    const handleFormSubmit = async (formData) => {
         try {
-            const response = await fetch('https://iiiqbets.com/pg-management/send-RESPONSE-for-Complaint-by-Manager-to-Tenant.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    id: selectedComplaint.id,
-                    response: response,
-                    resolve_date: resolveDate
+                    ...formData,
+                    id: selectedComplaint ? selectedComplaint.id : undefined,
+                    manager_email: 'ssy.balu@gmail.com',
+                    building_name: 'building 2',
                 }),
-            });
+            };
 
+            const url = selectedComplaint
+                ? 'https://iiiqbets.com/pg-management/send-RESPONSE-for-Complaint-by-Manager-to-Tenant.php'
+                : 'https://iiiqbets.com/pg-management/Complaints-POST-API-with-manager-buiding.php';
+
+            const response = await fetch(url, requestOptions);
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error("Network response was not ok");
             }
 
             const data = await response.json();
-            if (data.success) {
-                setComplaints((prevComplaints) =>
-                    prevComplaints.map((complaint) =>
-                        complaint.id === selectedComplaint.id
-                            ? { ...complaint, response: response, resolve_date: resolveDate }
-                            : complaint
+            if (selectedComplaint) {
+                setComplaints((prev) =>
+                    prev.map((complaint) =>
+                        complaint.id === selectedComplaint.id ? data : complaint
                     )
                 );
-                setSelectedComplaint(null);
-                setResponse("");
-                setResolveDate("");
             } else {
-                throw new Error('Failed to update complaint');
+                setComplaints([...complaints, data]);
             }
+
+            handleCloseForm();
+
         } catch (error) {
-            setError(error);
+            console.error("Error submitting form:", error);
         }
     };
 
@@ -275,8 +366,14 @@ const ComplaintsDetails = () => {
                                     <td>{complaint.comments}</td>
                                     <td>{complaint.Date}</td>
                                     <td>{complaint.resolve_date}</td>
-                                    <td className="complaint-table-actions">
-                                        <button className="btn-edit-complaints" onClick={() => handleEdit(complaint)}>Edit</button>
+                                    <td>
+                                    <button className="icon-button" onClick={() => handleEditClick(complaint)}>
+                <FontAwesomeIcon icon={faEdit} />
+              </button>
+                                        {/* <button onClick={() => handleViewDetails(complaint)}>View</button> */}
+                                        <button onClick={() => handleViewDetails(complaint)}>
+  <FontAwesomeIcon icon={faEye} />
+</button>
                                     </td>
                                 </tr>
                             ))}
@@ -284,34 +381,40 @@ const ComplaintsDetails = () => {
                     </table>
                 </div>
             )}
-
-            {selectedComplaint && (
-                <div className="edit-form">
-                    <h3>Edit Complaint Response</h3>
-                    <form onSubmit={handleUpdate}>
+            {viewComplaint && (
+                <div className="complaint-form-modal-overlay">
+                    <div className="complaint-form-modal-container">
+                        <button className="close-button" onClick={() => setViewComplaint(null)}>Close</button>
                         <div>
-                            <label htmlFor="response">Response:</label>
-                            <input
-                                type="text"
-                                id="response"
-                                value={response}
-                                onChange={(e) => setResponse(e.target.value)}
-                                required
-                            />
+                            <h2>Complaint Details</h2>
+                            <p><strong>Complaint ID:</strong> {viewComplaint.id}</p>
+                            <p><strong>Building Name:</strong> {viewComplaint.building_name}</p>
+                            <p><strong>Manager Email:</strong> {viewComplaint.manager_email}</p>
+                            <p><strong>Floor No:</strong> {viewComplaint.floor_no}</p>
+                            <p><strong>Room No:</strong> {viewComplaint.room_no}</p>
+                            <p><strong>Bed No:</strong> {viewComplaint.bed_no}</p>
+                            <p><strong>Tenant Name:</strong> {viewComplaint.tenant_name}</p>
+                            <p><strong>Tenant Mobile:</strong> {viewComplaint.tenant_mobile}</p>
+                            <p><strong>Complaint Description:</strong> {viewComplaint.complaint_description}</p>
+                            <p><strong>Complaint Type:</strong> {viewComplaint.complaint_type}</p>
+                            <p><strong>Response:</strong> {viewComplaint.response}</p>
+                            <p><strong>Comments:</strong> {viewComplaint.comments}</p>
+                            <p><strong>Date:</strong> {viewComplaint.Date}</p>
+                            <p><strong>Resolve Date:</strong> {viewComplaint.resolve_date}</p>
                         </div>
-                        <div>
-                            <label htmlFor="resolveDate">Resolve Date:</label>
-                            <input
-                                type="date"
-                                id="resolveDate"
-                                value={resolveDate}
-                                onChange={(e) => setResolveDate(e.target.value)}
-                                required
-                            />
-                        </div>
-                        <button type="submit">Update</button>
-                        <button type="button" onClick={() => setSelectedComplaint(null)}>Cancel</button>
-                    </form>
+                    </div>
+                </div>
+            )}
+            {showForm && (
+                <div className="complaint-form-modal-overlay">
+                    <div className="complaint-form-modal-container">
+                        <button className="close-button" onClick={handleCloseForm}>Close</button>
+                        <ComplaintsForm
+                            initialData={selectedComplaint}
+                            onCloseForm={handleCloseForm}
+                            onSubmit={handleFormSubmit}
+                        />
+                    </div>
                 </div>
             )}
         </div>
