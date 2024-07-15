@@ -183,7 +183,7 @@ const ComplaintsDetails = () => {
                         <button className="close-button" onClick={() => setViewComplaint(null)}>Close</button>
                         <div>
                             <h2>Complaint Details</h2>
-                            <p><strong>Complaint ID:</strong> {viewComplaint.id}</p>
+                            <p><strong>Complaint ID:</strong> {viewComplaint.id}</p>                          
                             <p><strong>Building Name:</strong> {viewComplaint.building_name}</p>
                             <p><strong>Manager Email:</strong> {viewComplaint.manager_email}</p>
                             <p><strong>Floor No:</strong> {viewComplaint.floor_no}</p>
