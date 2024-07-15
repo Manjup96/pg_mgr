@@ -96,150 +96,168 @@ const EnquiryDetails = () => {
     const filteredEnquiries = enquiries.filter((enquiry) => {
         const lowerSearchTerm = searchTerm.toLowerCase();
         return (
-          (enquiry.id && enquiry.incrementalId.toString().includes(lowerSearchTerm)) ||
-          (enquiry.building_name  && enquiry.building_name.toLowerCase().includes(lowerSearchTerm)) ||
-          (enquiry.Name && enquiry.Name.toLowerCase().includes(lowerSearchTerm)) ||
-          (enquiry.Mobile_Number && enquiry.Mobile_Number.toLowerCase().includes(lowerSearchTerm)) ||
-          (enquiry.Email && enquiry.Email.toLowerCase().includes(lowerSearchTerm)) ||
-          (enquiry.Remarks && enquiry.Remarks.toLowerCase().includes(lowerSearchTerm)) ||
-          (enquiry.Reference && enquiry.Reference.toLowerCase().includes(lowerSearchTerm)) ||
-          (enquiry.enquiry_date && enquiry.enquiry_date.toLowerCase().includes(lowerSearchTerm)) 
+            (enquiry.id && enquiry.incrementalId.toString().includes(lowerSearchTerm)) ||
+            (enquiry.building_name && enquiry.building_name.toLowerCase().includes(lowerSearchTerm)) ||
+            (enquiry.Name && enquiry.Name.toLowerCase().includes(lowerSearchTerm)) ||
+            (enquiry.Mobile_Number && enquiry.Mobile_Number.toLowerCase().includes(lowerSearchTerm)) ||
+            (enquiry.Email && enquiry.Email.toLowerCase().includes(lowerSearchTerm)) ||
+            (enquiry.Remarks && enquiry.Remarks.toLowerCase().includes(lowerSearchTerm)) ||
+            (enquiry.Reference && enquiry.Reference.toLowerCase().includes(lowerSearchTerm)) ||
+            (enquiry.enquiry_date && enquiry.enquiry_date.toLowerCase().includes(lowerSearchTerm))
 
 
 
-          // (meal.date && new Date(meal.date).toLocaleDateString("en-IN").toLowerCase().includes(lowerSearchTerm)) 
-    
-    
+            // (meal.date && new Date(meal.date).toLocaleDateString("en-IN").toLowerCase().includes(lowerSearchTerm)) 
+
+
         );
-      });
-      const styles = StyleSheet.create({
+    });
+    const styles = StyleSheet.create({
         table: {
-          display: "table",
-          width: "auto",
-          borderStyle: "solid",
-          borderWidth: 1,
-          borderRightWidth: 0,
-          borderBottomWidth: 0,
+            display: "table",
+            width: "auto",
+            borderStyle: "solid",
+            borderWidth: 1,
+            borderRightWidth: 0,
+            borderBottomWidth: 0,
         },
         tableRow: {
-          flexDirection: "row",
+            flexDirection: "row",
         },
         tableCol: {
-          width: "20%", // Default width for most columns
-          borderStyle: "solid",
-          borderWidth: 1,
-          borderLeftWidth: 0,
-          borderTopWidth: 0,
+            width: "20%", // Default width for most columns
+            borderStyle: "solid",
+            borderWidth: 1,
+            borderLeftWidth: 0,
+            borderTopWidth: 0,
         },
         idCol: {
-          width: "10%", // Reduced width for ID column
-          borderStyle: "solid",
-          borderWidth: 1,
-          borderLeftWidth: 0,
-          borderTopWidth: 0,
+            width: "10%", // Reduced width for ID column
+            borderStyle: "solid",
+            borderWidth: 1,
+            borderLeftWidth: 0,
+            borderTopWidth: 0,
         },
         descriptionCol: {
-          width: "50%", // Increased width for Description column
-          borderStyle: "solid",
-          borderWidth: 1,
-          borderLeftWidth: 0,
-          borderTopWidth: 0,
+            width: "50%", // Increased width for Description column
+            borderStyle: "solid",
+            borderWidth: 1,
+            borderLeftWidth: 0,
+            borderTopWidth: 0,
         },
         tableCell: {
-          margin: "auto",
-          marginTop: 5,
-          fontSize: 10,
+            margin: "auto",
+            marginTop: 5,
+            fontSize: 10,
         },
-      });
-    
-      const MyDocument = ({ enquiries }) => (
+    });
+
+    const MyDocument = ({ enquiries }) => (
         <Document>
-          <Page style={{ padding: 10 }}>
-            <View style={styles.table}>
-              <View style={styles.tableRow}>
-                <View style={styles.idCol}>
-                  <Text style={styles.tableCell}>Id</Text>
+            <Page style={{ padding: 10 }}>
+                <View style={styles.table}>
+                    <View style={styles.tableRow}>
+                        <View style={styles.idCol}>
+                            <Text style={styles.tableCell}>Id</Text>
+                        </View>
+
+                        <View style={styles.tableCol}>
+                            <Text style={styles.tableCell}>Building Name</Text>
+                        </View>
+                        <View style={styles.descriptionCol}>
+                            <Text style={styles.tableCell}>Name</Text>
+                        </View>
+                        <View style={styles.tableCol}>
+                            <Text style={styles.tableCell}>Mobile Number</Text>
+                        </View>
+                        <View style={styles.tableCol}>
+                            <Text style={styles.tableCell}>Email</Text>
+                        </View>
+                        <View style={styles.tableCol}>
+                            <Text style={styles.tableCell}>Remarks</Text>
+                        </View>
+                        <View style={styles.tableCol}>
+                            <Text style={styles.tableCell}>Reference</Text>
+                        </View>
+                        <View style={styles.tableCol}>
+                            <Text style={styles.tableCell}>Enquiry Date</Text>
+                        </View>
+                    </View>
+                    {enquiries.map((enquiry, index) => (
+                        <View key={index} style={styles.tableRow}>
+                            <View style={styles.idCol}>
+                                <Text style={styles.tableCell}>{index + 1}</Text>
+                            </View>
+
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>{enquiry.building_name}</Text>
+                            </View>
+                            <View style={styles.descriptionCol}>
+                                <Text style={styles.tableCell}>{enquiry.Name}</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>{enquiry.Mobile_Number}</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>{enquiry.Email}</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>{enquiry.Remarks}</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>{enquiry.Reference}</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>{enquiry.enquiry_date}</Text>
+                            </View>
+                        </View>
+                    ))}
                 </View>
-    
-                <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>breakfast</Text>
-                </View>
-                <View style={styles.descriptionCol}>
-                  <Text style={styles.tableCell}>lunch</Text>
-                </View>
-                <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>dinner</Text>
-                </View>
-                <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>comments</Text>
-                </View>
-                <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>date</Text>
-                </View>
-              </View>
-              {enquiries.map((enquiry, index) => (
-                <View key={index} style={styles.tableRow}>
-                  <View style={styles.idCol}>
-                    <Text style={styles.tableCell}>{index+1}</Text>
-                  </View>
-    
-                  <View style={styles.tableCol}>
-                    <Text style={styles.tableCell}>{enquiry.breakfast}</Text>
-                  </View>
-                  <View style={styles.descriptionCol}>
-                    <Text style={styles.tableCell}>{enquiry.lunch}</Text>
-                  </View>
-                  <View style={styles.tableCol}>
-                    <Text style={styles.tableCell}>{enquiry.dinner}</Text>
-                  </View>
-                  <View style={styles.tableCol}>
-                    <Text style={styles.tableCell}>{enquiry.comments}</Text>
-                  </View>
-                  <View style={styles.tableCol}>
-                    <Text style={styles.tableCell}>{enquiry.date}</Text>
-                  </View>
-                </View>
-              ))}
-            </View>
-          </Page>
+            </Page>
         </Document>
-      );
-    
-  
+    );
+
+
     return (
         <div>
             <Navbar />
-            <h2>Enquiry Tenant Details</h2>
+            <h1 className='enquiry_main_heading'>Enquiry Tenant Details</h1>
 
 
-            <div>
-            <div className="searchbar-meals">
-            <input
-              type="text"
-              placeholder="Search meal"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-bar-meals"
-            />
-          </div>
-             {/* <PDFDownloadLink document={<MyDocument enquiry={filteredEnquiries} />} fileName="filtered_enquiry.pdf">
+            <div  className='export_switch_add_enquiry_button'>
+
+                <button className="enquiry_export_button" data-tooltip="Download as PDF">
+                    <FontAwesomeIcon icon={faFilePdf} />
+                </button>
+                {/* <PDFDownloadLink document={<MyDocument enquiry={filteredEnquiries} />} fileName="filtered_enquiry.pdf">
             {({ blob, url, loading, error }) => (
               <button className="enquiry_export_button" data-tooltip="Download as PDF">
                 <FontAwesomeIcon icon={faFilePdf} />
               </button>
             )}
           </PDFDownloadLink> */}
-          </div>
-          <div>
-      <button onClick={() => setView(view === 'table' ? 'cards' : 'table')} className="enquiry_switch_button" 
-          data-tooltip={view === 'table' ? 'Switch to Cards View' : 'Switch to Table View'} >
-            <FontAwesomeIcon icon={view === 'table' ? faTh : faTable} />
-           </button>
-          </div>
-          <div>
-            
-            <button className="enquiry_add_btn" onClick={() => handleOpenForm()}>Add Enquiry</button>
-          </div>
+    
+
+            <button onClick={() => setView(view === 'table' ? 'cards' : 'table')} className="enquiry_switch_button"
+                data-tooltip={view === 'table' ? 'Switch to Cards View' : 'Switch to Table View'} >
+                <FontAwesomeIcon icon={view === 'table' ? faTh : faTable} />
+            </button>
+
+
+                <button className="enquiry_add_button" onClick={() => handleOpenForm()}>Add Enquiry</button>
+            </div>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Search meal"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="enquiry_search_bar"
+                />
+            </div>
+
+
+
             <table className="tenant-table">
                 <thead>
                     <tr>
