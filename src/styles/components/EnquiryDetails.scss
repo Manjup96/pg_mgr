@@ -226,8 +226,22 @@ $text-color: #333;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #dee2e6;
-  border-radius: 4px;
+  // border-radius: 4px;
   transition: background-color 0.2s, color 0.2s;
+}
+
+.pagination .page-link-1{
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  color: #555;
+
+}
+
+.pagination .page-link-2{
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+
+
 }
 
 .pagination .page-link:hover {
