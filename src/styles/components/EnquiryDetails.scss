@@ -45,7 +45,7 @@ $text-color: #333;
                 gap: 10px;
                 width: 100px;
       
-                .edit-btn, .delete-btn {
+                .export-btn, .edit-btn, .delete-btn {
                   background: none;
                   border: none;
                   cursor: pointer;
@@ -72,12 +72,22 @@ $text-color: #333;
                     color: #c82333;
                   }
                 }
+                
+                .export-btn {
+                  color: #007bff;
+      
+                  &:hover {
+                    color: #0056b3;
+                  }
+                }
               }
             }
           }
         }
       }
     
+
+
     
 
       .enquiry_main_heading{
@@ -99,7 +109,7 @@ $text-color: #333;
         background-color: #007bff;
         color: rgb(248, 240, 240);
         border: none;
-        margin-left: 250px;
+        margin-left: 170px;
         padding: 11px 20px;
         cursor: pointer;
         font-size: 18px;
@@ -126,7 +136,7 @@ $text-color: #333;
       align-items: center; 
       justify-content: center;
       // margin-right: 854px;
-      margin-left: -135px;
+      margin-left: 19px;
       width: 57px;
       height: 42px;
       }
@@ -144,7 +154,7 @@ $text-color: #333;
         cursor: pointer;
         font-size: 17px;
         border-radius: 5px;
-        margin-left: 1140px;
+        margin-left: 1050px;
       }
 
       .enquiry_search_bar{
@@ -209,7 +219,7 @@ $text-color: #333;
 
 
 
-.pagination {
+.enquiry_pagination {
   display: flex;
   list-style: none;
   padding: 0;
@@ -219,7 +229,7 @@ $text-color: #333;
 
 
 
-.pagination .page-link {
+.enquiry_pagination .page-link {
   display: block;
   padding: 10px 15px;
   color: #007bff;
@@ -230,39 +240,39 @@ $text-color: #333;
   transition: background-color 0.2s, color 0.2s;
 }
 
-.pagination .page-link-1{
+.enquiry_pagination .page-link-1{
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
   color: #555;
 
 }
 
-.pagination .page-link-2{
+.enquiry_pagination .page-link-2{
   border-top-right-radius: 7px;
   border-bottom-right-radius: 7px;
 
 
 }
 
-.pagination .page-link:hover {
+.enquiry_pagination .page-link:hover {
   background-color: #e9ecef;
   color: #0056b3;
 }
 
-.pagination .page-item.active .page-link {
+.enquiry_pagination .page-item.active .page-link {
   z-index: 1;
   color: #fff;
   background-color: #007bff;
   border-color: #007bff;
 }
 
-.pagination .page-item.disabled .page-link {
+.enquiry_pagination .page-item.disabled .page-link {
   color: #6c757d;
   pointer-events: none;
   background-color: #fff;
   border-color: #dee2e6;
 }
 
-.pagination .page-link:focus {
+.enquiry_pagination .page-link:focus {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
