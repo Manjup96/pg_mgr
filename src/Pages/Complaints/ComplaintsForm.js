@@ -1,5 +1,4 @@
-
-
+// ComplaintsForm.js
 import React, { useState } from 'react';
 import '../../styles/components/ComplaintsForm.scss';
 
@@ -11,7 +10,7 @@ const ComplaintsForm = ({ initialData, onSubmit, onCloseForm }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-       // setLoading(true);
+        setLoading(true);
 
         try {
             const formData = {
@@ -23,15 +22,15 @@ const ComplaintsForm = ({ initialData, onSubmit, onCloseForm }) => {
             await onSubmit(formData);
         } catch (err) {
             setError(err);
-         }
-         // finally {
-        //     // setLoading(false);
-        // }
+        } finally {
+            setLoading(false);
+        }
+
         onCloseForm();
         setTimeout(() => {
             alert(initialData ? "Response updated successfully" : "Response added successfully");
             window.location.reload();
-          }, 100);
+        }, 100);
     };
 
     return (
@@ -39,35 +38,34 @@ const ComplaintsForm = ({ initialData, onSubmit, onCloseForm }) => {
             <div className="complaint-form-container">
                 <h2>Edit Complaint Response</h2>
                 <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="response">Response:</label>
-                    <input
-                        type="text"
-                        id="response"
-                        value={response}
-                        onChange={(e) => setResponse(e.target.value)}
-                        required
-                    />
+                    <div className="form-group">
+                        <label htmlFor="response">Response:</label>
+                        <input
+                            type="text"
+                            id="response"
+                            value={response}
+                            onChange={(e) => setResponse(e.target.value)}
+                            required
+                        />
                     </div>
                     <div className="form-group">
-                    <label htmlFor="resolveDate">Resolve Date:</label>
-                    <input
-                        type="date"
-                        id="resolveDate"
-                        value={resolveDate}
-                        onChange={(e) => setResolveDate(e.target.value)}
-                        required
-                    />
+                        <label htmlFor="resolveDate">Resolve Date:</label>
+                        <input
+                            type="date"
+                            id="resolveDate"
+                            value={resolveDate}
+                            onChange={(e) => setResolveDate(e.target.value)}
+                            required
+                        />
                     </div>
                     {error && <p className="error-message">{error.message}</p>}
                     <div className="form-actions">
-                    <button type="submit" disabled={loading}>
-                        {loading ? "Updating..." : "Update"}
-                    </button>
-                    <button type="button" className="close-button" onClick={onCloseForm}>
-                        Cancel
-                    </button>
-                
+                        <button type="submit" disabled={loading}>
+                            {loading ? "Updating..." : "Update"}
+                        </button>
+                        <button type="button" className="close-button" onClick={onCloseForm}>
+                            Cancel
+                        </button>
                     </div>
                 </form>
             </div>

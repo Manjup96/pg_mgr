@@ -3,18 +3,22 @@ import Navbar from "../../shared/Navbar";
 import { useManagerAuth } from "../../context/AuthContext";
 import ComplaintsForm from "./ComplaintsForm";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEye, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/components/ComplaintsDetails.scss';
 
 const ComplaintsDetails = () => {
     const { manager } = useManagerAuth();
     const [complaints, setComplaints] = useState([]);
+    const [filteredComplaints, setFilteredComplaints] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showForm, setShowForm] = useState(false);
     const [selectedComplaint, setSelectedComplaint] = useState(null);
     const [viewComplaint, setViewComplaint] = useState(null);
-   
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 15;
 
     useEffect(() => {
         const fetchComplaints = async () => {
@@ -37,6 +41,7 @@ const ComplaintsDetails = () => {
                 const data = await response.json();
                 const complaintsWithIndex = data.map((complaint, index) => ({ ...complaint, originalIndex: index + 1 }));
                 setComplaints(complaintsWithIndex);
+                setFilteredComplaints(complaintsWithIndex);
             } catch (error) {
                 setError(error);
             } finally {
@@ -102,7 +107,46 @@ const ComplaintsDetails = () => {
         }
     };
 
-    
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+        const filtered = complaints.filter((complaint) =>
+            complaint.originalIndex.toString().includes(event.target.value) ||
+            complaint.tenant_name.toLowerCase().includes(event.target.value.toLowerCase()) ||
+            complaint.complaint_description.toLowerCase().includes(event.target.value.toLowerCase()) ||
+            complaint.complaint_type.toLowerCase().includes(event.target.value.toLowerCase()) ||
+            complaint.response.toLowerCase().includes(event.target.value.toLowerCase()) ||
+            complaint.Date.toLowerCase().includes(event.target.value.toLowerCase()) ||
+            complaint.resolve_date.toLowerCase().includes(event.target.value.toLowerCase())
+        );
+        setFilteredComplaints(filtered);
+        setCurrentPage(1); // Reset to first page after search
+    };
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < Math.ceil(filteredComplaints.length / itemsPerPage)) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    // Pagination logic
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentComplaints = filteredComplaints.slice(indexOfFirstItem, indexOfLastItem);
+
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(filteredComplaints.length / itemsPerPage); i++) {
+        pageNumbers.push(i);
+    }
 
     if (loading) {
         return <div>Loading...</div>;
@@ -116,8 +160,14 @@ const ComplaintsDetails = () => {
         <div>
             <Navbar />
             <h1 className='complaints-heading'>Complaints Details</h1>
-           
-            {complaints.length === 0 ? (
+            <input
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={handleSearch}
+                className="search-input"
+            />
+            {currentComplaints.length === 0 ? (
                 <p>No complaints found</p>
             ) : (
                 <div className="complaints-table-list">
@@ -135,7 +185,7 @@ const ComplaintsDetails = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {complaints.map((complaint) => (
+                            {currentComplaints.map((complaint) => (
                                 <tr key={complaint.originalIndex}>
                                     <td>{complaint.originalIndex}</td>
                                     <td>{complaint.tenant_name}</td>
@@ -158,6 +208,31 @@ const ComplaintsDetails = () => {
                     </table>
                 </div>
             )}
+            <div className="pagination">
+                <button
+                    onClick={handlePrevPage}
+                    disabled={currentPage === 1}
+                    className="arrow-button"
+                >
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+                {pageNumbers.map((number) => (
+                    <button
+                        key={number}
+                        onClick={() => handlePageChange(number)}
+                        className={currentPage === number ? 'active' : ''}
+                    >
+                        {number}
+                    </button>
+                ))}
+                <button
+                    onClick={handleNextPage}
+                    disabled={currentPage === Math.ceil(filteredComplaints.length / itemsPerPage)}
+                    className="arrow-button"
+                >
+                    <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+            </div>
             {viewComplaint && (
                 <div className="complaint-form-modal-overlay">
                     <div className="complaint-form-modal-container">
@@ -199,4 +274,3 @@ const ComplaintsDetails = () => {
 };
 
 export default ComplaintsDetails;
-

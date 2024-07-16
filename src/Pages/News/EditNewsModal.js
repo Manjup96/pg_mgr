@@ -1,101 +1,72 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import "../../styles/components/EditNewsModal.scss";
 
 const EditNewsModal = ({ news, onClose, onUpdate }) => {
-  const [formData, setFormData] = useState({
-    news_type: '',
-    news_description: '',
-    created_at: ''
-  });
+  const [newsType, setNewsType] = useState(news.news_type);
+  const [newsDescription, setNewsDescription] = useState(news.news_description);
+  const [createdAt, setCreatedAt] = useState(news.created_at);
 
-  useEffect(() => {
-    if (news) {
-      setFormData({
-        news_type: news.news_type,
-        news_description: news.news_description,
-        created_at: news.created_at
-      });
-    }
-  }, [news]);
-
-  const handleSave = async () => {
+  const handleUpdate = async () => {
     try {
-      let response;
-      if (news) {
-        response = await fetch('https://iiiqbets.com/pg-management/UPDATE-NEWS-API.php', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            id: news.id,
-            ...formData
-          })
-        });
-      } else {
-        response = await fetch('https://iiiqbets.com/pg-management/NEWS-manager-building-POST-API.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        });
-      }
+      const response = await fetch('https://iiiqbets.com/pg-management/UPDATE-NEWS-API.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: news.id,
+          news_type: newsType,
+          created_at: createdAt,
+          news_description: newsDescription
+        })
+      });
 
       if (response.ok) {
-        const updatedNews = await response.json();
+        const updatedNews = {
+          ...news,
+          news_type: newsType,
+          created_at: createdAt,
+          news_description: newsDescription
+        };
         onUpdate(updatedNews);
-        onClose();
-        alert(news ? "News Updated Successfully" : "News Registered Successfully");
       } else {
-        console.error('Failed to save news');
-        alert("Failed to save news.");
+        console.error('Failed to update news');
       }
     } catch (error) {
-      console.error('Error saving news:', error);
-      alert("Failed to save news.");
+      console.error('Error updating news:', error);
     }
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <h2>{news ? 'Edit News' : 'Add News'}</h2>
+        <h2>Edit News</h2>
         <form>
           <div className="form-group">
             <label>News Type</label>
             <input
               type="text"
-              name="news_type"
-              value={formData.news_type}
-              onChange={handleChange}
+              value={newsType}
+              onChange={(e) => setNewsType(e.target.value)}
             />
           </div>
           <div className="form-group">
             <label>News Description</label>
             <textarea
-              name="news_description"
-              value={formData.news_description}
-              onChange={handleChange}
+              value={newsDescription}
+              onChange={(e) => setNewsDescription(e.target.value)}
             />
           </div>
-          {!news && (
-            <div className="form-group">
-              <label>Created At</label>
-              <input
-                type="date"
-                name="created_at"
-                value={formData.created_at}
-                onChange={handleChange}
-              />
-            </div>
-          )}
+          {/* <div className="form-group">
+                        <label>Created At</label>
+                        <input
+                            type="date"
+                            value={createdAt}
+                            onChange={(e) => setCreatedAt(e.target.value)}
+                        />
+                    </div> */}
           <div className="form-actions">
-            <button type="button" onClick={handleSave}>{news ? 'Update' : 'Add'}</button>
+            <button type="button" onClick={handleUpdate}>Update</button>
             <button type="button" onClick={onClose}>Cancel</button>
           </div>
         </form>
