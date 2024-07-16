@@ -1,18 +1,9 @@
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import Navbar from "../../shared/Navbar";
 import { useManagerAuth } from "../../context/AuthContext";
 import ComplaintsForm from "./ComplaintsForm";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileExport, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/components/ComplaintsDetails.scss';
 
 const ComplaintsDetails = () => {
@@ -22,7 +13,8 @@ const ComplaintsDetails = () => {
     const [error, setError] = useState(null);
     const [showForm, setShowForm] = useState(false);
     const [selectedComplaint, setSelectedComplaint] = useState(null);
-    const [viewComplaint, setViewComplaint] = useState(null); // State for viewing complaint details
+    const [viewComplaint, setViewComplaint] = useState(null);
+   
 
     useEffect(() => {
         const fetchComplaints = async () => {
@@ -43,7 +35,8 @@ const ComplaintsDetails = () => {
                 }
 
                 const data = await response.json();
-                setComplaints(data);
+                const complaintsWithIndex = data.map((complaint, index) => ({ ...complaint, originalIndex: index + 1 }));
+                setComplaints(complaintsWithIndex);
             } catch (error) {
                 setError(error);
             } finally {
@@ -54,11 +47,10 @@ const ComplaintsDetails = () => {
         fetchComplaints();
     }, []);
 
-     const handleEditClick = (complaint) => {
-         setSelectedComplaint(complaint);
-         setShowForm(true);
-     };
-   
+    const handleEditClick = (complaint) => {
+        setSelectedComplaint(complaint);
+        setShowForm(true);
+    };
 
     const handleCloseForm = () => {
         setShowForm(false);
@@ -71,12 +63,13 @@ const ComplaintsDetails = () => {
 
     const handleFormSubmit = async (formData) => {
         try {
+            const newId = selectedComplaint ? selectedComplaint.id : complaints.length + 1;
             const requestOptions = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     ...formData,
-                    id: selectedComplaint ? selectedComplaint.id : undefined,
+                    id: newId,
                     manager_email: 'ssy.balu@gmail.com',
                     building_name: 'building 2',
                 }),
@@ -109,6 +102,8 @@ const ComplaintsDetails = () => {
         }
     };
 
+    
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -120,7 +115,8 @@ const ComplaintsDetails = () => {
     return (
         <div>
             <Navbar />
-            <h2>Complaints Details</h2>
+            <h1 className='complaints-heading'>Complaints Details</h1>
+           
             {complaints.length === 0 ? (
                 <p>No complaints found</p>
             ) : (
@@ -129,47 +125,32 @@ const ComplaintsDetails = () => {
                         <thead>
                             <tr>
                                 <th>Complaint ID</th>
-                                <th>Building Name</th>
-                                <th>Manager Email</th>
-                                <th>Floor No</th>
-                                <th>Room No</th>
-                                <th>Bed No</th>
                                 <th>Tenant Name</th>
-                                <th>Tenant Mobile</th>
                                 <th className='description'>Complaint Description</th>
                                 <th>Complaint Type</th>
                                 <th>Response</th>
-                                <th>Comments</th>
                                 <th>Date</th>
                                 <th>Resolve Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {complaints.map((complaint, index) => (
-                                <tr key={index}>
-                                    <td>{complaint.id}</td>
-                                    <td>{complaint.building_name}</td>
-                                    <td>{complaint.manager_email}</td>
-                                    <td>{complaint.floor_no}</td>
-                                    <td>{complaint.room_no}</td>
-                                    <td>{complaint.bed_no}</td>
+                            {complaints.map((complaint) => (
+                                <tr key={complaint.originalIndex}>
+                                    <td>{complaint.originalIndex}</td>
                                     <td>{complaint.tenant_name}</td>
-                                    <td>{complaint.tenant_mobile}</td>
                                     <td>{complaint.complaint_description}</td>
                                     <td>{complaint.complaint_type}</td>
                                     <td>{complaint.response}</td>
-                                    <td>{complaint.comments}</td>
                                     <td>{complaint.Date}</td>
                                     <td>{complaint.resolve_date}</td>
                                     <td>
-                                    <button className="icon-button" onClick={() => handleEditClick(complaint)}>
-                <FontAwesomeIcon icon={faEdit} />
-              </button>
-                                        {/* <button onClick={() => handleViewDetails(complaint)}>View</button> */}
+                                        <button className="icon-button" onClick={() => handleEditClick(complaint)}>
+                                            <FontAwesomeIcon icon={faEdit} />
+                                        </button>
                                         <button onClick={() => handleViewDetails(complaint)}>
-  <FontAwesomeIcon icon={faEye} />
-</button>
+                                            <FontAwesomeIcon icon={faEye} />
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
@@ -183,7 +164,7 @@ const ComplaintsDetails = () => {
                         <button className="close-button" onClick={() => setViewComplaint(null)}>Close</button>
                         <div>
                             <h2>Complaint Details</h2>
-                            <p><strong>Complaint ID:</strong> {viewComplaint.id}</p>                          
+                            <p><strong>Complaint ID:</strong> {viewComplaint.originalIndex}</p>
                             <p><strong>Building Name:</strong> {viewComplaint.building_name}</p>
                             <p><strong>Manager Email:</strong> {viewComplaint.manager_email}</p>
                             <p><strong>Floor No:</strong> {viewComplaint.floor_no}</p>
@@ -218,3 +199,4 @@ const ComplaintsDetails = () => {
 };
 
 export default ComplaintsDetails;
+

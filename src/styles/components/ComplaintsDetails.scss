@@ -1,12 +1,23 @@
 /* ComplaintsDetails.scss */
+.complaints-heading{
+  text-align: center;
+}
+
+.complaints-search-input{
+  width: 17%;
+  height: 37px;
+  border-radius: 5px;
+  margin-left: 1177px;
+}
 
 .complaints-table-list {
     margin: 20px 0;
   
     .complaints-table {
-      width: 100%;
+      width: 90%;
       border-collapse: collapse;
       font-size: 15px;
+      margin: 0 auto;
       text-align: left;
   
       th, td {
