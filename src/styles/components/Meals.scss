@@ -7,11 +7,71 @@
   height: 37px;
   border-radius: 5px;
   margin-left: 1177px;
+  border: 1px solid #ccc;
+}
+
+.meals-pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+
+
+.meals-pagination .page-link {
+  display: block;
+  padding: 10px 15px;
+  color: #007bff;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  // border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.meals-pagination .page-link-1{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: #555;
+
+}
+
+.meals-pagination .page-link-2{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+
+}
+
+.meals-pagination .page-link:hover {
+  background-color: #e9ecef;
+  color: #0056b3;
+}
+
+.meals-pagination .page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.meals-pagination .page-item.disabled .page-link{
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.meals-pagination .page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .meals-table-list {
     margin: 20px 0;
   
+
 
     .meals-table {
       width: 90%;

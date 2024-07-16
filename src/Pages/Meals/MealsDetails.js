@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useManagerAuth } from '../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { ExportPDFSingle, ExportPDFAll } from './ExportPDF';
 import '../../styles/components/Meals.scss';
 
 const MealsDetails = () => {
@@ -11,7 +12,10 @@ const MealsDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedMeal, setSelectedMeal] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [viewMode, setViewMode] = useState('table'); // 'table' or 'card'
+  const mealsPerPage = 8;
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -54,6 +58,11 @@ const MealsDetails = () => {
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
+    setCurrentPage(1); // Reset to first page when searching
+  };
+
+  const handleViewModeSwitch = () => {
+    setViewMode(prevMode => (prevMode === 'table' ? 'card' : 'table'));
   };
 
   const filteredMeals = meals.filter((meal) =>
@@ -61,6 +70,24 @@ const MealsDetails = () => {
       .map(field => meal[field]?.toString().toLowerCase())
       .some(value => value.includes(searchQuery.toLowerCase()))
   );
+
+  const indexOfLastMeal = currentPage * mealsPerPage;
+  const indexOfFirstMeal = indexOfLastMeal - mealsPerPage;
+  const currentMeals = filteredMeals.slice(indexOfFirstMeal, indexOfLastMeal);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const nextPage = () => {
+    if (currentPage < Math.ceil(filteredMeals.length / mealsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -81,40 +108,86 @@ const MealsDetails = () => {
         onChange={handleSearch}
         className="meals-search-input"
       />
-      <div className="meals-table-list">
-        <table className="meals-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Tenant Name</th>
-              <th>Breakfast</th>
-              <th>Lunch</th>
-              <th>Dinner</th>
-              <th>Comments</th>
-              <th>Date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredMeals.map((meal, index) => (
-              <tr key={index}>
-                <td>{meal.autoIncrementId}</td>
-                <td>{meal.tenant_name}</td>
-                <td>{meal.breakfast}</td>
-                <td>{meal.lunch}</td>
-                <td>{meal.dinner}</td>
-                <td>{meal.comments}</td>
-                <td>{meal.date}</td>
-                <td>
-                  <button onClick={() => handleViewDetails(meal)}>
-                    <FontAwesomeIcon icon={faEye} />
-                  </button>
-                </td>
+      <button onClick={handleViewModeSwitch} className="view-mode-switch">
+        Switch to {viewMode === 'table' ? 'Card' : 'Table'} View
+      </button>
+      <ExportPDFAll meals={filteredMeals} />
+      {viewMode === 'table' ? (
+        <div className="meals-table-list">
+          <table className="meals-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tenant Name</th>
+                <th>Breakfast</th>
+                <th>Lunch</th>
+                <th>Dinner</th>
+                <th>Comments</th>
+                <th>Date</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {currentMeals.map((meal, index) => (
+                <tr key={index}>
+                  <td>{meal.autoIncrementId}</td>
+                  <td>{meal.tenant_name}</td>
+                  <td>{meal.breakfast}</td>
+                  <td>{meal.lunch}</td>
+                  <td>{meal.dinner}</td>
+                  <td>{meal.comments}</td>
+                  <td>{meal.date}</td>
+                  <td>
+                    <button onClick={() => handleViewDetails(meal)}>
+                      <FontAwesomeIcon icon={faEye} />
+                    </button>
+                    <ExportPDFSingle meal={meal} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="meals-card-list">
+          {currentMeals.map((meal, index) => (
+            <div key={index} className="meal-card">
+              <h3>{meal.tenant_name}</h3>
+              <p><strong>ID:</strong> {meal.autoIncrementId}</p>
+              <p><strong>Breakfast:</strong> {meal.breakfast}</p>
+              <p><strong>Lunch:</strong> {meal.lunch}</p>
+              <p><strong>Dinner:</strong> {meal.dinner}</p>
+              <p><strong>Comments:</strong> {meal.comments}</p>
+              <p><strong>Date:</strong> {meal.date}</p>
+              <button onClick={() => handleViewDetails(meal)}>
+                <FontAwesomeIcon icon={faEye} />
+              </button>
+              <ExportPDFSingle meal={meal} />
+            </div>
+          ))}
+        </div>
+      )}
+      <nav className="ml-page">
+        <ul className="meals-pagination">
+          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+            <button className="page-link page-link-1" onClick={prevPage}>
+              Prev
+            </button>
+          </li>
+          {[...Array(Math.ceil(filteredMeals.length / mealsPerPage)).keys()].map((number) => (
+            <li key={number} className={`page-item ${currentPage === number + 1 ? 'active' : ''}`}>
+              <button onClick={() => paginate(number + 1)} className="page-link">
+                {number + 1}
+              </button>
+            </li>
+          ))}
+          <li className={`page-item ${currentPage === Math.ceil(filteredMeals.length / mealsPerPage) ? 'disabled' : ''}`}>
+            <button className="page-link page-link-2" onClick={nextPage}>
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
 
       {selectedMeal && (
         <div className="modal-meals">
