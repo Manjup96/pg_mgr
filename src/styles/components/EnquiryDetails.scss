@@ -17,7 +17,7 @@ $text-color: #333;
       
         th, td {
           padding: 12px 15px;
-        //   border: 1px solid #100f0f;
+          // border: 1px solid #ddd;
         }
       
         thead {
@@ -43,7 +43,7 @@ $text-color: #333;
               &.actions {
                 // display: flex;
                 gap: 10px;
-                width: 150px;
+                width: 100px;
       
                 .edit-btn, .delete-btn {
                   background: none;
@@ -88,9 +88,9 @@ $text-color: #333;
       }
 
 
-      .export_switch_add_enquiry_button {
+      .export_switch_add_enquiry_buttons {
         display: flex;
-        justify-content: space-around;
+        // justify-content: space-around;
         margin-top: 15px;
         margin-bottom: 15px;
       }
@@ -99,7 +99,7 @@ $text-color: #333;
         background-color: #007bff;
         color: rgb(248, 240, 240);
         border: none;
-        margin-left: 15px;
+        margin-left: 250px;
         padding: 11px 20px;
         cursor: pointer;
         font-size: 18px;
@@ -125,8 +125,8 @@ $text-color: #333;
       border-radius: 5px;
       align-items: center; 
       justify-content: center;
-      margin-right: 854px;
-      margin-left: -224px;
+      // margin-right: 854px;
+      margin-left: -135px;
       width: 57px;
       height: 42px;
       }
@@ -144,8 +144,7 @@ $text-color: #333;
         cursor: pointer;
         font-size: 17px;
         border-radius: 5px;
-        margin-left: -305px;
-
+        margin-left: 1140px;
       }
 
       .enquiry_search_bar{
@@ -206,4 +205,50 @@ $text-color: #333;
     opacity: 0.8;
     font-size: 12px;
   }
+}
+
+
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+
+
+.pagination .page-link {
+  display: block;
+  padding: 10px 15px;
+  color: #007bff;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.pagination .page-link:hover {
+  background-color: #e9ecef;
+  color: #0056b3;
+}
+
+.pagination .page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.pagination .page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
