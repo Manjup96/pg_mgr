@@ -1,0 +1,93 @@
+.TenantDetails {
+    &-title {
+      text-align: center;
+    }
+  
+    &-add-button {
+      float: right;
+      margin-left: 20px;
+      margin-right: 50px;
+    }
+  
+    &-table-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  
+    &-table {
+      width: 85%;
+      border-collapse: collapse;
+      margin: 8% 0;
+      font-size: 1em;
+  
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px 15px;
+        text-align: center; // Centering text in table cells
+      }
+  
+      th {
+        background-color: #f2f2f2;
+      }
+  
+      tbody tr:nth-of-type(even) {
+        background-color: #f9f9f9;
+      }
+  
+      tbody tr:hover {
+        background-color: #f1f1f1;
+      }
+    }
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .pagination li {
+    display: inline;
+    margin: 0 5px;
+  }
+  
+  .pagination li a {
+    text-decoration: none;
+    color: #007bff;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .pagination li a:hover {
+    background-color: #ddd;
+  }
+  
+  .pagination .active a {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+  }
+
+  .TenantDetails-icon {
+    cursor: pointer;
+    margin-right: 10px; // Adjust the spacing as needed
+    color: #007bff; // Color for the edit icon
+  
+    &:hover {
+      color: #0056b3; // Hover color for the edit icon
+    }
+  }
+  
+  .TenantDetails-delete-icon {
+    cursor: pointer;
+    color: #dc3545; // Color for the delete icon
+  
+    &:hover {
+      color: #c82333; // Hover color for the delete icon
+    }
+  }
+  
