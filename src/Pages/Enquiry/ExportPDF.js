@@ -60,7 +60,7 @@ const ExportPDFAll = ({ enquiries }) => {
 
   return (
     <div>
-      <button className="enquiry_export_button" onClick={handleExportAll}>
+      <button className="enquiry_export_button" data-tooltip="Download as PDF"  onClick={handleExportAll}>
       <FontAwesomeIcon icon={faFileExport} /> 
 
       </button>

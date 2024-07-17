@@ -1,12 +1,15 @@
 
+
+
+
 // import React, { useState, useEffect } from 'react';
 // import Navbar from "../../shared/Navbar";
 // import '../../styles/components/EnquiryDetails.scss';
 // import axios from 'axios';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faEdit, faTrash, faFilePdf, faTable, faTh } from '@fortawesome/free-solid-svg-icons';
-// import { PDFDownloadLink, Document, Page, Text } from "@react-pdf/renderer";
 // import EnquiryForm from './EnquiryForm';
+// import { ExportPDFSingle, ExportPDFAll } from './ExportPDF'; // Import the new export components
 
 // const EnquiryDetails = () => {
 //     const [enquiries, setEnquiries] = useState([]);
@@ -15,7 +18,7 @@
 //     const [view, setView] = useState('table');
 //     const [searchTerm, setSearchTerm] = useState("");
 //     const [currentPage, setCurrentPage] = useState(1);
-//     const [enquiriesPerPage] = useState(6);
+//     const [enquiriesPerPage] = useState(8);
 
 //     useEffect(() => {
 //         const fetchEnquiries = async () => {
@@ -33,9 +36,7 @@
 //                     throw new Error("Network response was not ok");
 //                 }
 //                 const data = await response.json();
-//                 // Sort data by id in descending order
 //                 const sortedData = data.sort((a, b) => b.id - a.id);
-//                 // Add incremental ID
 //                 const dataWithIncrementalId = sortedData.map((enquiry, index) => ({ ...enquiry, incrementalId: index + 1 }));
 //                 setEnquiries(dataWithIncrementalId);
 //             } catch (error) {
@@ -110,7 +111,6 @@
 //     const handleFormSubmit = async (formData) => {
 //         try {
 //             if (formData.Id) {
-//                 // Update existing enquiry
 //                 const response = await axios.post('https://iiiqbets.com/pg-management/update-Tenant-Enquiry-API.php', formData);
 //                 if (response.status === 200) {
 //                     setEnquiries((prev) =>
@@ -120,7 +120,6 @@
 //                     throw new Error("Failed to update enquiry");
 //                 }
 //             } else {
-//                 // Add new enquiry
 //                 const response = await axios.post('https://iiiqbets.com/pg-management/Enquiry-Tenant-POST-API.php', formData);
 //                 if (response.status === 200) {
 //                     setEnquiries((prev) => [...prev, { ...formData, Id: response.data.Id }]);
@@ -140,9 +139,7 @@
 //             <h1 className='enquiry_main_heading'>Enquiry Details</h1>
 
 //             <div className='export_switch_add_enquiry_buttons'>
-//                 <button className="enquiry_export_button" data-tooltip="Download as PDF">
-//                     <FontAwesomeIcon icon={faFilePdf} />
-//                 </button>
+//                 <ExportPDFAll enquiries={enquiries} />
 //                 <button onClick={() => setView(view === 'table' ? 'cards' : 'table')} className="enquiry_switch_button"
 //                     data-tooltip={view === 'table' ? 'Switch to Cards View' : 'Switch to Table View'} >
 //                     <FontAwesomeIcon icon={view === 'table' ? faTh : faTable} />
@@ -186,10 +183,7 @@
 //                                 <td>{enquiry.Reference}</td>
 //                                 <td>{enquiry.enquiry_date}</td>
 //                                 <td className="actions">
-//                                     <button className="export-btn">
-//                                         <FontAwesomeIcon  icon={faFilePdf} />
-//                                     </button>
-
+//                                     <ExportPDFSingle className="export-bt" enquiry={enquiry} />
 //                                     <button className="edit-btn" onClick={() => handleOpenForm(enquiry)}>
 //                                         <FontAwesomeIcon icon={faEdit} />
 //                                     </button>
@@ -202,21 +196,23 @@
 //                     </tbody>
 //                 </table>
 //             ) : (
-//                 <div className="card-view">
+//                 <div className="enquiry-card-view">
 //                     {currentEnquiries.map((enquiry) => (
-//                         <div key={enquiry.Id} className="card">
-//                             <div className="card-body">
-//                                 <h5 className="card-title">{enquiry.Name}</h5>
-//                                 <p className="card-text">
-//                                     <strong>Building:</strong> {enquiry.building_name}<br />
-//                                     <strong>Mobile:</strong> {enquiry.Mobile_Number}<br />
-//                                     <strong>Email:</strong> {enquiry.Email}<br />
-//                                     <strong>Remarks:</strong> {enquiry.Remarks}<br />
-//                                     <strong>Reference:</strong> {enquiry.Reference}<br />
-//                                     <strong>Date:</strong> {enquiry.enquiry_date}
-//                                 </p>
-//                                 <div className="card-actions">
+//                         <div key={enquiry.Id} className="enquiry-card">
+//                             <div className="enquiry-card-body">
 
+//                               <p> <strong> ID:</strong> {enquiry.incrementalId}</p> 
+//                               <p>  <strong>Building:</strong> {enquiry.building_name}</p>
+//                               <p>  <strong>Name:</strong> {enquiry.Name}</p>
+//                               <p>  <strong>Mobile:</strong> {enquiry.Mobile_Number}</p>
+//                               <p>  <strong>Email:</strong> {enquiry.Email}</p>
+//                               <p>  <strong>Remarks:</strong> {enquiry.Remarks}</p>
+//                               <p>  <strong>Reference:</strong> {enquiry.Reference}</p>
+//                               <p>  <strong>Date:</strong> {enquiry.enquiry_date}</p>
+
+
+//                                 <div className="enquiry-card-actions">
+//                                     <ExportPDFSingle enquiry={enquiry} />
 //                                     <button className="edit-btn" onClick={() => handleOpenForm(enquiry)}>
 //                                         <FontAwesomeIcon icon={faEdit} />
 //                                     </button>
@@ -225,7 +221,8 @@
 //                                     </button>
 //                                 </div>
 //                             </div>
-//                         </div>
+//                             </div>
+
 //                     ))}
 //                 </div>
 //             )}
@@ -266,6 +263,7 @@
 
 
 
+
 import React, { useState, useEffect } from 'react';
 import Navbar from "../../shared/Navbar";
 import '../../styles/components/EnquiryDetails.scss';
@@ -282,7 +280,7 @@ const EnquiryDetails = () => {
     const [view, setView] = useState('table');
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [enquiriesPerPage] = useState(6);
+    const [enquiriesPerPage] = useState(8);
 
     useEffect(() => {
         const fetchEnquiries = async () => {
@@ -314,7 +312,7 @@ const EnquiryDetails = () => {
     const filteredEnquiries = enquiries.filter((enquiry) => {
         const lowerSearchTerm = searchTerm.toLowerCase();
         return (
-            (enquiry.id && enquiry.incrementalId.toString().includes(lowerSearchTerm)) ||
+            (enquiry.incrementalId && enquiry.incrementalId.toString().toLowerCase().includes(lowerSearchTerm)) ||
             (enquiry.building_name && enquiry.building_name.toLowerCase().includes(lowerSearchTerm)) ||
             (enquiry.Name && enquiry.Name.toLowerCase().includes(lowerSearchTerm)) ||
             (enquiry.Mobile_Number && enquiry.Mobile_Number.toLowerCase().includes(lowerSearchTerm)) ||
@@ -404,9 +402,9 @@ const EnquiryDetails = () => {
 
             <div className='export_switch_add_enquiry_buttons'>
                 <ExportPDFAll enquiries={enquiries} />
-                <button onClick={() => setView(view === 'table' ? 'cards' : 'table')} className="enquiry_switch_button"
-                    data-tooltip={view === 'table' ? 'Switch to Cards View' : 'Switch to Table View'} >
-                    <FontAwesomeIcon icon={view === 'table' ? faTh : faTable} />
+                <button onClick={() => setView(view === 'cards' ? 'table' : 'cards')} className="enquiry_switch_button"
+                    data-tooltip={view === 'cards' ? 'Switch to cards View' : 'Switch to Table View'} >
+                    <FontAwesomeIcon icon={view === 'cards' ? faTh: faTable} />
                 </button>
                 <button className="enquiry_add_button" onClick={() => handleOpenForm()}>Add Enquiry</button>
             </div>
@@ -421,71 +419,79 @@ const EnquiryDetails = () => {
             </div>
 
             {view === 'table' ? (
-                <table className="tenant-table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Building Name</th>
-                            <th>Name</th>
-                            <th>Mobile Number</th>
-                            <th>Email</th>
-                            <th>Remarks</th>
-                            <th>Reference</th>
-                            <th>Enquiry Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {currentEnquiries.map((enquiry) => (
-                            <tr key={enquiry.incrementalId}>
-                                <td>{enquiry.incrementalId}</td>
-                                <td>{enquiry.building_name}</td>
-                                <td>{enquiry.Name}</td>
-                                <td>{enquiry.Mobile_Number}</td>
-                                <td>{enquiry.Email}</td>
-                                <td>{enquiry.Remarks}</td>
-                                <td>{enquiry.Reference}</td>
-                                <td>{enquiry.enquiry_date}</td>
-                                <td className="actions">
-                                    <ExportPDFSingle className="export-btn" enquiry={enquiry} />
-                                    <button className="edit-btn" onClick={() => handleOpenForm(enquiry)}>
-                                        <FontAwesomeIcon icon={faEdit} />
-                                    </button>
-                                    <button className="delete-btn" onClick={() => handleDelete(enquiry.Id)}>
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <div className="card-view">
-                    {currentEnquiries.map((enquiry) => (
-                        <div key={enquiry.Id} className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">{enquiry.Name}</h5>
-                                <p className="card-text">
-                                    <strong>Building:</strong> {enquiry.building_name}<br />
-                                    <strong>Mobile:</strong> {enquiry.Mobile_Number}<br />
-                                    <strong>Email:</strong> {enquiry.Email}<br />
-                                    <strong>Remarks:</strong> {enquiry.Remarks}<br />
-                                    <strong>Reference:</strong> {enquiry.Reference}<br />
-                                    <strong>Date:</strong> {enquiry.enquiry_date}
-                                </p>
-                                <div className="card-actions">
-                                    <ExportPDFSingle enquiry={enquiry} />
-                                    <button className="edit-btn" onClick={() => handleOpenForm(enquiry)}>
-                                        <FontAwesomeIcon icon={faEdit} />
-                                    </button>
-                                    <button className="delete-btn" onClick={() => handleDelete(enquiry.Id)}>
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
-                                </div>
+            
+                <div className="enquiry-card-view">
+                {currentEnquiries.map((enquiry) => (
+                    <div key={enquiry.Id} className="enquiry-card">
+                        <div className="enquiry-card-body">
+                            <div className="card-header" >
+                                ID: {enquiry.incrementalId}
+                            </div>
+                            <p><strong>Building:</strong> {enquiry.building_name}</p>
+                            <p><strong>Name:</strong> {enquiry.Name}</p>
+                            <p><strong>Mobile:</strong> {enquiry.Mobile_Number}</p>
+                            <p><strong>Email:</strong> {enquiry.Email}</p>
+                            <p><strong>Remarks:</strong> {enquiry.Remarks}</p>
+                            <p><strong>Reference:</strong> {enquiry.Reference}</p>
+                            <p><strong>Date:</strong> {enquiry.enquiry_date}</p>
+                            <div className="enquiry-card-actions">
+                                <ExportPDFSingle className="export-btn" enquiry={enquiry} />
+                                <button className="edit-btn" onClick={() => handleOpenForm(enquiry)}>
+                                    <FontAwesomeIcon icon={faEdit} />
+                                </button>
+                                <button className="delete-btn" onClick={() => handleDelete(enquiry.Id)}>
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </button>
                             </div>
                         </div>
-                    ))}
+                    </div>
+                ))}
+            </div>
+            ) : (
+           
+
+                 <div className="enquiry_table">
+
+                    <table className="tenant-table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Building Name</th>
+                                <th>Name</th>
+                                <th>Mobile Number</th>
+                                <th>Email</th>
+                                <th>Remarks</th>
+                                <th>Reference</th>
+                                <th>Enquiry Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentEnquiries.map((enquiry) => (
+                                <tr key={enquiry.incrementalId}>
+                                    <td>{enquiry.incrementalId}</td>
+                                    <td>{enquiry.building_name}</td>
+                                    <td>{enquiry.Name}</td>
+                                    <td>{enquiry.Mobile_Number}</td>
+                                    <td>{enquiry.Email}</td>
+                                    <td>{enquiry.Remarks}</td>
+                                    <td>{enquiry.Reference}</td>
+                                    <td>{enquiry.enquiry_date}</td>
+                                    <td className="actions">
+                                        <ExportPDFSingle className="export-btn" enquiry={enquiry} />
+                                        <button className="edit-btn" onClick={() => handleOpenForm(enquiry)}>
+                                            <FontAwesomeIcon icon={faEdit} />
+                                        </button>
+                                        <button className="delete-btn" onClick={() => handleDelete(enquiry.Id)}>
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
+                
             )}
             {showForm && (
                 <EnquiryForm
