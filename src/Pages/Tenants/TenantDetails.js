@@ -55,35 +55,12 @@ const TenantDetails = () => {
     setCurrentPage(data.selected);
   };
 
-  const handleEdit = async (tenant) => {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        "https://iiiqbets.com/pg-management/single-TENANT-manager-building-GET-API.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: tenant.id }),
-        }
-      );
-      const data = await response.json();
-      setEditingTenant(data);
-      setLoading(false);
-      handleOpenForm(data);
-    } catch (error) {
-      console.error("Error fetching tenant data:", error);
-      setLoading(false);
-    }
-  };
-
   const handleDelete = async (tenant) => {
     const confirmDelete = window.confirm(`Are you sure you want to delete tenant with ID: ${tenant.id}?`);
     if (confirmDelete) {
       try {
         const response = await fetch(
-          "https://iiiqbets.com/pg-management/GET-Tenant-details-with-building-and-manager-email-API.php",
+          "https://iiiqbets.com/pg-management/delete-TENANT-manager-buidling-API.php",
           {
             method: "DELETE",
             headers: {
@@ -118,15 +95,6 @@ const TenantDetails = () => {
       <div className="TenantDetails-add-button">
         <button onClick={() => handleOpenForm()}>Add Tenant</button>
       </div>
-      {showForm && (
-        <TenantEditForm
-          closeModal={closeModal}
-          tenant={editingTenant}
-          setLoading={setLoading}
-          setTenants={setTenants}
-          tenants={tenants}
-        />
-      )}
       <div className="TenantDetails-table-container">
         <table className="TenantDetails-table">
           <thead>
@@ -154,7 +122,7 @@ const TenantDetails = () => {
                 <td>{tenant.joining_date}</td>
                 <td>{tenant.comments}</td>
                 <td>
-                  <FaEdit onClick={() => handleEdit(tenant)} className="TenantDetails-icon" />
+                  <FaEdit onClick={() => handleOpenForm(tenant)} className="TenantDetails-icon" />
                   <FaTrash onClick={() => handleDelete(tenant)} className="TenantDetails-delete-icon" />
                 </td>
               </tr>
@@ -175,6 +143,14 @@ const TenantDetails = () => {
           activeClassName={"active"}
         />
       </div>
+      {showForm && (
+        <TenantEditForm
+          tenant={editingTenant}
+          onClose={closeModal}
+          setTenants={setTenants}
+          tenants={tenants}
+        />
+      )}
     </div>
   );
 };
