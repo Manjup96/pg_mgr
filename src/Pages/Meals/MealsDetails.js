@@ -3,7 +3,7 @@ import Navbar from '../../shared/Navbar';
 import axios from 'axios';
 import { useManagerAuth } from '../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faTable, faTh } from '@fortawesome/free-solid-svg-icons';
 import { ExportPDFSingle, ExportPDFAll } from './ExportPDF';
 import '../../styles/components/Meals.scss';
 
@@ -101,6 +101,12 @@ const MealsDetails = () => {
     <div>
       <Navbar />
       <h1 className='meals-heading'>Meals Table</h1>
+      <div className='meals-all-buttons'>
+      <ExportPDFAll meals={filteredMeals} />
+      <button onClick={handleViewModeSwitch} className="meal-switch-button">
+         {/* {viewMode === 'table' ? 'Card' : 'Table'}  */}
+        <FontAwesomeIcon icon={viewMode === 'table' ? faTh : faTable} />
+      </button>
       <input
         type="text"
         placeholder="Search..."
@@ -108,10 +114,7 @@ const MealsDetails = () => {
         onChange={handleSearch}
         className="meals-search-input"
       />
-      <button onClick={handleViewModeSwitch} className="view-mode-switch">
-        Switch to {viewMode === 'table' ? 'Card' : 'Table'} View
-      </button>
-      <ExportPDFAll meals={filteredMeals} />
+      </div>
       {viewMode === 'table' ? (
         <div className="meals-table-list">
           <table className="meals-table">
@@ -137,8 +140,8 @@ const MealsDetails = () => {
                   <td>{meal.dinner}</td>
                   <td>{meal.comments}</td>
                   <td>{meal.date}</td>
-                  <td>
-                    <button onClick={() => handleViewDetails(meal)}>
+                  <td className='meals-actions'>
+                    <button className='meals-eye-button' onClick={() => handleViewDetails(meal)}>
                       <FontAwesomeIcon icon={faEye} />
                     </button>
                     <ExportPDFSingle meal={meal} />
@@ -152,17 +155,20 @@ const MealsDetails = () => {
         <div className="meals-card-list">
           {currentMeals.map((meal, index) => (
             <div key={index} className="meal-card">
-              <h3>{meal.tenant_name}</h3>
+              
               <p><strong>ID:</strong> {meal.autoIncrementId}</p>
+              <p><strong>Tenant Name:</strong>{meal.tenant_name}</p>
               <p><strong>Breakfast:</strong> {meal.breakfast}</p>
               <p><strong>Lunch:</strong> {meal.lunch}</p>
               <p><strong>Dinner:</strong> {meal.dinner}</p>
               <p><strong>Comments:</strong> {meal.comments}</p>
               <p><strong>Date:</strong> {meal.date}</p>
-              <button onClick={() => handleViewDetails(meal)}>
+              <div className="meals-actions">
+              <button className='meals-eye-button' onClick={() => handleViewDetails(meal)}>
                 <FontAwesomeIcon icon={faEye} />
               </button>
               <ExportPDFSingle meal={meal} />
+              </div>
             </div>
           ))}
         </div>

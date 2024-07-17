@@ -34,7 +34,7 @@ const ExportPDFSingle = ({ complaint }) => {
   };
 
   return (
-    <button className="icon-button" onClick={handleExport}>
+    <button className="complaints-export-button" onClick={handleExport}>
       <FontAwesomeIcon icon={faFileExport} />
     </button>
   );
@@ -73,7 +73,7 @@ const ExportPDFAll = ({ complaints }) => {
 
   return (
     <div>
-      <button onClick={handleExportAll}>Export All as PDF</button>
+      <button className='complaints-exportall-button' onClick={handleExportAll}><FontAwesomeIcon icon={faFileExport} /></button>
     </div>
   );
 };

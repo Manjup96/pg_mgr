@@ -182,15 +182,19 @@ const ComplaintsDetails = () => {
               <td>{complaint.response}</td>
               <td>{complaint.Date}</td>
               <td>{complaint.resolve_date}</td>
-              <td>
-                <button className="icon-button" onClick={() => handleEditClick(complaint)}>
+              
+              <td className='complaints-actions'>
+              
+                <button className="complaints-icon-button" onClick={() => handleEditClick(complaint)}>
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
-                <button onClick={() => handleViewDetails(complaint)}>
+                <button className='complaints-eye-button' onClick={() => handleViewDetails(complaint)}>
                   <FontAwesomeIcon icon={faEye} />
                 </button>
                 <ExportPDFSingle complaint={complaint} />
+                
               </td>
+              
             </tr>
           ))}
         </tbody>
@@ -209,11 +213,11 @@ const ComplaintsDetails = () => {
           <p><strong>Response:</strong> {complaint.response}</p>
           <p><strong>Date:</strong> {complaint.Date}</p>
           <p><strong>Resolve Date:</strong> {complaint.resolve_date}</p>
-          <div className="card-actions">
-            <button className="icon-button" onClick={() => handleEditClick(complaint)}>
+          <div className="complaints-actions">
+            <button className="complaints-icon-button" onClick={() => handleEditClick(complaint)}>
               <FontAwesomeIcon icon={faEdit} />
             </button>
-            <button onClick={() => handleViewDetails(complaint)}>
+            <button className='complaints-eye-button' onClick={() => handleViewDetails(complaint)}>
               <FontAwesomeIcon icon={faEye} />
             </button>
             <ExportPDFSingle complaint={complaint} />
@@ -235,7 +239,14 @@ const ComplaintsDetails = () => {
     <div>
       <Navbar />
       <h1 className='complaints-heading'>Complaints Details</h1>
+      <div className='complaints-all-buttons'>
       <ExportPDFAll complaints={filteredComplaints} />
+      <button
+        className="complaints-switch-button"
+        onClick={() => setViewMode(viewMode === 'table' ? 'cards' : 'table')}
+      >
+        <FontAwesomeIcon icon={viewMode === 'table' ? faThLarge : faThList} /> 
+      </button>
       <input
         type="text"
         placeholder="Search..."
@@ -243,12 +254,7 @@ const ComplaintsDetails = () => {
         onChange={handleSearch}
         className="complaints-search-input"
       />
-      <button
-        className="switch-view-button"
-        onClick={() => setViewMode(viewMode === 'table' ? 'cards' : 'table')}
-      >
-        <FontAwesomeIcon icon={viewMode === 'table' ? faThLarge : faThList} /> Switch to {viewMode === 'table' ? 'Cards' : 'Table'}
-      </button>
+     </div>
       {currentComplaints.length === 0 ? (
         <p>No complaints found</p>
       ) : (

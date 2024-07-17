@@ -1,3 +1,12 @@
+$primary-color: #007bff;
+$secondary-color: #0056b3;
+$danger-color: #dc3545;
+$danger-hover-color: #c82333;
+$background-color: #f8f9fa;
+$border-color: #dee2e6;
+$text-color: #333;
+
+
 .meals-heading{
   text-align: center;
 }
@@ -6,9 +15,10 @@
   width: 17%;
   height: 37px;
   border-radius: 5px;
-  margin-left: 1177px;
+  margin-left: 981px;
   border: 1px solid #ccc;
 }
+
 
 .meals-pagination {
   display: flex;
@@ -68,13 +78,63 @@
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
+.meals-card-list{
+  display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    width: 91%;
+    margin: 0 auto;
+    justify-content: center;
+    padding: 16px;
+}
+
+.meal-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.meal-card .meals-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+
+  .meals-eye-button,
+              .meals-export-button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                color: #555;
+                transition: color 0.3s ease;
+  
+                &:hover {
+                  color: #000;
+                }
+              }
+  
+              .meals-eye-button,
+              .meals-export-button {
+                color: #007bff;
+                font-size: 1.2rem;
+                &:hover {
+                  color: #0056b3;
+                }
+              }
+}
+
 .meals-table-list {
     margin: 20px 0;
   
 
 
     .meals-table {
-      width: 90%;
+      width: 91%;
       border-collapse: collapse;
       font-size: 15px;
       margin: 0 auto;
@@ -105,13 +165,13 @@
           }
   
           td {
-            &.complaint-table-actions {
+            &.meals-actions {
               display: flex;
               justify-content: center;
               gap: 10px;
   
-              .btn-edit-complaints,
-              .btn-delete-complaints {
+              .meals-eye-button,
+              .meals-export-button {
                 background: none;
                 border: none;
                 cursor: pointer;
@@ -124,9 +184,10 @@
                 }
               }
   
-              .btn-edit-complaints {
+              .meals-eye-button,
+              .meals-export-button {
                 color: #007bff;
-  
+                font-size: 1.2rem;
                 &:hover {
                   color: #0056b3;
                 }
@@ -186,5 +247,49 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+  .meals-all-buttons{
+    display: flex;
+  }
+
+  .meals-exportall-button{
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 69px;
+    padding: 11px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    position: relative; /* Added for positioning the hover text */
+    display: inline-flex; /* Flex for alignment */
+    align-items: center; /* Center alignment */
+    justify-content: center; /* Center alignment */
+  }
+
+  .meals-exportall-button:hover {
+    background-color:$secondary-color; /* Replace with the actual $secondary-color value */
+  }
   
+  .meal-switch-button{
+
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 7px 11px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  align-items: center; 
+  justify-content: center;
+  // margin-right: 854px;
+  margin-left: 17px;
+    width: 58px;
+    height: 40px;
+  }
+
+  .meal-switch-button:hover {
+    background-color:$secondary-color; /* Replace with the actual $secondary-color value */
+  }
+
   

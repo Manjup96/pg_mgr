@@ -26,7 +26,7 @@ const ExportPDFSingle = ({ meal }) => {
   };
 
   return (
-    <button className="icon-button" onClick={handleExport}>
+    <button className="meals-export-button" onClick={handleExport}>
       <FontAwesomeIcon icon={faFileExport} />
     </button>
   );
@@ -55,7 +55,7 @@ const ExportPDFAll = ({ meals }) => {
 
   return (
     <div>
-      <button onClick={handleExportAll}>Export All as PDF</button>
+      <button className='meals-exportall-button' onClick={handleExportAll}><FontAwesomeIcon icon={faFileExport} /></button>
     </div>
   );
 };
