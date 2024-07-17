@@ -402,9 +402,9 @@ const EnquiryDetails = () => {
 
             <div className='export_switch_add_enquiry_buttons'>
                 <ExportPDFAll enquiries={enquiries} />
-                <button onClick={() => setView(view === 'table' ? 'cards' : 'table')} className="enquiry_switch_button"
-                    data-tooltip={view === 'table' ? 'Switch to Cards View' : 'Switch to Table View'} >
-                    <FontAwesomeIcon icon={view === 'table' ? faTh : faTable} />
+                <button onClick={() => setView(view === 'cards' ? 'table' : 'cards')} className="enquiry_switch_button"
+                    data-tooltip={view === 'cards' ? 'Switch to cards View' : 'Switch to Table View'} >
+                    <FontAwesomeIcon icon={view === 'cards' ? faTh: faTable} />
                 </button>
                 <button className="enquiry_add_button" onClick={() => handleOpenForm()}>Add Enquiry</button>
             </div>
@@ -419,72 +419,79 @@ const EnquiryDetails = () => {
             </div>
 
             {view === 'table' ? (
-                <table className="tenant-table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Building Name</th>
-                            <th>Name</th>
-                            <th>Mobile Number</th>
-                            <th>Email</th>
-                            <th>Remarks</th>
-                            <th>Reference</th>
-                            <th>Enquiry Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {currentEnquiries.map((enquiry) => (
-                            <tr key={enquiry.incrementalId}>
-                                <td>{enquiry.incrementalId}</td>
-                                <td>{enquiry.building_name}</td>
-                                <td>{enquiry.Name}</td>
-                                <td>{enquiry.Mobile_Number}</td>
-                                <td>{enquiry.Email}</td>
-                                <td>{enquiry.Remarks}</td>
-                                <td>{enquiry.Reference}</td>
-                                <td>{enquiry.enquiry_date}</td>
-                                <td className="actions">
-                                    <ExportPDFSingle className="export-btn" enquiry={enquiry} />
-                                    <button className="edit-btn" onClick={() => handleOpenForm(enquiry)}>
-                                        <FontAwesomeIcon icon={faEdit} />
-                                    </button>
-                                    <button className="delete-btn" onClick={() => handleDelete(enquiry.Id)}>
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
+            
                 <div className="enquiry-card-view">
-                    {currentEnquiries.map((enquiry) => (
-                        <div key={enquiry.Id} className="enquiry-card">
-                            <div className="enquiry-card-body">
-                                <div className="card-header" >
-                                    ID: {enquiry.incrementalId}
-                                </div>
-                                <p><strong>Building:</strong> {enquiry.building_name}</p>
-                                <p><strong>Name:</strong> {enquiry.Name}</p>
-                                <p><strong>Mobile:</strong> {enquiry.Mobile_Number}</p>
-                                <p><strong>Email:</strong> {enquiry.Email}</p>
-                                <p><strong>Remarks:</strong> {enquiry.Remarks}</p>
-                                <p><strong>Reference:</strong> {enquiry.Reference}</p>
-                                <p><strong>Date:</strong> {enquiry.enquiry_date}</p>
-                                <div className="enquiry-card-actions">
-                                    <ExportPDFSingle className="export-btn" enquiry={enquiry} />
-                                    <button className="edit-btn" onClick={() => handleOpenForm(enquiry)}>
-                                        <FontAwesomeIcon icon={faEdit} />
-                                    </button>
-                                    <button className="delete-btn" onClick={() => handleDelete(enquiry.Id)}>
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
-                                </div>
+                {currentEnquiries.map((enquiry) => (
+                    <div key={enquiry.Id} className="enquiry-card">
+                        <div className="enquiry-card-body">
+                            <div className="card-header" >
+                                ID: {enquiry.incrementalId}
+                            </div>
+                            <p><strong>Building:</strong> {enquiry.building_name}</p>
+                            <p><strong>Name:</strong> {enquiry.Name}</p>
+                            <p><strong>Mobile:</strong> {enquiry.Mobile_Number}</p>
+                            <p><strong>Email:</strong> {enquiry.Email}</p>
+                            <p><strong>Remarks:</strong> {enquiry.Remarks}</p>
+                            <p><strong>Reference:</strong> {enquiry.Reference}</p>
+                            <p><strong>Date:</strong> {enquiry.enquiry_date}</p>
+                            <div className="enquiry-card-actions">
+                                <ExportPDFSingle className="export-btn" enquiry={enquiry} />
+                                <button className="edit-btn" onClick={() => handleOpenForm(enquiry)}>
+                                    <FontAwesomeIcon icon={faEdit} />
+                                </button>
+                                <button className="delete-btn" onClick={() => handleDelete(enquiry.Id)}>
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </button>
                             </div>
                         </div>
-                    ))}
+                    </div>
+                ))}
+            </div>
+            ) : (
+           
+
+                 <div className="enquiry_table">
+
+                    <table className="tenant-table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Building Name</th>
+                                <th>Name</th>
+                                <th>Mobile Number</th>
+                                <th>Email</th>
+                                <th>Remarks</th>
+                                <th>Reference</th>
+                                <th>Enquiry Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentEnquiries.map((enquiry) => (
+                                <tr key={enquiry.incrementalId}>
+                                    <td>{enquiry.incrementalId}</td>
+                                    <td>{enquiry.building_name}</td>
+                                    <td>{enquiry.Name}</td>
+                                    <td>{enquiry.Mobile_Number}</td>
+                                    <td>{enquiry.Email}</td>
+                                    <td>{enquiry.Remarks}</td>
+                                    <td>{enquiry.Reference}</td>
+                                    <td>{enquiry.enquiry_date}</td>
+                                    <td className="actions">
+                                        <ExportPDFSingle className="export-btn" enquiry={enquiry} />
+                                        <button className="edit-btn" onClick={() => handleOpenForm(enquiry)}>
+                                            <FontAwesomeIcon icon={faEdit} />
+                                        </button>
+                                        <button className="delete-btn" onClick={() => handleDelete(enquiry.Id)}>
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
+                
             )}
             {showForm && (
                 <EnquiryForm
