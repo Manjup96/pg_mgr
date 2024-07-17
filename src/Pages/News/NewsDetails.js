@@ -25,13 +25,16 @@ const NewsDetails = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [view, setView] = useState('card');
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1); // Pagination state
+  const enquiriesPerPage = 8; // Number of news items per page
 
   useEffect(() => {
     fetchNews();
   }, [manager]);
 
   useEffect(() => {
-    setFilteredNews(news);
+    const newsWithIndex = news.map((item, index) => ({ ...item, autoIncrementId: index + 1 }));
+    setFilteredNews(newsWithIndex);
   }, [news]);
 
   const fetchNews = async () => {
@@ -99,18 +102,28 @@ const NewsDetails = () => {
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
-    const filtered = news.filter((item, index) =>
-      (index + 1).toString().includes(event.target.value) ||
-      item.news_type.toLowerCase().includes(event.target.value.toLowerCase()) ||
-      item.news_description.toLowerCase().includes(event.target.value.toLowerCase()) ||
-      item.created_at.toLowerCase().includes(event.target.value.toLowerCase())
-    );
+    const filtered = news
+      .map((item, index) => ({ ...item, autoIncrementId: index + 1 }))
+      .filter((item) =>
+        item.autoIncrementId.toString().includes(event.target.value) ||
+        item.news_type.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        item.news_description.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        item.created_at.toLowerCase().includes(event.target.value.toLowerCase())
+      );
     setFilteredNews(filtered);
   };
 
   const toggleView = () => {
     setView(view === 'card' ? 'table' : 'card');
   };
+
+  // Calculate current page's news items
+  const indexOfLastNews = currentPage * enquiriesPerPage;
+  const indexOfFirstNews = indexOfLastNews - enquiriesPerPage;
+  const currentNews = filteredNews.slice(indexOfFirstNews, indexOfLastNews);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div>
@@ -127,9 +140,9 @@ const NewsDetails = () => {
       <button onClick={() => setIsAddModalOpen(true)}>Add News</button>
       <div className={`news-container ${view}`}>
         {view === 'card' ? (
-          filteredNews.map((item, index) => (
+          currentNews.map((item, index) => (
             <div key={index} className="news-card">
-              <h2><strong>ID:</strong> {index + 1}</h2>
+              <h2><strong>ID:</strong> {item.autoIncrementId}</h2>
               <p><strong>News Type:</strong> {item.news_type}</p>
               <p><strong>News Description:</strong> {item.news_description}</p>
               <p><strong>Created At:</strong> {item.created_at}</p>
@@ -156,9 +169,9 @@ const NewsDetails = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredNews.map((item, index) => (
+              {currentNews.map((item, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
+                  <td>{item.autoIncrementId}</td>
                   <td>{item.news_type}</td>
                   <td>{item.news_description}</td>
                   <td>{item.created_at}</td>
@@ -177,6 +190,29 @@ const NewsDetails = () => {
           </table>
         )}
       </div>
+      {/* Pagination */}
+      <nav >
+        <ul className="pagination1">
+          <li className={`page-item1 ${currentPage === 1 ? 'disabled' : ''}`}>
+            <button className="page-link-1 page-link1" onClick={() => paginate(currentPage - 1)}>
+              Prev
+            </button>
+          </li>
+          {[...Array(Math.ceil(filteredNews.length / enquiriesPerPage)).keys()].map((number) => (
+            <li key={number} className={`page-item1 ${currentPage === number + 1 ? 'active' : ''}`}>
+              <button onClick={() => paginate(number + 1)} className="page-link-1">
+                {number + 1}
+              </button>
+            </li>
+          ))}
+          <li className={`page-item1 ${currentPage === Math.ceil(filteredNews.length / enquiriesPerPage) ? 'disabled' : ''}`}>
+            <button className="page-link-1 page-link2" onClick={() => paginate(currentPage + 1)}>
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
+      {/* Modals */}
       {isEditModalOpen && (
         <EditNewsModal
           news={selectedNews}

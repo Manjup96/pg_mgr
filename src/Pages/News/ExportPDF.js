@@ -1,5 +1,3 @@
-// ExportPDF.js
-
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileExport } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +24,7 @@ const ExportPDFSingle = ({ newsItem }) => {
 
   return (
     <button className="icon-button" onClick={handleExport}>
-      <FontAwesomeIcon icon={faFileExport} /> 
+      <FontAwesomeIcon icon={faFileExport} />
     </button>
   );
 };
@@ -40,7 +38,7 @@ const ExportPDFAll = ({ news }) => {
       news_description,
       created_at
     ]);
-    
+
     doc.autoTable({
       head: [['ID', 'News Type', 'News Description', 'Created At']],
       body: tableData,
