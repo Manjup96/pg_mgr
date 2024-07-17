@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import Modal from 'react-modal';
 import "../../styles/components/EditNewsModal.scss";
 
 const EditNewsModal = ({ news, onClose, onUpdate }) => {
   const [newsType, setNewsType] = useState(news.news_type);
   const [newsDescription, setNewsDescription] = useState(news.news_description);
   const [createdAt, setCreatedAt] = useState(news.created_at);
+  const [modalIsOpen, setModalIsOpen] = useState(true);
 
   const handleUpdate = async () => {
     try {
@@ -29,6 +31,7 @@ const EditNewsModal = ({ news, onClose, onUpdate }) => {
           news_description: newsDescription
         };
         onUpdate(updatedNews);
+        onClose(); // Close the modal after successful update
       } else {
         console.error('Failed to update news');
       }
@@ -38,40 +41,43 @@ const EditNewsModal = ({ news, onClose, onUpdate }) => {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <h2>Edit News</h2>
-        <form>
-          <div className="form-group">
-            <label>News Type</label>
-            <input
-              type="text"
-              value={newsType}
-              onChange={(e) => setNewsType(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label>News Description</label>
-            <textarea
-              value={newsDescription}
-              onChange={(e) => setNewsDescription(e.target.value)}
-            />
-          </div>
-          {/* <div className="form-group">
-                        <label>Created At</label>
-                        <input
-                            type="date"
-                            value={createdAt}
-                            onChange={(e) => setCreatedAt(e.target.value)}
-                        />
-                    </div> */}
-          <div className="form-actions">
-            <button type="button" onClick={handleUpdate}>Update</button>
-            <button type="button" onClick={onClose}>Cancel</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={onClose}
+      className="modal"
+      overlayClassName="modal-overlay"
+    >
+      <h2>Edit News</h2>
+      <form>
+        <div className="form-group">
+          <label>News Type</label>
+          <input
+            type="text"
+            value={newsType}
+            onChange={(e) => setNewsType(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>News Description</label>
+          <textarea
+            value={newsDescription}
+            onChange={(e) => setNewsDescription(e.target.value)}
+          />
+        </div>
+        {/* <div className="form-group">
+          <label>Created At</label>
+          <input
+            type="date"
+            value={createdAt}
+            onChange={(e) => setCreatedAt(e.target.value)}
+          />
+        </div> */}
+        <div className="form-actions">
+          <button type="button" onClick={handleUpdate}>Update</button>
+          <button type="button" onClick={onClose}>Cancel</button>
+        </div>
+      </form>
+    </Modal>
   );
 };
 

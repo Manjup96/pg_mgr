@@ -142,7 +142,10 @@ const NewsDetails = () => {
         {view === 'card' ? (
           currentNews.map((item, index) => (
             <div key={index} className="news-card">
-              <h2><strong>ID:</strong> {item.autoIncrementId}</h2>
+              {/* <h2><strong>ID:</strong> {item.autoIncrementId}</h2> */}
+              <div className="card-header" >
+                ID:  {item.autoIncrementId}
+              </div>
               <p><strong>News Type:</strong> {item.news_type}</p>
               <p><strong>News Description:</strong> {item.news_description}</p>
               <p><strong>Created At:</strong> {item.created_at}</p>
