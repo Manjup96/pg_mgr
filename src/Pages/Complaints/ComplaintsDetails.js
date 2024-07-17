@@ -162,7 +162,7 @@ const ComplaintsDetails = () => {
       <table className="complaints-table">
         <thead>
           <tr>
-            <th>Complaint ID</th>
+            <th>ID</th>
             <th>Tenant Name</th>
             <th className='description'>Complaint Description</th>
             <th>Complaint Type</th>
@@ -184,14 +184,14 @@ const ComplaintsDetails = () => {
               <td>{complaint.resolve_date}</td>
               
               <td className='complaints-actions'>
-              
+              <ExportPDFSingle complaint={complaint} />
                 <button className="complaints-icon-button" onClick={() => handleEditClick(complaint)}>
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
                 <button className='complaints-eye-button' onClick={() => handleViewDetails(complaint)}>
                   <FontAwesomeIcon icon={faEye} />
                 </button>
-                <ExportPDFSingle complaint={complaint} />
+                
                 
               </td>
               
@@ -206,7 +206,9 @@ const ComplaintsDetails = () => {
     <div className="complaints-card-list">
       {currentComplaints.map((complaint) => (
         <div key={complaint.originalIndex} className="complaint-card">
-          <p><strong>Complaint ID:</strong> {complaint.originalIndex}</p>
+          <div className="card-header" >
+          <p><strong>ID:</strong> {complaint.originalIndex}</p>
+          </div>
           <p><strong>Tenant Name:</strong> {complaint.tenant_name}</p>
           <p><strong>Description:</strong> {complaint.complaint_description}</p>
           <p><strong>Type:</strong> {complaint.complaint_type}</p>
@@ -214,13 +216,14 @@ const ComplaintsDetails = () => {
           <p><strong>Date:</strong> {complaint.Date}</p>
           <p><strong>Resolve Date:</strong> {complaint.resolve_date}</p>
           <div className="complaints-actions">
+          <ExportPDFSingle complaint={complaint} />
             <button className="complaints-icon-button" onClick={() => handleEditClick(complaint)}>
               <FontAwesomeIcon icon={faEdit} />
             </button>
             <button className='complaints-eye-button' onClick={() => handleViewDetails(complaint)}>
               <FontAwesomeIcon icon={faEye} />
             </button>
-            <ExportPDFSingle complaint={complaint} />
+            
           </div>
         </div>
       ))}
@@ -258,7 +261,7 @@ const ComplaintsDetails = () => {
       {currentComplaints.length === 0 ? (
         <p>No complaints found</p>
       ) : (
-        viewMode === 'table' ? renderTable() : renderCards()
+        viewMode === 'table' ? renderCards() : renderTable()
       )}
       <nav className="cp-page">
         <ul className="complaints-pagination">

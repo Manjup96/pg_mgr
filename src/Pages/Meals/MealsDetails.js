@@ -14,7 +14,7 @@ const MealsDetails = () => {
   const [selectedMeal, setSelectedMeal] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [viewMode, setViewMode] = useState('table'); // 'table' or 'card'
+  const [viewMode, setViewMode] = useState('card'); // 'table' or 'card'
   const mealsPerPage = 8;
 
   useEffect(() => {
@@ -103,8 +103,8 @@ const MealsDetails = () => {
       <h1 className='meals-heading'>Meals Table</h1>
       <div className='meals-all-buttons'>
       <ExportPDFAll meals={filteredMeals} />
-      <button onClick={handleViewModeSwitch} className="meal-switch-button">
-         {/* {viewMode === 'table' ? 'Card' : 'Table'}  */}
+      <button onClick={handleViewModeSwitch} className="meal-switch-button"
+      data-tooltip={viewMode === 'table' ? 'Switch to Cards View' : 'Switch to Table View'}>
         <FontAwesomeIcon icon={viewMode === 'table' ? faTh : faTable} />
       </button>
       <input
@@ -141,10 +141,11 @@ const MealsDetails = () => {
                   <td>{meal.comments}</td>
                   <td>{meal.date}</td>
                   <td className='meals-actions'>
+                  <ExportPDFSingle meal={meal} />
                     <button className='meals-eye-button' onClick={() => handleViewDetails(meal)}>
                       <FontAwesomeIcon icon={faEye} />
                     </button>
-                    <ExportPDFSingle meal={meal} />
+                    
                   </td>
                 </tr>
               ))}
@@ -155,8 +156,9 @@ const MealsDetails = () => {
         <div className="meals-card-list">
           {currentMeals.map((meal, index) => (
             <div key={index} className="meal-card">
-              
+              <div className="card-header" >
               <p><strong>ID:</strong> {meal.autoIncrementId}</p>
+              </div>
               <p><strong>Tenant Name:</strong>{meal.tenant_name}</p>
               <p><strong>Breakfast:</strong> {meal.breakfast}</p>
               <p><strong>Lunch:</strong> {meal.lunch}</p>
@@ -164,10 +166,11 @@ const MealsDetails = () => {
               <p><strong>Comments:</strong> {meal.comments}</p>
               <p><strong>Date:</strong> {meal.date}</p>
               <div className="meals-actions">
+              <ExportPDFSingle meal={meal} />
               <button className='meals-eye-button' onClick={() => handleViewDetails(meal)}>
                 <FontAwesomeIcon icon={faEye} />
               </button>
-              <ExportPDFSingle meal={meal} />
+             
               </div>
             </div>
           ))}
