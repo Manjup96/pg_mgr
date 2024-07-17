@@ -73,7 +73,7 @@ const ExportPDFAll = ({ complaints }) => {
 
   return (
     <div>
-      <button className='complaints-exportall-button' onClick={handleExportAll}><FontAwesomeIcon icon={faFileExport} /></button>
+      <button className='complaints-exportall-button' data-tooltip="Download as PDF" onClick={handleExportAll}><FontAwesomeIcon icon={faFileExport} /></button>
     </div>
   );
 };

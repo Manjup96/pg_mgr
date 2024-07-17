@@ -245,7 +245,7 @@ const ComplaintsDetails = () => {
       <div className='complaints-all-buttons'>
       <ExportPDFAll complaints={filteredComplaints} />
       <button
-        className="complaints-switch-button"
+        className="complaints-switch-button" data-tooltip={viewMode === 'table' ? 'Switch to Table View' : ' Switch to Cards View'}
         onClick={() => setViewMode(viewMode === 'table' ? 'cards' : 'table')}
       >
         <FontAwesomeIcon icon={viewMode === 'table' ? faThLarge : faThList} /> 

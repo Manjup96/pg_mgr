@@ -308,7 +308,7 @@ $text-color: #333;
 
 
        //tooltip
-       .enquiry_export_button {
+       .meals-exportall-button {
         position: relative;
       
         &:hover::after {
@@ -329,7 +329,7 @@ $text-color: #333;
         }
       }
       
-       .enquiry_switch_button {
+       .meal-switch-button {
         position: relative;
       
         &:hover::after {
@@ -354,6 +354,14 @@ $text-color: #333;
   
 
   @media (min-width: 768px) and (max-width: 1023px){
+
+    .meal-card .meals-actions {
+      margin-top: 16px;
+      display: flex;
+      justify-content: end;
+      gap: 8px;
+      margin-left: 155px;
+  }
 
      .meals-search-input {
       width: 28%;
@@ -401,7 +409,7 @@ $text-color: #333;
 }
 
      //tooltip
-     .enquiry_export_button {
+     .meals-exportall-button {
       position: relative;
     
       &:hover::after {
@@ -422,7 +430,7 @@ $text-color: #333;
       }
     }
     
-     .enquiry_switch_button {
+     .meal-switch-button {
       position: relative;
     
       &:hover::after {
@@ -448,6 +456,16 @@ $text-color: #333;
 
 
   @media (max-width: 767px) {
+
+    .meal-card .meals-actions {
+      margin-top: 16px;
+      display: flex;
+      justify-content: end;
+      gap: 8px;
+      margin-left: 155px;
+  }
+
+
     .meals-search-input {
       width: 42%;
       height: 31px;
@@ -504,7 +522,7 @@ $text-color: #333;
 
   }
        //tooltip
-       .enquiry_export_button {
+       .meals-exportall-button {
         position: relative;
       
         &:hover::after {
