@@ -273,14 +273,18 @@ import { faEdit, faTrash, faFilePdf, faTable, faTh } from '@fortawesome/free-sol
 import EnquiryForm from './EnquiryForm';
 import { ExportPDFSingle, ExportPDFAll } from './ExportPDF'; // Import the new export components
 
+
 const EnquiryDetails = () => {
     const [enquiries, setEnquiries] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [selectedEnquiry, setSelectedEnquiry] = useState(null);
     const [view, setView] = useState('table');
+    const [readMoreStates, setReadMoreStates] = useState({});
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [enquiriesPerPage] = useState(8);
+    const [readMore, setReadMore] = useState({});
+
 
     useEffect(() => {
         const fetchEnquiries = async () => {
@@ -394,6 +398,13 @@ const EnquiryDetails = () => {
             console.error("Error submitting form:", error);
         }
     };
+  
+      const handleToggleReadMore = (id) => {
+        setReadMore((prev) => ({
+          ...prev,
+          [id]: !prev[id],
+        }));
+      };
 
     return (
         <div>
@@ -422,6 +433,7 @@ const EnquiryDetails = () => {
             
                 <div className="enquiry-card-view">
                 {currentEnquiries.map((enquiry) => (
+
                     <div key={enquiry.Id} className="enquiry-card">
                         <div className="enquiry-card-body">
                             <div className="card-header" >
@@ -431,8 +443,16 @@ const EnquiryDetails = () => {
                             <p><strong>Name:</strong> {enquiry.Name}</p>
                             <p><strong>Mobile:</strong> {enquiry.Mobile_Number}</p>
                             <p><strong>Email:</strong> {enquiry.Email}</p>
-                            <p><strong>Remarks:</strong> {enquiry.Remarks}</p>
-                            <p><strong>Reference:</strong> {enquiry.Reference}</p>
+                            <p className="remarks">
+              <strong>Remarks:</strong> {readMore[enquiry.Id] ? enquiry.Remarks : `${enquiry.Remarks.substring(0, 20)}`}
+              {enquiry.Remarks.length > 20 && (
+                <span className="read-more-link">
+                  <a onClick={() => handleToggleReadMore(enquiry.Id)} className="btn-read-more">
+                    {readMore[enquiry.Id] ? "...Read Less" : "...Read More"}
+                  </a>
+                </span>
+              )}
+            </p>                            <p><strong>Reference:</strong> {enquiry.Reference}</p>
                             <p><strong>Date:</strong> {enquiry.enquiry_date}</p>
                             <div className="enquiry-card-actions">
                                 <ExportPDFSingle className="export-btn" enquiry={enquiry} />
@@ -452,7 +472,7 @@ const EnquiryDetails = () => {
 
                  <div className="enquiry_table">
 
-                    <table className="tenant-table">
+                    <table className="Enquiry-table-1">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -474,8 +494,16 @@ const EnquiryDetails = () => {
                                     <td>{enquiry.Name}</td>
                                     <td>{enquiry.Mobile_Number}</td>
                                     <td>{enquiry.Email}</td>
-                                    <td>{enquiry.Remarks}</td>
-                                    <td>{enquiry.Reference}</td>
+                                    <td className="remarks">
+                {readMore[enquiry.Id] ? enquiry.Remarks : `${enquiry.Remarks.substring(0, 20)}`}
+                {enquiry.Remarks.length > 20 && (
+                  <span className="read-more-link">
+                    <a onClick={() => handleToggleReadMore(enquiry.Id)} className="btn-read-more">
+                      {readMore[enquiry.Id] ? "...Read Less" : "...Read More"}
+                    </a>
+                  </span>
+                )}
+              </td>                                    <td>{enquiry.Reference}</td>
                                     <td>{enquiry.enquiry_date}</td>
                                     <td className="actions">
                                         <ExportPDFSingle className="export-btn" enquiry={enquiry} />
@@ -500,6 +528,9 @@ const EnquiryDetails = () => {
                     onSubmit={handleFormSubmit}
                 />
             )}
+              <div className="enquiry-count">
+                Total Enquiries: {filteredEnquiries.length}
+              </div>
 
             <nav>
                 <ul className="enquiry_pagination ">

@@ -6,8 +6,24 @@ $background-color: #f8f9fa;
 $border-color: #dee2e6;
 $text-color: #333;
     
+.enquiry-card-body .read-more-link {
+  cursor: pointer;
+  color: #007bff;
+}
 
-    .tenant-table {
+.Enquiry-table-1 .read-more-link {
+  cursor: pointer;
+  color:#007bff;
+}
+
+.enquiry-count{
+  margin-left: 1415px;
+    margin-right: 0px;
+    margin-top: 15px;
+}
+
+
+    .Enquiry-table-1 {
         width: 80%;
 
         margin: 0 auto;
@@ -302,6 +318,11 @@ nav{
     justify-content: center;
     padding: 16px;
 }
+
+.enquiry-card-body{
+  overflow: hidden;
+
+}
 .enquiry-card {
   background: #fff;
   border: 1px solid #ddd;
@@ -432,7 +453,7 @@ nav{
       }
 
 
-      .tenant-table {
+      .Enquiry-table-1 {
         width: 80%;
 
         margin: 0 auto;
@@ -511,6 +532,12 @@ nav{
         }
       }
 
+      .enquiry-count{
+        margin-left: 127px;
+          margin-right: 0px;
+          margin-top: 15px;
+      }
+
  }
 
  @media (min-width: 768px) and (max-width: 1024px) {
@@ -580,7 +607,7 @@ nav{
       overflow-x:scroll;
     }
     
-    .tenant-table {
+    .Enquiry-table-1 {
       width: 80%;
 
       margin: 0 auto;
@@ -657,6 +684,12 @@ nav{
           }
         }
       }
+    }
+
+    .enquiry-count{
+      margin-left: 570px;
+        margin-right: 0px;
+        margin-top: 15px;
     }
     
 
