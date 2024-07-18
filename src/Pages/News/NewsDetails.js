@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from "../../shared/Navbar";
 import { useManagerAuth } from "../../context/AuthContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faTable, faTh } from '@fortawesome/free-solid-svg-icons';
 import { faFileExport, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import "../../styles/components/NewsDetails.scss";
 import EditNewsModal from './EditNewsModal.js';
@@ -75,6 +76,14 @@ const NewsDetails = () => {
     handleModalClose();
   };
 
+  const handleViewSwitch = () => {
+    setView(prevMode => (prevMode === 'table' ? 'card' : 'table'));
+  };
+
+  const formatDate = (dateStr) => {
+    return dateStr.replace(/-/g,'/');
+};
+
   const handleDeleteNews = async (newsId) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this news item?");
     if (confirmDelete) {
@@ -127,17 +136,27 @@ const NewsDetails = () => {
 
   return (
     <div>
+      
       <Navbar />
-      <h2>News Details</h2>
+
+      <h1 className='news-heading'>News Details</h1>
+      <div className='news-all-buttons'>
+      <ExportPDFAll news={news} /> {/* Export all news as PDF */}
+      <button onClick={handleViewSwitch} className="news-switch-button"
+      data-tooltip={view === 'table' ? 'Switch to Cards View' : 'Switch to Table View'}>
+        <FontAwesomeIcon icon={view === 'table' ? faTh : faTable} />
+      </button>
+      <button className='add-news' onClick={() => setIsAddModalOpen(true)}>Add News</button>
+      </div>
+      <div>
       <input
         type="text"
         placeholder="Search..."
         value={searchTerm}
         onChange={handleSearch}
+        className='news-search'
       />
-      <ExportPDFAll news={news} /> {/* Export all news as PDF */}
-      <ViewSwitch view={view} onToggleView={toggleView} />
-      <button onClick={() => setIsAddModalOpen(true)}>Add News</button>
+     </div>
       <div className={`news-container ${view}`}>
         {view === 'card' ? (
           currentNews.map((item, index) => (
@@ -148,13 +167,13 @@ const NewsDetails = () => {
               </div>
               <p><strong>News Type:</strong> {item.news_type}</p>
               <p><strong>News Description:</strong> {item.news_description}</p>
-              <p><strong>Created At:</strong> {item.created_at}</p>
-              <div className="icon-buttons">
+              <p><strong>Created At:</strong> {formatDate(item.created_at)}</p>
+              <div className="news-icon-buttons">
                 <ExportPDFSingle newsItem={item} /> {/* Export as PDF per news item */}
-                <button className="icon-button" onClick={() => handleEditClick(item)}>
+                <button className="edit-button" onClick={() => handleEditClick(item)}>
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
-                <button className="icon-button" onClick={() => handleDeleteNews(item.id)}>
+                <button className="delete-button" onClick={() => handleDeleteNews(item.id)}>
                   <FontAwesomeIcon icon={faTrash} />
                 </button>
               </div>
@@ -177,13 +196,13 @@ const NewsDetails = () => {
                   <td>{item.autoIncrementId}</td>
                   <td>{item.news_type}</td>
                   <td>{item.news_description}</td>
-                  <td>{item.created_at}</td>
-                  <td>
+                  <td>{formatDate(item.created_at)}</td>
+                  <td className='news-actions-buttons'>
                     <ExportPDFSingle newsItem={item} /> {/* Export as PDF per news item */}
-                    <button className="icon-button" onClick={() => handleEditClick(item)}>
+                    <button className="edit-button" onClick={() => handleEditClick(item)}>
                       <FontAwesomeIcon icon={faEdit} />
                     </button>
-                    <button className="icon-button" onClick={() => handleDeleteNews(item.id)}>
+                    <button className="delete-button" onClick={() => handleDeleteNews(item.id)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
                   </td>
@@ -194,6 +213,9 @@ const NewsDetails = () => {
         )}
       </div>
       {/* Pagination */}
+      <div className="news-count">
+                Total Items: {filteredNews.length}
+              </div>
       <nav >
         <ul className="pagination1">
           <li className={`page-item1 ${currentPage === 1 ? 'disabled' : ''}`}>

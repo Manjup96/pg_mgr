@@ -90,6 +90,9 @@ const MealsDetails = () => {
     }
   };
 
+  const formatDate = (dateStr) => {
+    return dateStr.replace(/-/g,'/');
+};
   const handleToggleReadMore = (id) => {
     setExpandedMeals((prevState) => ({
       ...prevState,
@@ -156,7 +159,7 @@ const MealsDetails = () => {
                   </span>
                 )}
               </td>
-                  <td>{meal.date}</td>
+                  <td>{formatDate(meal.date)}</td>
                   <td className='meals-actions'>
                   <ExportPDFSingle meal={meal} />
                     <button className='meals-eye-button' onClick={() => handleViewDetails(meal)}>
@@ -190,7 +193,7 @@ const MealsDetails = () => {
               </span>
             )}
           </p>
-              <p><strong>Date:</strong> {meal.date}</p>
+              <p><strong>Date:</strong> {formatDate(meal.date)}</p>
               <div className="meals-actions">
               <ExportPDFSingle meal={meal} />
               <button className='meals-eye-button' onClick={() => handleViewDetails(meal)}>

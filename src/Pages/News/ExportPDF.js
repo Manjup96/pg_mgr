@@ -23,7 +23,7 @@ const ExportPDFSingle = ({ newsItem }) => {
   };
 
   return (
-    <button className="icon-button" onClick={handleExport}>
+    <button className="news-export-button" onClick={handleExport}>
       <FontAwesomeIcon icon={faFileExport} />
     </button>
   );
@@ -49,7 +49,7 @@ const ExportPDFAll = ({ news }) => {
 
   return (
     <div>
-      <button onClick={handleExportAll}>Export All as PDF</button>
+      <button className='news-exportall-button' data-tooltip="Download as PDF" onClick={handleExportAll} ><FontAwesomeIcon icon={faFileExport} /></button>
     </div>
   );
 };

@@ -147,6 +147,10 @@ const ComplaintsDetails = () => {
     }));
   };
 
+  const formatDate = (dateStr) => {
+    return dateStr.replace(/-/g,'/');
+};
+
   const indexOfLastComplaint = currentPage * complaintsPerPage;
   const indexOfFirstComplaint = indexOfLastComplaint - complaintsPerPage;
   const currentComplaints = filteredComplaints.slice(indexOfFirstComplaint, indexOfLastComplaint);
@@ -197,8 +201,8 @@ const ComplaintsDetails = () => {
               </td>
               <td>{complaint.complaint_type}</td>
               <td>{complaint.response}</td>
-              <td>{complaint.Date}</td>
-              <td>{complaint.resolve_date}</td>
+              <td>{formatDate(complaint.Date)}</td>
+              <td>{formatDate(complaint.resolve_date)}</td>
               
               <td className='complaints-actions'>
               <ExportPDFSingle complaint={complaint} />
@@ -239,8 +243,8 @@ const ComplaintsDetails = () => {
           </p>
           <p><strong>Type:</strong> {complaint.complaint_type}</p>
           <p><strong>Response:</strong> {complaint.response}</p>
-          <p><strong>Date:</strong> {complaint.Date}</p>
-          <p><strong>Resolve Date:</strong> {complaint.resolve_date}</p>
+          <p><strong>Date:</strong> {formatDate(complaint.Date)}</p>
+          <p><strong>Resolve Date:</strong> {formatDate(complaint.resolve_date)}</p>
           <div className="complaints-actions">
           <ExportPDFSingle complaint={complaint} />
             <button className="complaints-icon-button" onClick={() => handleEditClick(complaint)}>
