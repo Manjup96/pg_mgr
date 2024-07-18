@@ -162,7 +162,7 @@ const ComplaintsDetails = () => {
       <table className="complaints-table">
         <thead>
           <tr>
-            <th>Complaint ID</th>
+            <th>ID</th>
             <th>Tenant Name</th>
             <th className='description'>Complaint Description</th>
             <th>Complaint Type</th>
@@ -182,15 +182,19 @@ const ComplaintsDetails = () => {
               <td>{complaint.response}</td>
               <td>{complaint.Date}</td>
               <td>{complaint.resolve_date}</td>
-              <td>
-                <button className="icon-button" onClick={() => handleEditClick(complaint)}>
+              
+              <td className='complaints-actions'>
+              <ExportPDFSingle complaint={complaint} />
+                <button className="complaints-icon-button" onClick={() => handleEditClick(complaint)}>
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
-                <button onClick={() => handleViewDetails(complaint)}>
+                <button className='complaints-eye-button' onClick={() => handleViewDetails(complaint)}>
                   <FontAwesomeIcon icon={faEye} />
                 </button>
-                <ExportPDFSingle complaint={complaint} />
+                
+                
               </td>
+              
             </tr>
           ))}
         </tbody>
@@ -202,21 +206,24 @@ const ComplaintsDetails = () => {
     <div className="complaints-card-list">
       {currentComplaints.map((complaint) => (
         <div key={complaint.originalIndex} className="complaint-card">
-          <p><strong>Complaint ID:</strong> {complaint.originalIndex}</p>
+          <div className="card-header" >
+          <p><strong>ID:</strong> {complaint.originalIndex}</p>
+          </div>
           <p><strong>Tenant Name:</strong> {complaint.tenant_name}</p>
           <p><strong>Description:</strong> {complaint.complaint_description}</p>
           <p><strong>Type:</strong> {complaint.complaint_type}</p>
           <p><strong>Response:</strong> {complaint.response}</p>
           <p><strong>Date:</strong> {complaint.Date}</p>
           <p><strong>Resolve Date:</strong> {complaint.resolve_date}</p>
-          <div className="card-actions">
-            <button className="icon-button" onClick={() => handleEditClick(complaint)}>
+          <div className="complaints-actions">
+          <ExportPDFSingle complaint={complaint} />
+            <button className="complaints-icon-button" onClick={() => handleEditClick(complaint)}>
               <FontAwesomeIcon icon={faEdit} />
             </button>
-            <button onClick={() => handleViewDetails(complaint)}>
+            <button className='complaints-eye-button' onClick={() => handleViewDetails(complaint)}>
               <FontAwesomeIcon icon={faEye} />
             </button>
-            <ExportPDFSingle complaint={complaint} />
+            
           </div>
         </div>
       ))}
@@ -235,7 +242,14 @@ const ComplaintsDetails = () => {
     <div>
       <Navbar />
       <h1 className='complaints-heading'>Complaints Details</h1>
+      <div className='complaints-all-buttons'>
       <ExportPDFAll complaints={filteredComplaints} />
+      <button
+        className="complaints-switch-button" data-tooltip={viewMode === 'table' ? 'Switch to Table View' : ' Switch to Cards View'}
+        onClick={() => setViewMode(viewMode === 'table' ? 'cards' : 'table')}
+      >
+        <FontAwesomeIcon icon={viewMode === 'table' ? faThLarge : faThList} /> 
+      </button>
       <input
         type="text"
         placeholder="Search..."
@@ -243,16 +257,11 @@ const ComplaintsDetails = () => {
         onChange={handleSearch}
         className="complaints-search-input"
       />
-      <button
-        className="switch-view-button"
-        onClick={() => setViewMode(viewMode === 'table' ? 'cards' : 'table')}
-      >
-        <FontAwesomeIcon icon={viewMode === 'table' ? faThLarge : faThList} /> Switch to {viewMode === 'table' ? 'Cards' : 'Table'}
-      </button>
+     </div>
       {currentComplaints.length === 0 ? (
         <p>No complaints found</p>
       ) : (
-        viewMode === 'table' ? renderTable() : renderCards()
+        viewMode === 'table' ? renderCards() : renderTable()
       )}
       <nav className="cp-page">
         <ul className="complaints-pagination">
