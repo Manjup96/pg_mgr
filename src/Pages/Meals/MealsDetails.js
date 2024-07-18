@@ -230,7 +230,7 @@ const MealsDetails = () => {
       {selectedMeal && (
         <div className="modal-meals">
           <div className="modal-content">
-            <button onClick={handleCloseModal}>Close</button>
+            <button className='view-close-button' onClick={handleCloseModal}>Close</button>
             <h2>Meal Details</h2>
             <p><strong>ID:</strong> {selectedMeal.autoIncrementId}</p>
             <p><strong>Tenant Name:</strong> {selectedMeal.tenant_name}</p>

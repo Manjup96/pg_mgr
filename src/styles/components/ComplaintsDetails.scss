@@ -69,6 +69,13 @@
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
+.view-close-button{
+  background: #6c757d;
+  color: #fff;
+  border-radius: 5px;
+  padding: 7px 13px;
+  border: 1px solid #ccc;
+}
 .complaints-card-list{
   display: flex;
     flex-wrap: wrap;
@@ -415,6 +422,57 @@ $text-color: #333;
     opacity: 0.8;
     font-size: 12px;
   }
+}
+
+@media (min-width: 1025px) and (max-width: 1399px) {
+  .complaints-card-list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding: 16px;
+  }
+  .complaints-search-input {
+    width: 17%;
+    height: 37px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 978px;
+}
+  .complaint-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 21%;
+    max-width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+  .complaints-search-input {
+    width: 17%;
+    height: 37px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 853px;
+}
+.complaints-exportall-button {
+  background-color: #007bff;
+  color: rgb(248, 240, 240);
+  border: none;
+  margin-left: 70px;
+  padding: 11px 20px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.Complaints-count {
+  justify-content: end;
+  margin-left: 1135px;
+}
 }
 
 @media (min-width: 768px) and (max-width: 1023px){

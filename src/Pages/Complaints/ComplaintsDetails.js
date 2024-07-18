@@ -316,7 +316,7 @@ const ComplaintsDetails = () => {
       {viewComplaint && (
         <div className="complaint-form-modal-overlay">
           <div className="complaint-form-modal-container">
-            <button className="close-button" onClick={() => setViewComplaint(null)}>Close</button>
+            <button className="view-close-button" onClick={() => setViewComplaint(null)}>Close</button>
             <div>
               <h2>Complaint Details</h2>
               <p><strong>Complaint ID:</strong> {viewComplaint.originalIndex}</p>
