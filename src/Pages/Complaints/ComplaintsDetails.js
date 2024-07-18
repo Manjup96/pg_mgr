@@ -19,6 +19,7 @@ const ComplaintsDetails = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [complaintsPerPage] = useState(8);
   const [searchTerm, setSearchTerm] = useState('');
+  const [expandedComplaints, setExpandedComplaints] = useState({});
   const [viewMode, setViewMode] = useState('table'); // Add state for view mode
 
   useEffect(() => {
@@ -139,6 +140,13 @@ const ComplaintsDetails = () => {
     }
   };
 
+  const handleToggleReadMore = (id) => {
+    setExpandedComplaints((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
+
   const indexOfLastComplaint = currentPage * complaintsPerPage;
   const indexOfFirstComplaint = indexOfLastComplaint - complaintsPerPage;
   const currentComplaints = filteredComplaints.slice(indexOfFirstComplaint, indexOfLastComplaint);
@@ -177,7 +185,16 @@ const ComplaintsDetails = () => {
             <tr key={complaint.originalIndex}>
               <td>{complaint.originalIndex}</td>
               <td>{complaint.tenant_name}</td>
-              <td>{complaint.complaint_description}</td>
+              <td className="complaint-description">
+                {expandedComplaints[complaint.originalIndex] ? complaint.complaint_description : `${complaint.complaint_description.substring(0, 20)}`}
+                {complaint.complaint_description.length > 20 && (
+                  <span className="read-more-link">
+                    <a onClick={() => handleToggleReadMore(complaint.originalIndex)} className="btn-read-more">
+                      {expandedComplaints[complaint.originalIndex] ? "...Read Less" : "...Read More"}
+                    </a>
+                  </span>
+                )}
+              </td>
               <td>{complaint.complaint_type}</td>
               <td>{complaint.response}</td>
               <td>{complaint.Date}</td>
@@ -210,7 +227,16 @@ const ComplaintsDetails = () => {
           <p><strong>ID:</strong> {complaint.originalIndex}</p>
           </div>
           <p><strong>Tenant Name:</strong> {complaint.tenant_name}</p>
-          <p><strong>Description:</strong> {complaint.complaint_description}</p>
+          <p><strong>Description:</strong> 
+          {expandedComplaints[complaint.originalIndex] ? complaint.complaint_description : `${complaint.complaint_description.substring(0, 20)}`}
+            {complaint.complaint_description.length > 20 && (
+              <span className="read-more-link">
+                <a onClick={() => handleToggleReadMore(complaint.originalIndex)} className="btn-read-more">
+                  {expandedComplaints[complaint.originalIndex] ? "...Read Less" : "...Read More"}
+                </a>
+              </span>
+            )}
+          </p>
           <p><strong>Type:</strong> {complaint.complaint_type}</p>
           <p><strong>Response:</strong> {complaint.response}</p>
           <p><strong>Date:</strong> {complaint.Date}</p>
@@ -263,6 +289,9 @@ const ComplaintsDetails = () => {
       ) : (
         viewMode === 'table' ? renderCards() : renderTable()
       )}
+       <div className="Complaints-count">
+                Total Complaints: {filteredComplaints.length}
+              </div>
       <nav className="cp-page">
         <ul className="complaints-pagination">
           <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>

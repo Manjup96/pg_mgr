@@ -24,8 +24,8 @@ $text-color: #333;
 
 
     .Enquiry-table-1 {
-        width: 80%;
-
+        width: 90%;
+        border-collapse: collapse;
         margin: 0 auto;
         font-size: 16px;
         text-align: left;
@@ -33,7 +33,7 @@ $text-color: #333;
       
         th, td {
           padding: 12px 15px;
-          // border: 1px solid #ddd;
+           border: 1px solid #ddd;
         }
       
         thead {
@@ -125,7 +125,7 @@ $text-color: #333;
         background-color: #007bff;
         color: rgb(248, 240, 240);
         border: none;
-        margin-left: 170px;
+        margin-left: 76px;
         padding: 11px 20px;
         cursor: pointer;
         font-size: 18px;
@@ -170,7 +170,7 @@ $text-color: #333;
         cursor: pointer;
         font-size: 17px;
         border-radius: 5px;
-        margin-left: 1075px;
+        margin-left: 1089px;
       }
 
       .enquiry_search_bar{
@@ -181,7 +181,7 @@ $text-color: #333;
       margin-bottom: 26px;
       margin-top: -1px;
       min-width: 15%;
-      margin-left: 1270px;
+      margin-left: 1215px;
       height: 26px;
       padding: 6px;
       border-radius: 7px;
@@ -447,14 +447,14 @@ nav{
 
 
       .enquiry_table{
-        width: 100%;
-        overflow-x:scroll;
-        margin-left: 3px;
+        width: 96%;
+        overflow-x: scroll;
+        margin-left: 7px;
       }
 
 
       .Enquiry-table-1 {
-        width: 80%;
+        width: 280%;
 
         margin: 0 auto;
         font-size: 13px;
@@ -487,9 +487,9 @@ nav{
       
             td {
               &.actions {
-                display: flex;
+                //display: flex;
                 gap: 3px;
-                width: 70px;
+                width: 75px;
       
                 .export-btn, .edit-btn, .delete-btn {
                   background: none;
@@ -605,10 +605,12 @@ nav{
       }
       .enquiry_table{
       overflow-x:scroll;
+      margin-left: 10px;
+        margin-right: 10px;
     }
     
     .Enquiry-table-1 {
-      width: 80%;
+      width: 150%;
 
       margin: 0 auto;
       font-size: 13px;
@@ -641,9 +643,9 @@ nav{
     
           td {
             &.actions {
-              display: flex;
+             // display: flex;
               gap: 3px;
-              width: 70px;
+              width: 75px;
     
               .export-btn, .edit-btn, .delete-btn {
                 background: none;

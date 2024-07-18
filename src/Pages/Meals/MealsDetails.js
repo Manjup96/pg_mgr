@@ -14,6 +14,7 @@ const MealsDetails = () => {
   const [selectedMeal, setSelectedMeal] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [expandedMeals, setExpandedMeals] = useState({});
   const [viewMode, setViewMode] = useState('card'); // 'table' or 'card'
   const mealsPerPage = 8;
 
@@ -89,6 +90,13 @@ const MealsDetails = () => {
     }
   };
 
+  const handleToggleReadMore = (id) => {
+    setExpandedMeals((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -138,7 +146,16 @@ const MealsDetails = () => {
                   <td>{meal.breakfast}</td>
                   <td>{meal.lunch}</td>
                   <td>{meal.dinner}</td>
-                  <td>{meal.comments}</td>
+                  <td className="meal-comments">
+                {expandedMeals[meal.autoIncrementId] ? meal.comments : `${meal.comments.substring(0, 20)}`}
+                {meal.comments.length > 20 && (
+                  <span className="read-more-link">
+                    <a onClick={() => handleToggleReadMore(meal.autoIncrementId)} className="btn-read-more">
+                      {expandedMeals[meal.autoIncrementId] ? "...Read Less" : "...Read More"}
+                    </a>
+                  </span>
+                )}
+              </td>
                   <td>{meal.date}</td>
                   <td className='meals-actions'>
                   <ExportPDFSingle meal={meal} />
@@ -163,7 +180,16 @@ const MealsDetails = () => {
               <p><strong>Breakfast:</strong> {meal.breakfast}</p>
               <p><strong>Lunch:</strong> {meal.lunch}</p>
               <p><strong>Dinner:</strong> {meal.dinner}</p>
-              <p><strong>Comments:</strong> {meal.comments}</p>
+              <p><strong>Comments:</strong>
+            {expandedMeals[meal.autoIncrementId] ? meal.comments : `${meal.comments.substring(0, 20)}`}
+            {meal.comments.length > 20 && (
+              <span className="read-more-link">
+                <a onClick={() => handleToggleReadMore(meal.autoIncrementId)} className="btn-read-more">
+                  {expandedMeals[meal.autoIncrementId] ? "...Read Less" : "...Read More"}
+                </a>
+              </span>
+            )}
+          </p>
               <p><strong>Date:</strong> {meal.date}</p>
               <div className="meals-actions">
               <ExportPDFSingle meal={meal} />
@@ -176,6 +202,9 @@ const MealsDetails = () => {
           ))}
         </div>
       )}
+       <div className="meals-count">
+                Total Meals: {filteredMeals.length}
+              </div>
       <nav className="ml-page">
         <ul className="meals-pagination">
           <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>

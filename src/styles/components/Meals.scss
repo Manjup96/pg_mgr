@@ -221,7 +221,20 @@ $text-color: #333;
     }
   }
 
+
+  .meal-card .read-more-link {
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .meals-table .read-more-link {
+    cursor: pointer;
+    color: #007bff;
+  }
   /* Meals.scss */
+  .meals-count{
+    margin-left: 1288px;
+  }
 
 .modal-meals {
     position: fixed;
@@ -398,10 +411,10 @@ $text-color: #333;
   //display: flex;
   justify-content: center;
   gap: 10px;
-  width: 120px;
+  width: 68px;
   }
   .meals-table-list .meals-table {
-    width: 89%;
+    width: 125%;
     border-collapse: collapse;
     font-size: 15px;
     margin: 0 auto;
@@ -450,13 +463,28 @@ $text-color: #333;
         font-size: 12px;
       }
     }
-    
+    .meals-count{
+      margin-left: 600px;
+    }
+    .meals-table-list {
+      margin: 20px 0;
+      overflow-x: scroll;
+      margin-left: 10px;
+        margin-right: 10px;
+  }
 }
 
 
 
   @media (max-width: 767px) {
 
+    .meals-table-list .meals-table {
+      width: 280%;
+      border-collapse: collapse;
+      font-size: 15px;
+      margin: 0 auto;
+      text-align: left;
+  }
     .meal-card .meals-actions {
       margin-top: 16px;
       display: flex;
@@ -478,7 +506,7 @@ $text-color: #333;
     //display: flex;
     //justify-content: center;
     gap: 3px;
-    width: 150px;
+    width: 70px;
   }
 
   .meals-exportall-button {
@@ -564,4 +592,7 @@ $text-color: #333;
         }
       }
       
+      .meals-count{
+        margin-left: 145px;
+      }
 }
