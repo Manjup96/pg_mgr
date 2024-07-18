@@ -59,22 +59,28 @@ const TenantDetails = () => {
     const confirmDelete = window.confirm(`Are you sure you want to delete tenant with ID: ${tenant.id}?`);
     if (confirmDelete) {
       try {
+        console.log("Sending DELETE request to the API...");
+        
         const response = await fetch(
           "https://iiiqbets.com/pg-management/delete-TENANT-manager-buidling-API.php",
           {
-            method: "DELETE",
+            method: "POST", // Changed to POST if DELETE is not supported
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ id: tenant.id }),
+            body: JSON.stringify({ id: tenant.id, action: 'delete' }), // Added an action field to specify delete operation
           }
         );
-
+  
+        console.log("Response received:", response);
+  
         if (response.ok) {
           const updatedTenants = tenants.filter(t => t.id !== tenant.id);
           setTenants(updatedTenants);
           alert("Tenant deleted successfully!");
         } else {
+          const errorData = await response.json();
+          console.error("Failed to delete tenant:", errorData);
           alert("Failed to delete tenant. Please try again.");
         }
       } catch (error) {
@@ -83,6 +89,9 @@ const TenantDetails = () => {
       }
     }
   };
+  
+  
+
 
   const offset = currentPage * tenantsPerPage;
   const currentTenants = tenants.slice(offset, offset + tenantsPerPage);

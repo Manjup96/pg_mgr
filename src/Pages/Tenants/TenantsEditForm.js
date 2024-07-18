@@ -54,7 +54,8 @@ const TenantEditForm = ({ tenant, onClose, setTenants, tenants }) => {
   return (
     <div className="TenantEditForm-modal">
       <div className="TenantEditForm-content">
-        <h2>Edit Tenant</h2>
+        {/* <h2>Edit Tenant</h2> */}
+         <h2>{tenant ? 'Edit Tenant' : 'Tenant Reg Form'}</h2>
         <form onSubmit={handleSubmit}>
           <label>
             Name:

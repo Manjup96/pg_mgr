@@ -71,7 +71,6 @@ const Tenant = ({ closeModal, tenant, isLoading, setTenants }) => {
       console.log(result);
       if (response.ok) {
         alert(`Tenant ${tenant ? 'updated' : 'registration'} successful!`);
-        // Refresh the tenants list if needed
         setTenants(prevTenants => {
           if (tenant) {
             return prevTenants.map(t => t.id === tenant.id ? result : t);
@@ -93,7 +92,8 @@ const Tenant = ({ closeModal, tenant, isLoading, setTenants }) => {
     <div id="tenantModal" className={`modal ${isLoading ? 'loading' : 'show'}`}>
       <div className="modal-content">
         <span className="close" onClick={closeModal}>&times;</span>
-        <h2 className="form-title">{tenant ? 'Edit Tenant' : 'Tenant Reg Form'}</h2>
+        {/* <h2 className="form-title">{tenant ? 'Edit Tenant' : 'Tenant Reg Form'}</h2> */}
+        {/* <h2 className="form-title">Tenant Reg Form</h2> */}
         {isLoading ? (
           <div>Loading...</div>
         ) : (
