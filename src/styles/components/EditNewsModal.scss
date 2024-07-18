@@ -36,6 +36,7 @@
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
+    border-radius: 7px;
 }
 
 .form-actions {
@@ -46,4 +47,41 @@
 .form-actions button {
     padding: 10px 15px;
     margin-left: 10px;
+
+}
+
+.update {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #007bff;
+    color: #fff;
+}
+
+.cancel {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #6c757d;
+    color: #fff;
+}
+
+.add {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #007bff;
+    color: #fff;
+}
+
+.cls {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #6c757d;
+    color: #fff;
 }

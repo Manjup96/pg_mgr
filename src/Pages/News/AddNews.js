@@ -69,8 +69,8 @@ const AddNewsModal = ({ onClose, onAdd, managerEmail, buildingName }) => {
             />
           </div>
           <div className="form-actions">
-            <button type="submit">Add</button>
-            <button type="button" onClick={onClose}>Cancel</button>
+            <button type="submit" className='add'>Add</button>
+            <button type="button" onClick={onClose} className='cls'>Cancel</button>
           </div>
         </form>
       </div>

@@ -73,8 +73,8 @@ const EditNewsModal = ({ news, onClose, onUpdate }) => {
           />
         </div> */}
         <div className="form-actions">
-          <button type="button" onClick={handleUpdate}>Update</button>
-          <button type="button" onClick={onClose}>Cancel</button>
+          <button type="button" onClick={handleUpdate} className='update'>Update</button>
+          <button type="button" onClick={onClose} className='cancel'>Cancel</button>
         </div>
       </form>
     </Modal>

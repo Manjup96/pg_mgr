@@ -90,9 +90,6 @@ const TenantDetails = () => {
     }
   };
   
-  
-
-
   const offset = currentPage * tenantsPerPage;
   const currentTenants = tenants.slice(offset, offset + tenantsPerPage);
   const pageCount = Math.ceil(tenants.length / tenantsPerPage);
@@ -102,6 +99,7 @@ const TenantDetails = () => {
       <Navbar />
       <h2 className="TenantDetails-title">Tenant Details</h2>
       <div className="TenantDetails-add-button">
+        {/* Corrected handleOpenForm parameter */}
         <button onClick={() => handleOpenForm()}>Add Tenant</button>
       </div>
       <div className="TenantDetails-table-container">

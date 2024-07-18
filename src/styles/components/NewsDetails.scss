@@ -7,6 +7,7 @@
   
     &.table {
       display: block;
+      overflow-x: scroll;
     }
   }
 
@@ -108,15 +109,21 @@
     }
   }
   
-  @media (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
     .news-card {
       width: calc(50% - 32px);
     }
   }
   
-  @media (max-width: 1042px) {
+  @media (min-width: 1024px)  {
     .news-card {
       width: calc(33.333% - 32px);
+    }
+  }
+
+  @media (min-width: 1366px)  {
+    .news-card {
+      width: 21%;
     }
   }
   
@@ -203,78 +210,7 @@
     .news-card {
       width: 100%;
     }
-    .news-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 16px;
-        overflow-x: scroll;
     
-        th, td {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-          }
-      
-          thead {
-            background-color: #f4f4f4;
-            
-            th {
-              font-weight: bold;
-              text-transform: capitalize;
-            }
-          }
-      
-          tbody {
-            tr {
-              &:nth-child(even) {
-                background-color: #f9f9f9;
-              }
-      
-              &:hover {
-                background-color: #f1f1f1;
-              }
-      
-              td {
-                &.complaint-table-actions {
-                  display: flex;
-                  justify-content: center;
-                  gap: 10px;
-      
-                  .btn-edit-complaints,
-                  .btn-delete-complaints {
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    font-size: 14px;
-                    color: #555;
-                    transition: color 0.3s ease;
-      
-                    &:hover {
-                      color: #000;
-                    }
-                  }
-      
-                  .btn-edit-complaints {
-                    color: #007bff;
-      
-                    &:hover {
-                      color: #0056b3;
-                    }
-                  }
-      
-                  .btn-delete-complaints {
-                    color: #dc3545;
-      
-                    &:hover {
-                      color: #c82333;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        
-       
-      }
     
   }
   
