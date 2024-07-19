@@ -1,17 +1,25 @@
+
+
 import React, { useState, useEffect } from "react";
 import Navbar from "../../shared/Navbar";
 import "../../styles/components/TenantDetails.scss";
 import { useManagerAuth } from "../../context/AuthContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash, faFilePdf, faTable, faTh } from '@fortawesome/free-solid-svg-icons';
+
 import TenantEditForm from "./TenantsEditForm";
-import { FaEdit, FaTrash, FaFilePdf, FaTable } from 'react-icons/fa';
+import ExportPdf from "./TenantExportPdf";
+
+
 
 const TenantDetails = () => {
   const [tenants, setTenants] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [tenantsPerPage] = useState(10);
+  const [tenantsPerPage] = useState(8);
   const [showForm, setShowForm] = useState(false);
   const [editingTenant, setEditingTenant] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [view, setView] = useState('table');
   const { manager } = useManagerAuth();
 
   useEffect(() => {
@@ -64,7 +72,7 @@ const TenantDetails = () => {
             body: JSON.stringify({ id: tenant.id, action: 'delete' }),
           }
         );
-  
+
         if (response.ok) {
           const updatedTenants = tenants.filter(t => t.id !== tenant.id);
           setTenants(updatedTenants);
@@ -81,7 +89,7 @@ const TenantDetails = () => {
     }
   };
 
-  const filteredTenants = tenants.filter(tenant => 
+  const filteredTenants = tenants.filter(tenant =>
     tenant.tenant_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     tenant.tenant_email.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -103,62 +111,106 @@ const TenantDetails = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+  const formatDate = (dateStr) => {
+    return dateStr.replace(/-/g, '/');
+};
 
   return (
     <div>
       <Navbar />
       <h2 className="TenantDetails-title">Tenant Details</h2>
-      <div className="TenantDetails-toolbar">
-        <div className="TenantDetails-actions-left">
-          <FaFilePdf className="tenant-export-button" title="Export to PDF" style={{ backgroundColor: '#007bff', position: 'relative' }}  />
-          <FaTable className="TenantDetails-icon" title="View as Table" />
-        </div>
-        <div className="TenantDetails-actions-right">
-          <input 
-            type="text" 
-            placeholder="Search tenants..." 
-            value={searchTerm} 
-            onChange={(e) => setSearchTerm(e.target.value)} 
-            className="TenantDetails-search"
-          />
-          <button onClick={() => handleOpenForm()} className="TenantDetails-add-button">Add Tenant</button>
-        </div>
+
+      <div className="tenants_export_switch_add_button">
+        <ExportPdf tenants={tenants} /> {/* Include the ExportPDFAll component */}
+      
+
+        <button onClick={() => setView(view === 'cards' ? 'table' : 'cards')} className="tenant_switch_button"
+          data-tooltip={view === 'cards' ? 'Switch to cards View' : 'Switch to Table View'} >
+          <FontAwesomeIcon icon={view === 'cards' ? faTh : faTable} />
+        </button>
+
+        <button onClick={() => handleOpenForm()} className="Tenant-add-button">Add Tenant</button>
       </div>
-      <div className="TenantDetails-table-container">
-        <table className="TenantDetails-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Mobile</th>
-              <th>Aadhaar</th>
-              <th>Address</th>
-              <th>Joining Date</th>
-              <th>Comments</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentTenants.map((tenant, index) => (
-              <tr key={index}>
-                <td>{indexOfFirstTenant + index + 1}</td>
-                <td>{tenant.tenant_name}</td>
-                <td>{tenant.tenant_email}</td>
-                <td>{tenant.tenant_mobile}</td>
-                <td>{tenant.tenant_aadhar_number}</td>
-                <td>{tenant.tenant_address}</td>
-                <td>{tenant.joining_date}</td>
-                <td>{tenant.comments}</td>
-                <td>
-                  <FaEdit onClick={() => handleOpenForm(tenant)} className=" edit-icon" style={{ marginRight: '10px' }} />
-                  <FaTrash onClick={() => handleDelete(tenant)} className=" delete-icon" />
-                </td>
+
+      <div>
+        <input
+          type="text"
+          placeholder="Search tenants..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="tenant_search_bar"
+        />
+      </div>
+
+      {view === 'cards' ? (
+        <div className="TenantDetails-table-container">
+          <table className="TenantDetails-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Aadhaar</th>
+                <th>Address</th>
+                <th>Joining Date</th>
+                <th>Comments</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {currentTenants.map((tenant, index) => (
+                <tr key={index}>
+                  <td>{indexOfFirstTenant + index + 1}</td>
+                  <td>{tenant.tenant_name}</td>
+                  <td>{tenant.tenant_email}</td>
+                  <td>{tenant.tenant_mobile}</td>
+                  <td>{tenant.tenant_aadhar_number}</td>
+                  <td>{tenant.tenant_address}</td>
+                  <td>{formatDate(tenant.joining_date)}</td>
+                  <td>{tenant.comments}</td>
+                  <td className="table-actions">
+                    <button onClick={() => handleOpenForm(tenant)} className="edit-icon">
+                      <FontAwesomeIcon icon={faEdit} />
+                    </button>
+                    <button onClick={() => handleDelete(tenant)} className="delete-icon">
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="tenant-card-view">
+          {currentTenants.map((tenant, index) => (
+            <div key={index} className="tenant-card">
+              <div className="tenant-card-body">
+                <div className="tenant-card-header">
+                  ID: {indexOfFirstTenant + index + 1}
+                </div>
+                <p><strong>Name:</strong> {tenant.tenant_name}</p>
+                <p><strong>Email:</strong> {tenant.tenant_email}</p>
+                <p><strong>Mobile:</strong> {tenant.tenant_mobile}</p>
+                <p><strong>Aadhaar:</strong> {tenant.tenant_aadhar_number}</p>
+                <p><strong>Address:</strong> {tenant.tenant_address}</p>
+                <p><strong>Joining Date:</strong> {formatDate(tenant.joining_date)}</p>
+                <p><strong>Comments:</strong> {tenant.comments}</p>
+                <div className="tenant-card-actions">
+                  <button onClick={() => handleOpenForm(tenant)} className="edit-icon">
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                  <button onClick={() => handleDelete(tenant)} className="delete-icon">
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       <nav>
         <ul className="tenant_pagination">
           <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
@@ -180,6 +232,7 @@ const TenantDetails = () => {
           </li>
         </ul>
       </nav>
+
       {showForm && (
         <TenantEditForm
           tenant={editingTenant}
@@ -193,3 +246,5 @@ const TenantDetails = () => {
 };
 
 export default TenantDetails;
+
+
