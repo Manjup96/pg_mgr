@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from "../../shared/Navbar";
+import '../../styles/components/AccountsDetails.scss';
 import { useManagerAuth } from "../../context/AuthContext";
 import { Link } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ const AccountsDetails = () => {
   return (
     <div>
       <Navbar />
-      <h2>Account Details</h2>
+      <h1 className='heading-accountdetails' >Account Details</h1>
       
       <Link to="/incomedetails" >
       <button>IncomeDetails</button>
