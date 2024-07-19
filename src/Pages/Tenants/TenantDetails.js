@@ -3,16 +3,15 @@ import Navbar from "../../shared/Navbar";
 import "../../styles/components/TenantDetails.scss";
 import { useManagerAuth } from "../../context/AuthContext";
 import TenantEditForm from "./TenantsEditForm";
-import ReactPaginate from "react-paginate";
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaFilePdf, FaTable } from 'react-icons/fa';
 
 const TenantDetails = () => {
   const [tenants, setTenants] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [tenantsPerPage] = useState(10);
   const [showForm, setShowForm] = useState(false);
   const [editingTenant, setEditingTenant] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const { manager } = useManagerAuth();
 
   useEffect(() => {
@@ -51,28 +50,20 @@ const TenantDetails = () => {
     setEditingTenant(null);
   };
 
-  const handlePageClick = (data) => {
-    setCurrentPage(data.selected);
-  };
-
   const handleDelete = async (tenant) => {
     const confirmDelete = window.confirm(`Are you sure you want to delete tenant with ID: ${tenant.id}?`);
     if (confirmDelete) {
       try {
-        console.log("Sending DELETE request to the API...");
-        
         const response = await fetch(
           "https://iiiqbets.com/pg-management/delete-TENANT-manager-buidling-API.php",
           {
-            method: "POST", // Changed to POST if DELETE is not supported
+            method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ id: tenant.id, action: 'delete' }), // Added an action field to specify delete operation
+            body: JSON.stringify({ id: tenant.id, action: 'delete' }),
           }
         );
-  
-        console.log("Response received:", response);
   
         if (response.ok) {
           const updatedTenants = tenants.filter(t => t.id !== tenant.id);
@@ -89,18 +80,49 @@ const TenantDetails = () => {
       }
     }
   };
-  
-  const offset = currentPage * tenantsPerPage;
-  const currentTenants = tenants.slice(offset, offset + tenantsPerPage);
-  const pageCount = Math.ceil(tenants.length / tenantsPerPage);
+
+  const filteredTenants = tenants.filter(tenant => 
+    tenant.tenant_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    tenant.tenant_email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const indexOfLastTenant = currentPage * tenantsPerPage;
+  const indexOfFirstTenant = indexOfLastTenant - tenantsPerPage;
+  const currentTenants = filteredTenants.slice(indexOfFirstTenant, indexOfLastTenant);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const nextPage = () => {
+    if (currentPage < Math.ceil(filteredTenants.length / tenantsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <div>
       <Navbar />
       <h2 className="TenantDetails-title">Tenant Details</h2>
-      <div className="TenantDetails-add-button">
-        {/* Corrected handleOpenForm parameter */}
-        <button onClick={() => handleOpenForm()}>Add Tenant</button>
+      <div className="TenantDetails-toolbar">
+        <div className="TenantDetails-actions-left">
+          <FaFilePdf className="tenant-export-button" title="Export to PDF" style={{ backgroundColor: '#007bff', position: 'relative' }}  />
+          <FaTable className="TenantDetails-icon" title="View as Table" />
+        </div>
+        <div className="TenantDetails-actions-right">
+          <input 
+            type="text" 
+            placeholder="Search tenants..." 
+            value={searchTerm} 
+            onChange={(e) => setSearchTerm(e.target.value)} 
+            className="TenantDetails-search"
+          />
+          <button onClick={() => handleOpenForm()} className="TenantDetails-add-button">Add Tenant</button>
+        </div>
       </div>
       <div className="TenantDetails-table-container">
         <table className="TenantDetails-table">
@@ -120,7 +142,7 @@ const TenantDetails = () => {
           <tbody>
             {currentTenants.map((tenant, index) => (
               <tr key={index}>
-                <td>{offset + index + 1}</td>
+                <td>{indexOfFirstTenant + index + 1}</td>
                 <td>{tenant.tenant_name}</td>
                 <td>{tenant.tenant_email}</td>
                 <td>{tenant.tenant_mobile}</td>
@@ -129,27 +151,35 @@ const TenantDetails = () => {
                 <td>{tenant.joining_date}</td>
                 <td>{tenant.comments}</td>
                 <td>
-                  <FaEdit onClick={() => handleOpenForm(tenant)} className="TenantDetails-icon" />
-                  <FaTrash onClick={() => handleDelete(tenant)} className="TenantDetails-delete-icon" />
+                  <FaEdit onClick={() => handleOpenForm(tenant)} className=" edit-icon" style={{ marginRight: '10px' }} />
+                  <FaTrash onClick={() => handleDelete(tenant)} className=" delete-icon" />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <ReactPaginate
-          previousLabel={"previous"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"}
-        />
       </div>
+      <nav>
+        <ul className="tenant_pagination">
+          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+            <button className="page-link tenant_page-link-1" onClick={prevPage}>
+              Prev
+            </button>
+          </li>
+          {[...Array(Math.ceil(filteredTenants.length / tenantsPerPage)).keys()].map((number) => (
+            <li key={number} className={`page-item ${currentPage === number + 1 ? 'active' : ''}`}>
+              <button onClick={() => paginate(number + 1)} className="page-link">
+                {number + 1}
+              </button>
+            </li>
+          ))}
+          <li className={`page-item ${currentPage === Math.ceil(filteredTenants.length / tenantsPerPage) ? 'disabled' : ''}`}>
+            <button className="page-link tenant_page-link-2" onClick={nextPage}>
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
       {showForm && (
         <TenantEditForm
           tenant={editingTenant}

@@ -1,48 +1,122 @@
 .TenantDetails {
-    &-title {
+  &-title {
+    text-align: center;
+  }
+
+  &-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  &-actions-left {
+    display: flex;
+    align-items: center;
+  }
+
+  &-actions-right {
+    display: flex;
+    align-items: center;
+  }
+
+ 
+
+  &-search {
+    padding: 5px;
+    font-size: 1em;
+    margin-right: 10px;
+  }
+
+  &-add-button {
+    padding: 5px 10px;
+    font-size: 1em;
+  }
+
+  &-add-button {
+    float: right;
+    margin-left: 20px;
+    margin-right: 50px;
+  }
+
+  &-table-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  &-table {
+    width: 85%;
+    border-collapse: collapse;
+    font-size: 1em;
+    margin-top: 5%;
+    margin-bottom: 30px;
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 12px 15px;
       text-align: center;
     }
-  
-    &-add-button {
-      float: right;
-      margin-left: 20px;
-      margin-right: 50px;
+
+    th {
+      background-color: #f2f2f2;
     }
-  
-    &-table-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
+
+    tbody tr:nth-of-type(even) {
+      background-color: #f9f9f9;
     }
-  
-    &-table {
-      width: 85%;
-      border-collapse: collapse;
-      margin: 8% 0;
-      font-size: 1em;
-  
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 12px 15px;
-        text-align: center; // Centering text in table cells
-      }
-  
-      th {
-        background-color: #f2f2f2;
-      }
-  
-      tbody tr:nth-of-type(even) {
-        background-color: #f9f9f9;
-      }
-  
-      tbody tr:hover {
-        background-color: #f1f1f1;
-      }
+
+    tbody tr:hover {
+      background-color: #f1f1f1;
     }
   }
 
-  /* TenantEditForm.css */
+  .tenant-export-button{
+    background-color: blue;
+        color: white;
+        border: none;
+        padding: 7px 22px;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 5px;
+        margin-left: 445%;
+        align-items: flex-end;
+     
+      &:hover {
+        background-color: blue;
+      }
+  }
+
+  .tenant_switch_button{
+    .switch_button {
+      margin-left: 19%;
+      margin-top: 0px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 20px;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 5px;
+    }
+  }
+
+  .TenantDetails-icon {
+    cursor: pointer;
+  }
+
+  .edit-icon {
+    color: blue;
+    margin-right: 10px;
+  }
+
+  .delete-icon {
+    color: red;
+  }
+}
+
 .TenantEditForm-modal {
   position: fixed;
   top: 0;
@@ -108,53 +182,54 @@
   color: white;
 }
 
-  
-  .pagination {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-  }
-  
-  .pagination li {
-    display: inline;
-    margin: 0 5px;
-  }
-  
-  .pagination li a {
-    text-decoration: none;
-    color: #007bff;
-    padding: 5px 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .pagination li a:hover {
-    background-color: #ddd;
-  }
-  
-  .pagination .active a {
-    background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
-  }
+.tenant_pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin-top: 30px;
+}
 
-  .TenantDetails-icon {
-    cursor: pointer;
-    margin-right: 10px; // Adjust the spacing as needed
-    color: #007bff; // Color for the edit icon
-  
-    &:hover {
-      color: #0056b3; // Hover color for the edit icon
-    }
-  }
-  
-  .TenantDetails-delete-icon {
-    cursor: pointer;
-    color: #dc3545; // Color for the delete icon
-  
-    &:hover {
-      color: #c82333; // Hover color for the delete icon
-    }
-  }
-  
+.tenant_pagination .page-link {
+  display: block;
+  padding: 10px 15px;
+  color: #007bff;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tenant_pagination .tenant_page-link-1 {
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  color: #555;
+}
+
+.tenant_pagination .tenant_page-link-2 {
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+.tenant_pagination .page-link:hover {
+  background-color: #e9ecef;
+  color: #0056b3;
+}
+
+.tenant_pagination .page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.tenant_pagination .page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.tenant_pagination .page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}

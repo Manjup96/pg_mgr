@@ -1,6 +1,4 @@
 
-
-
 import React, { useState } from "react";
 import '../../styles/components/EnquiryForm.scss';
 
@@ -15,6 +13,24 @@ const EnquiryForm = ({ initialData, onCloseForm, onSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const mobileNumberPattern = /^[6789][0-9]{9}$/;
+    if (!mobileNumberPattern.test(mobileNumber)) {
+      alert("Mobile number must start with 6, 7, 8, or 9 and be exactly 10 digits.");
+      return;
+    }
+    const namePattern = /^[A-Za-z\s]{2,50}$/;
+    if (!namePattern.test(name)) {
+      alert("Name must contain only letters and spaces, and be between 2 and 50 characters long.");
+      return;
+    }
+  
+
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!emailPattern.test(email)) {
+      alert("Please enter a valid Gmail address.");
+      return;
+    }
     setLoading(true);
 
     await onSubmit({
@@ -30,15 +46,33 @@ const EnquiryForm = ({ initialData, onCloseForm, onSubmit }) => {
     });
 
     setLoading(false);
-       // Close the form before showing the alert
-       onCloseForm();
+    // Close the form before showing the alert
+    onCloseForm();
 
-       setTimeout(() => {
-         alert(initialData ? "Enquiry updated successfully" : "Enquiry added successfully");
-         window.location.reload();
-       }, 100);
+    setTimeout(() => {
+      alert(initialData ? "Enquiry updated successfully" : "Enquiry added successfully");
+      window.location.reload();
+    }, 100);
+  };
+  const handleMobileNumberChange = (e) => {
+    const value = e.target.value;
+    if (/^[6789][0-9]{0,9}$/.test(value)) {
+      setMobileNumber(value);
+    }
+  };
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    if (/^[A-Za-z\s]{0,50}$/.test(value)) {
+      setName(value);
+    }
   };
 
+  // const handleEmailChange = (e) => {
+  //   const value = e.target.value;
+  //   if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{0,}$/.test(value)) {
+  //     setEmail(value);
+  //   }
+  // };
 
 
 
@@ -53,17 +87,19 @@ const EnquiryForm = ({ initialData, onCloseForm, onSubmit }) => {
               type="text"
               id="name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={handleNameChange}
               required
             />
           </div>
           <div className="form-group">
             <label htmlFor="mobileNumber">Mobile Number:</label>
             <input
-              type="text"
+              type="tel"
               id="mobileNumber"
               value={mobileNumber}
-              onChange={(e) => setMobileNumber(e.target.value)}
+              onChange={handleMobileNumberChange}
+              pattern="^[6789][0-9]{9}$"
+              maxLength="10"
               required
             />
           </div>
@@ -77,16 +113,6 @@ const EnquiryForm = ({ initialData, onCloseForm, onSubmit }) => {
               required
             />
           </div>
-          {/* <div className="form-group">
-            <label htmlFor="enquiryDate">Enquiry Date:</label>
-            <input
-              type="date"
-              id="enquiryDate"
-              value={enquiryDate}
-              onChange={(e) => setEnquiryDate(e.target.value)}
-              required
-            />
-          </div> */}
           <div className="form-group">
             <label htmlFor="remarks">Remarks:</label>
             <textarea
