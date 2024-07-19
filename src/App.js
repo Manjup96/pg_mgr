@@ -9,6 +9,8 @@ import Complaints from './Pages/Complaints/ComplaintsDetails';
 import News from './Pages/News/NewsDetails';
 import Meals from './Pages/Meals/MealsDetails';
 import Accounts from './Pages/Accounts/AccountsDetails';
+import IncomeDetails from './Pages/Accounts/IncomeDetails';
+import ExpenditureDetails from './Pages/Accounts/ExpenditureDetails';
 import Reports from './Pages/Reports/ReportDetails';
 import Enquiry from './Pages/Enquiry/EnquiryDetails';
 import Setup from './Pages/Setup/SetupDetails';
@@ -28,6 +30,8 @@ function App() {
           <Route path="/news" element={<News />} />
           <Route path="/meals" element={<Meals />} />
           <Route path="/accounts" element={<Accounts />} />
+          <Route path="/incomedetails" element={<IncomeDetails />} />
+          <Route path="/expenditure" element={<ExpenditureDetails />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/enquiry" element={<Enquiry/>} />
           <Route path="/setup" element={<Setup />} />
