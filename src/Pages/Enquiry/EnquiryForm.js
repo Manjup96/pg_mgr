@@ -67,12 +67,7 @@ const EnquiryForm = ({ initialData, onCloseForm, onSubmit }) => {
     }
   };
 
-  // const handleEmailChange = (e) => {
-  //   const value = e.target.value;
-  //   if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{0,}$/.test(value)) {
-  //     setEmail(value);
-  //   }
-  // };
+
 
 
 
