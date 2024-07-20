@@ -260,13 +260,7 @@ const ComplaintsDetails = () => {
     </div>
   );
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+ 
 
   return (
     <div>
@@ -289,7 +283,7 @@ const ComplaintsDetails = () => {
       />
      </div>
       {currentComplaints.length === 0 ? (
-        <p>No complaints found</p>
+        <p></p>
       ) : (
         viewMode === 'table' ? renderCards() : renderTable()
       )}
@@ -317,7 +311,7 @@ const ComplaintsDetails = () => {
           </li>
         </ul>
       </nav>
-      {viewComplaint && (
+      {viewComplaint && (    
         <div className="complaint-form-modal-overlay">
           <div className="complaint-form-modal-container">
             <button className="view-close-button" onClick={() => setViewComplaint(null)}>Close</button>

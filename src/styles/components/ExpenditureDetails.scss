@@ -2,6 +2,14 @@
     text-align: center;
 }
 
+.expenditure-card-header{
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+    padding: 1px;
+    margin-bottom: 10px;
+    text-align: center;
+    
+}
 .expenditure-card-container {
     display: flex;
     flex-wrap: wrap;
@@ -18,6 +26,379 @@
     width: 100%;
     max-width: 300px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .expenditure-actions {
+        //display: flex;
+        justify-content: center;
+        gap: 10px;
+        width: 120px;
+        margin-left: 200px;
+    }
+    .expenditure-export-button,
+              .expenditure-eye-button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                color: #555;
+                transition: color 0.3s ease;
+  
+                &:hover {
+                  color: #000;
+                }
+              }
+
+              .expenditure-export-button,
+              .expenditure-eye-button 
+               {
+                color: #007bff;
+                font-size: 1.2rem;
+                &:hover {
+                  color: #0056b3;
+                }
+              }
 }
+.expenditure-form-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  
+    .expenditure-form-modal-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+      h2 {
+        margin-bottom: 20px;
+        text-align: center;
+        color: #333;
+      }
+  
+      .form-group {
+        margin-bottom: 15px;
+  
+        label {
+          display: block;
+          margin-bottom: 10px;
+          font-weight: bold;
+          color: #555;
+        }
+  
+        input,
+        textarea {
+          width: calc(100% - 20px);
+          padding: 8px 10px;
+          border: 1px solid #ddd;
+          border-radius: 10px;
+          font-size: 14px;
+        }
+  
+        textarea {
+          resize: vertical;
+        }
+      }
+  
+      .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+  
+        button {
+          padding: 10px 15px;
+          border: none;
+          border-radius: 4px;
+          font-size: 14px;
+          cursor: pointer;
+          transition: background 0.3s;
+  
+          &:disabled {
+            cursor: not-allowed;
+          }
+  
+          &:first-child {
+            background: #007bff;
+            color: #fff;
+  
+            &:hover {
+              background: #0056b3;
+            }
+          }
+  
+          &:last-child {
+            background: #6c757d;
+            color: #fff;
+  
+            &:hover {
+              background: #5a6268;
+            }
+          }
+        }
+      }
+    }
+  }
+  $primary-color: #007bff;
+  $secondary-color: #0056b3;
+  $danger-color: #dc3545;
+  $danger-hover-color: #c82333;
+  $background-color: #f8f9fa;
+  $border-color: #dee2e6;
+  $text-color: #333;
+    
 
+  .expenditure-table-list {
+    margin: 20px 0;
+  
+    .expenditure-table {
+      width: 90%;
+      border-collapse: collapse;
+      font-size: 15px;
+      margin: 0 auto;
+      text-align: left;
+  
+      th, td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+      }
+  
+      thead {
+        background-color: #f4f4f4;
+        
+        th {
+          font-weight: bold;
+          text-transform: capitalize;
+        }
+      }
+  
+      tbody {
+        tr {
+          &:nth-child(even) {
+            background-color: #f9f9f9;
+          }
+  
+          &:hover {
+            background-color: #f1f1f1;
+          }
+  
+          td {
+            &.expenditure-actions {
+              //display: flex;
+              justify-content: center;
+              gap: 10px;
+              width: 120px;
 
+              
+              
+              .expenditure-export-button,
+              .expenditure-eye-button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                color: #555;
+                transition: color 0.3s ease;
+  
+                &:hover {
+                  color: #000;
+                }
+              }
+
+              .expenditure-export-button,
+              .expenditure-eye-button 
+               {
+                color: #007bff;
+                font-size: 1.2rem;
+                &:hover {
+                  color: #0056b3;
+                }
+              }
+  
+             
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .expenditure-pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  
+  
+  .expenditure-pagination .page-link {
+    display: block;
+    padding: 10px 15px;
+    color: #007bff;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    // border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  .expenditure-pagination .page-link-1{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    color: #555;
+  
+  }
+  
+  .expenditure-pagination .page-link-2{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  
+  
+  }
+  
+  .expenditure-pagination .page-link:hover {
+    background-color: #e9ecef;
+    color: #0056b3;
+  }
+  
+  .expenditure-pagination .page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .expenditure-pagination .page-item.disabled .page-link{
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #fff;
+    border-color: #dee2e6;
+  }
+  
+  .expenditure-pagination .page-link:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .expenditure-exportall-button{
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 78px;
+    padding: 11px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    position: relative; /* Added for positioning the hover text */
+    display: inline-flex; /* Flex for alignment */
+    align-items: center; /* Center alignment */
+    justify-content: center; /* Center alignment */
+  }
+
+  .expenditure-exportall-button:hover {
+    background-color:$secondary-color; /* Replace with the actual $secondary-color value */
+  }
+  
+  .expenditure-switch-button{
+
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 7px 11px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  align-items: center; 
+  justify-content: center;
+  // margin-right: 854px;
+  margin-left: 17px;
+    width: 58px;
+    height: 40px;
+  }
+
+  .expenditure-switch-button:hover {
+    background-color:$secondary-color; /* Replace with the actual $secondary-color value */
+  }
+
+  .expenditure-all-buttons{
+    display: flex;
+  }
+
+  .expenditure-add-button{
+    background-color:  #007bff;
+    color: white;
+    border: none;
+    padding: 8px 32px;
+      margin-right: 14px;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 5px;
+    margin-left: 1039px;
+  }
+
+  .expenditure-search-input{
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+  padding: 0 10px;
+  margin-bottom: 26px;
+  margin-top: 10px;
+  min-width: 15%;
+  margin-left: 1201px;
+  height: 26px;
+  padding: 6px;
+  border-radius: 7px;
+  border: 1px solid #ccc;
+  }
+
+  .expenditure-count{
+    margin-left: 1230px;
+  }
+  .expenditure-exportall-button {
+    position: relative;
+  
+    &:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      top: -1.5em;  // Adjust as needed for positioning
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      white-space: nowrap;
+      z-index: 1000;
+      pointer-events: none;
+      opacity: 0.8;
+      font-size: 12px;
+    }
+  }
+  
+   .expenditure-switch-button {
+    position: relative;
+  
+    &:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      top: -1.5em;  // Adjust as needed for positioning
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      white-space: nowrap;
+      z-index: 1000;
+      pointer-events: none;
+      opacity: 0.8;
+      font-size: 12px;
+    }
+  }
