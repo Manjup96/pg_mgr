@@ -623,7 +623,7 @@ const TenantDetails = () => {
   };
 
   const handleDelete = async (tenant) => {
-    const confirmDelete = window.confirm(`Are you sure you want to delete tenant with ID: ${tenant.id}?`);
+    const confirmDelete = window.confirm(`Are you sure you want to delete tenant details...?` );
     if (confirmDelete) {
       try {
         const response = await fetch(

@@ -7,8 +7,8 @@ import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 const ExportPdf = ({ tenants }) => {
   const handleExportAll = () => {
     const doc = new jsPDF();
-    const tableData = tenants.map((tenant) => [
-      tenant.id,
+    const tableData = tenants.map((tenant, index) => [
+      index + 1, 
       tenant.tenant_name,
       tenant.tenant_email,
       tenant.tenant_mobile,

@@ -134,6 +134,7 @@ $text-color: #333;
         display: inline-flex; /* Flex for alignment */
         align-items: center; /* Center alignment */
         justify-content: center; /* Center alignment */
+        outline: none;
       }
 
       .enquiry_export_button:hover {
@@ -155,6 +156,7 @@ $text-color: #333;
       margin-left: 19px;
       width: 57px;
       height: 40px;
+      outline: none;
       }
 
       .enquiry_switch_button:hover {
@@ -171,6 +173,7 @@ $text-color: #333;
         font-size: 17px;
         border-radius: 5px;
         margin-left: 1089px;
+        outline: none;
       }
 
       .enquiry_search_bar{
@@ -186,6 +189,7 @@ $text-color: #333;
       padding: 6px;
       border-radius: 7px;
       border: 1px solid #ccc;
+      outline: none;
       }
 
 
