@@ -8,6 +8,7 @@ import Logout from './../Pages/Dashboard/Logout';
 const Navbar = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isActive = location.pathname === '/incomedetails' || location.pathname === '/expenditure';
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -76,10 +77,19 @@ const Navbar = () => {
             <FaUtensils className="nav-icon" />
             <span className="link_text">Meals</span>
           </Link>
-          <Link className={`nav-link ${location.pathname === '/accounts' ? 'active' : ''}`} to="/accounts">
+          {/* <Link className={`nav-link ${location.pathname === '/accounts' ? 'active' : ''}`} to="/accounts">
             <FaMoneyCheck className="nav-icon" />
             <span className="link_text">Accounts</span>
-          </Link>
+          </Link> */}
+         
+      <Link className={`nav-link ${isActive ? 'active' : ''}`} to="#">
+        <FaMoneyCheck className="nav-icon" />
+        <span className="link_text">Accounts</span>
+        <div className="dropdown">
+          <Link to="/incomedetails">IncomeDetails</Link>
+          <Link to="/expenditure">Expenditure</Link>
+        </div>
+      </Link>
           <Link className={`nav-link ${location.pathname === '/reports' ? 'active' : ''}`} to="/reports">
             <FaFileAlt className="nav-icon" />
             <span className="link_text">Reports</span>
