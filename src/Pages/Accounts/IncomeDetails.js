@@ -165,7 +165,7 @@ const IncomeDetails = () => {
                 className="income-search-input"
             />
            
-            {viewType === 'table' ? renderTable() : renderCards()}
+            {viewType === 'table' ? renderCards() : renderTable()}
             <div className="income-count">
                 Total incomes count: {filteredData.length}
               </div>

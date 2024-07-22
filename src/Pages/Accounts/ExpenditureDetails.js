@@ -162,7 +162,7 @@ const ExpenditureDetails = () => {
                 className="expenditure-search-input"
             />
             
-            {viewType === 'table' ? renderTable() : renderCards()}
+            {viewType === 'table' ? renderCards() : renderTable()}
             <div className="expenditure-count">
                 Total Expenditures: {filteredData.length}
               </div>
