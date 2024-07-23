@@ -4,7 +4,7 @@ import Navbar from "../../shared/Navbar";
 import '../../styles/components/EnquiryDetails.scss';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash, faFilePdf, faTable, faTh } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faFilePdf, faTable, faTh, faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import EnquiryForm from './EnquiryForm';
 import { ExportPDFSingle, ExportPDFAll } from './ExportPDF'; // Import the new export components
 
@@ -145,6 +145,41 @@ const EnquiryDetails = () => {
         return dateStr.replace(/-/g, '/');
     };
 
+    const [sortBy, setSortBy] = useState({ field: null, order: null });
+
+    const handleSort = (field) => {
+      const sortOrder = sortBy.field === field && sortBy.order === 'asc' ? 'desc' : 'asc';
+      setSortBy({ field, order: sortOrder });
+    };
+  
+    const sortedEnquiries = [...currentEnquiries].sort((A, B) => {
+      if (sortBy.field) {
+        const order = sortBy.order === 'asc' ? 1 : -1;
+        if (sortBy.field === 'created_date' || sortBy.field === 'resolve_date') {
+          const dateA = new Date(A[sortBy.field]);
+          const dateB = new Date(B[sortBy.field]);
+          return order * (dateA.getTime() - dateB.getTime());
+        } else {
+          const valueA = typeof A[sortBy.field] === 'string' ? A[sortBy.field].toLowerCase() : A[sortBy.field];
+          const valueB = typeof B[sortBy.field] === 'string' ? B[sortBy.field].toLowerCase() : B[sortBy.field];
+          return order * (valueA > valueB ? 1 : -1);
+        }
+      }
+      return 0;
+    });
+  
+  
+  
+    const getSortIcon = (field) => {
+      if (sortBy.field !== field) {
+        return <FontAwesomeIcon icon={faSort} />;
+      }
+      if (sortBy.order === 'asc') {
+        return <FontAwesomeIcon icon={faSortUp} />;
+      }
+      return <FontAwesomeIcon icon={faSortDown} />;
+    };
+
     return (
         <div>
             <Navbar />
@@ -214,19 +249,19 @@ const EnquiryDetails = () => {
                     <table className="Enquiry-table-1">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Building Name</th>
-                                <th>Name</th>
-                                <th>Mobile Number</th>
-                                <th>Email</th>
-                                <th>Remarks</th>
-                                <th>Reference</th>
-                                <th>Enquiry Date</th>
+                                <th onClick={() => handleSort('incrementalId')}>Id {getSortIcon('incrementalId')}</th>
+                                <th onClick={() => handleSort('building_name')}>Building Name {getSortIcon('building_name')}</th>
+                                <th onClick={() => handleSort('Name')}>Name {getSortIcon('Name')}</th>
+                                <th onClick={() => handleSort('Mobile_Number')}>Mobile Number {getSortIcon('Mobile_Number')}</th>
+                                <th onClick={() => handleSort('Email')}>Email {getSortIcon('Email')}</th>
+                                <th onClick={() => handleSort('Remarks')}>Remarks {getSortIcon('Remarks')}</th>
+                                <th onClick={() => handleSort('Reference')}>Reference {getSortIcon('Reference')}</th>
+                                <th onClick={() => handleSort('enquiry_date')}>Enquiry Date {getSortIcon('enquiry_date')}</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {currentEnquiries.map((enquiry) => (
+                            {sortedEnquiries.map((enquiry) => (
                                 <tr key={enquiry.incrementalId}>
                                     <td>{enquiry.incrementalId}</td>
                                     <td>{enquiry.building_name}</td>

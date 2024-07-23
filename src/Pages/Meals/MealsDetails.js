@@ -3,7 +3,7 @@ import Navbar from '../../shared/Navbar';
 import axios from 'axios';
 import { useManagerAuth } from '../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faTable, faTh } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faTable, faTh, faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { ExportPDFSingle, ExportPDFAll } from './ExportPDF';
 import '../../styles/components/Meals.scss';
 
@@ -100,6 +100,39 @@ const MealsDetails = () => {
     }));
   };
 
+  const [sortBy, setSortBy] = useState({ field: null, order: null });
+
+  const handleSort = (field) => {
+    const sortOrder = sortBy.field === field && sortBy.order === 'asc' ? 'desc' : 'asc';
+    setSortBy({ field, order: sortOrder });
+  };
+
+  const sortedMeals = [...currentMeals].sort((A, B) => {
+    if (sortBy.field) {
+      const order = sortBy.order === 'asc' ? 1 : -1;
+      if (sortBy.field === '') {
+        const dateA = new Date(A[sortBy.field]);
+        const dateB = new Date(B[sortBy.field]);
+        return order * (dateA.getTime() - dateB.getTime());
+      } else {
+        const valueA = typeof A[sortBy.field] === 'string' ? A[sortBy.field].toLowerCase() : A[sortBy.field];
+        const valueB = typeof B[sortBy.field] === 'string' ? B[sortBy.field].toLowerCase() : B[sortBy.field];
+        return order * (valueA > valueB ? 1 : -1);
+      }
+    }
+    return 0;
+  });
+
+  const getSortIcon = (field) => {
+    if (sortBy.field !== field) {
+      return <FontAwesomeIcon icon={faSort} />;
+    }
+    if (sortBy.order === 'asc') {
+      return <FontAwesomeIcon icon={faSortUp} />;
+    }
+    return <FontAwesomeIcon icon={faSortDown} />;
+  };
+
   
 
   return (
@@ -125,18 +158,20 @@ const MealsDetails = () => {
           <table className="meals-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Tenant Name</th>
-                <th>Breakfast</th>
-                <th>Lunch</th>
-                <th>Dinner</th>
-                <th>Comments</th>
-                <th>Date</th>
+              <th onClick={() => handleSort('autoIncrementId')}>
+            ID {getSortIcon('autoIncrementId')}
+          </th>
+                <th onClick={() => handleSort('tenant_name')}>Tenant Name {getSortIcon('tenant_name')}</th>
+                <th onClick={() => handleSort('breakfast')}>Breakfast {getSortIcon('breakfast')}</th>
+                <th onClick={() => handleSort('lunch')}>Lunch {getSortIcon('lunch')}</th>
+                <th onClick={() => handleSort('dinner')}>Dinner {getSortIcon('dinner')}</th>
+                <th onClick={() => handleSort('comments')}>Comments {getSortIcon('comments')}</th>
+                <th onClick={() => handleSort('date')}>Date {getSortIcon('date')}</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {currentMeals.map((meal, index) => (
+              {sortedMeals.map((meal, index) => (
                 <tr key={index}>
                   <td>{meal.autoIncrementId}</td>
                   <td>{meal.tenant_name}</td>

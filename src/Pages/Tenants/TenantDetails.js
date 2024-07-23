@@ -4,7 +4,7 @@ import Navbar from "../../shared/Navbar";
 import "../../styles/components/TenantDetails.scss";
 import { useManagerAuth } from "../../context/AuthContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash, faEye, faFilePdf, faTable, faTh } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faEye, faFilePdf, faTable, faTh, faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import TenantEditForm from "./TenantsEditForm";
 import ExportPdf from "./TenantExportPdf";
 
@@ -36,7 +36,9 @@ const TenantDetails = () => {
           }
         );
         const data = await response.json();
-        setTenants(data);
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        const dataWithIncrementalId = sortedData.map((tenant, index) => ({ ...tenant, incrementalId: index + 1 }));
+        setTenants(dataWithIncrementalId);
       } catch (error) {
         console.error("Error fetching tenants:", error);
       }
@@ -87,7 +89,7 @@ const TenantDetails = () => {
   };
 
   const filteredTenants = tenants.filter(tenant =>
-    (tenant.indexOfFirstTenant || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (tenant.incrementalId || "").toString().includes(searchTerm.toLowerCase()) ||
     (tenant.tenant_name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
     (tenant.tenant_email || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
     (tenant.tenant_mobile || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -121,6 +123,42 @@ const TenantDetails = () => {
     setViewTenant(tenant);
   };
 
+  const [sortBy, setSortBy] = useState({ field: null, order: null });
+
+  const handleSort = (field) => {
+    const sortOrder = sortBy.field === field && sortBy.order === 'asc' ? 'desc' : 'asc';
+    setSortBy({ field, order: sortOrder });
+  };
+
+  const sortedTenants = [...currentTenants].sort((A, B) => {
+    if (sortBy.field) {
+      const order = sortBy.order === 'asc' ? 1 : -1;
+      if (sortBy.field === 'created_date' || sortBy.field === 'resolve_date') {
+        const dateA = new Date(A[sortBy.field]);
+        const dateB = new Date(B[sortBy.field]);
+        return order * (dateA.getTime() - dateB.getTime());
+      } else {
+        const valueA = typeof A[sortBy.field] === 'string' ? A[sortBy.field].toLowerCase() : A[sortBy.field];
+        const valueB = typeof B[sortBy.field] === 'string' ? B[sortBy.field].toLowerCase() : B[sortBy.field];
+        return order * (valueA > valueB ? 1 : -1);
+      }
+    }
+    return 0;
+  });
+
+
+
+  const getSortIcon = (field) => {
+    if (sortBy.field !== field) {
+      return <FontAwesomeIcon icon={faSort} />;
+    }
+    if (sortBy.order === 'asc') {
+      return <FontAwesomeIcon icon={faSortUp} />;
+    }
+    return <FontAwesomeIcon icon={faSortDown} />;
+  };
+
+
   return (
     <div>
       <Navbar />
@@ -150,21 +188,21 @@ const TenantDetails = () => {
           <table className="TenantDetails-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>Aadhaar</th>
-                <th>Address</th>
-                <th>Joining Date</th>
-                <th>Comments</th>
-                <th>Action</th>
+                <th onClick={() => handleSort('incrementalId')}>ID {getSortIcon('incrementalId')}</th>
+                <th onClick={() => handleSort('tenant_name')}>Name {getSortIcon('tenant_name')}</th>
+                <th onClick={() => handleSort('tenant_email')}>Email {getSortIcon('tenant_email')}</th>
+                <th onClick={() => handleSort('tenant_mobile')}>Mobile {getSortIcon('tenant_mobile')}</th>
+                <th onClick={() => handleSort('tenant_aadhar_number')}>Aadhaar {getSortIcon('tenant_aadhar_number')}</th>
+                <th onClick={() => handleSort('tenant_address')}>Address {getSortIcon('tenant_address')}</th>
+                <th onClick={() => handleSort('joining_date')}>Joining Date {getSortIcon('joining_date')}</th>
+                <th onClick={() => handleSort('comments')}>Comments {getSortIcon('comments')}</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {currentTenants.map((tenant, index) => (
-                <tr key={index}>
-                  <td>{indexOfFirstTenant + index + 1}</td>
+              {sortedTenants.map((tenant) => (
+                <tr key={tenant.incrementalId}>
+                  <td>{tenant.incrementalId}</td>
                   <td>{tenant.tenant_name}</td>
                   <td>{tenant.tenant_email}</td>
                   <td>{tenant.tenant_mobile}</td>
@@ -190,11 +228,11 @@ const TenantDetails = () => {
         </div>
       ) : (
         <div className="tenant-card-view">
-          {currentTenants.map((tenant, index) => (
-            <div key={index} className="tenant-card">
+          {currentTenants.map((tenant) => (
+            <div key={tenant.Id} className="tenant-card">
               <div className="tenant-card-body">
                 <div className="tenant-card-header">
-                  ID: {indexOfFirstTenant + index + 1}
+                  ID: {tenant.incrementalId}
                 </div>
                 <p><strong>Name:</strong> {tenant.tenant_name}</p>
                 <p><strong>Email:</strong> {tenant.tenant_email}</p>

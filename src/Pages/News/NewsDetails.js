@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from "../../shared/Navbar";
 import { useManagerAuth } from "../../context/AuthContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faTable, faTh } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faTable, faTh, faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faFileExport, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import "../../styles/components/NewsDetails.scss";
 import EditNewsModal from './EditNewsModal.js';
@@ -26,6 +26,7 @@ const NewsDetails = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [view, setView] = useState('card');
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const [currentPage, setCurrentPage] = useState(1); // Pagination state
   const enquiriesPerPage = 8; // Number of news items per page
 
@@ -134,6 +135,36 @@ const NewsDetails = () => {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handleSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+
+    const sortedData = [...filteredNews].sort((a, b) => {
+      if (a[key] < b[key]) {
+        return direction === 'ascending' ? -1 : 1;
+      }
+      if (a[key] > b[key]) {
+        return direction === 'ascending' ? 1 : -1;
+      }
+      return 0;
+    });
+
+    setFilteredNews(sortedData);
+  };
+
+  const getSortIcon = (key) => {
+    if (sortConfig.key !== key) {
+      return <FontAwesomeIcon icon={faSort} />;
+    }
+    if (sortConfig.direction === 'ascending') {
+      return <FontAwesomeIcon icon={faSortUp} />;
+    }
+    return <FontAwesomeIcon icon={faSortDown} />;
+  };
+
   return (
     <div>
       
@@ -183,10 +214,10 @@ const NewsDetails = () => {
           <table className="news-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>News Type</th>
-                <th>News Description</th>
-                <th>Created At</th>
+                <th onClick={() => handleSort('autoIncrementId')}>ID {getSortIcon('autoIncrementId')}</th>
+                <th onClick={() => handleSort('news_type')}>News Type {getSortIcon('news_type')}</th>
+                <th onClick={() => handleSort('news_description')}>News Description {getSortIcon('news_description')}</th>
+                <th onClick={() => handleSort('created_at')}>Created At {getSortIcon('created_at')}</th>
                 <th>Actions</th>
               </tr>
             </thead>

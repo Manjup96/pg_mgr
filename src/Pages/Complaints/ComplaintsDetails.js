@@ -3,7 +3,7 @@ import Navbar from "../../shared/Navbar";
 import { useManagerAuth } from "../../context/AuthContext";
 import ComplaintsForm from "./ComplaintsForm";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faEye, faChevronLeft, faChevronRight, faThList, faThLarge } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEye, faChevronLeft, faChevronRight, faThList, faThLarge, faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { ExportPDFSingle, ExportPDFAll } from './ExportPDF';
 import '../../styles/components/ComplaintsDetails.scss';
 
@@ -169,32 +169,83 @@ const ComplaintsDetails = () => {
     }
   };
 
+  const [sortBy, setSortBy] = useState({ field: null, order: null });
+
+  const handleSort = (field) => {
+    const sortOrder = sortBy.field === field && sortBy.order === 'asc' ? 'desc' : 'asc';
+    setSortBy({ field, order: sortOrder });
+  };
+
+  const sortedComplaints = [...currentComplaints].sort((A, B) => {
+    if (sortBy.field) {
+      const order = sortBy.order === 'asc' ? 1 : -1;
+      if (sortBy.field === 'created_date' & sortBy.field === 'resolve_date') {
+        const dateA = new Date(A[sortBy.field]);
+        const dateB = new Date(B[sortBy.field]);
+        return order * (dateA.getTime() - dateB.getTime());
+      } else {
+        const valueA = typeof A[sortBy.field] === 'string' ? A[sortBy.field].toLowerCase() : A[sortBy.field];
+        const valueB = typeof B[sortBy.field] === 'string' ? B[sortBy.field].toLowerCase() : B[sortBy.field];
+        return order * (valueA > valueB ? 1 : -1);
+      }
+    }
+    return 0;
+  });
+
+
+
+  const getSortIcon = (field) => {
+    if (sortBy.field !== field) {
+      return <FontAwesomeIcon icon={faSort} />;
+    }
+    if (sortBy.order === 'asc') {
+      return <FontAwesomeIcon icon={faSortUp} />;
+    }
+    return <FontAwesomeIcon icon={faSortDown} />;
+  };
+
   const renderTable = () => (
     <div className="complaints-table-list">
       <table className="complaints-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Tenant Name</th>
-            <th className='description'>Complaint Description</th>
-            <th>Complaint Type</th>
-            <th>Response</th>
-            <th>Date</th>
-            <th>Resolve Date</th>
+            <th onClick={() => handleSort('originalIndex')}>
+              ID {getSortIcon('originalIndex')}
+            </th>
+            <th onClick={() => handleSort('tenant_name')}>
+              Tenant Name {getSortIcon('tenant_name')}
+            </th>
+            <th onClick={() => handleSort('complaint_description')} className="description">
+              Complaint Description {getSortIcon('complaint_description')}
+            </th>
+            <th onClick={() => handleSort('complaint_type')}>
+              Complaint Type {getSortIcon('complaint_type')}
+            </th>
+            <th onClick={() => handleSort('response')}>
+              Response {getSortIcon('response')}
+            </th>
+            <th onClick={() => handleSort('Date')}>
+              Date {getSortIcon('Date')}
+            </th>
+            <th onClick={() => handleSort('resolve_date')}>
+              Resolve Date {getSortIcon('resolve_date')}
+            </th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {currentComplaints.map((complaint) => (
+          {sortedComplaints.map((complaint) => (
             <tr key={complaint.originalIndex}>
               <td>{complaint.originalIndex}</td>
               <td>{complaint.tenant_name}</td>
               <td className="complaint-description">
-                {expandedComplaints[complaint.originalIndex] ? complaint.complaint_description : `${complaint.complaint_description.substring(0, 20)}`}
+                {expandedComplaints[complaint.originalIndex]
+                  ? complaint.complaint_description
+                  : `${complaint.complaint_description.substring(0, 20)}`}
                 {complaint.complaint_description.length > 20 && (
                   <span className="read-more-link">
                     <a onClick={() => handleToggleReadMore(complaint.originalIndex)} className="btn-read-more">
-                      {expandedComplaints[complaint.originalIndex] ? "...Read Less" : "...Read More"}
+                      {expandedComplaints[complaint.originalIndex] ? '...Read Less' : '...Read More'}
                     </a>
                   </span>
                 )}
@@ -203,25 +254,23 @@ const ComplaintsDetails = () => {
               <td>{complaint.response}</td>
               <td>{formatDate(complaint.Date)}</td>
               <td>{formatDate(complaint.resolve_date)}</td>
-              
-              <td className='complaints-actions'>
-              <ExportPDFSingle complaint={complaint} />
+              <td className="complaints-actions">
+                <ExportPDFSingle complaint={complaint} />
                 <button className="complaints-icon-button" onClick={() => handleEditClick(complaint)}>
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
-                <button className='complaints-eye-button' onClick={() => handleViewDetails(complaint)}>
+                <button className="complaints-eye-button" onClick={() => handleViewDetails(complaint)}>
                   <FontAwesomeIcon icon={faEye} />
                 </button>
-                
-                
               </td>
-              
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   );
+
+
 
   const renderCards = () => (
     <div className="complaints-card-list">
