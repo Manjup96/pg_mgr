@@ -3,6 +3,7 @@ import React,{ useEffect } from 'react'
  import Navbar from "../../shared/Navbar";
 // import { useManagerAuth } from "../../context/AuthContext";
 import { useManagerAuth } from "../../context/AuthContext";
+import BuildingDropdown from './BuildingDropdown';
 
 const Dashboard = () => {
   const { manager } = useManagerAuth();
@@ -16,6 +17,7 @@ const Dashboard = () => {
         {/* <Sidebar /> */}
         <Navbar />
       <h2>Dashboard</h2>
+      <BuildingDropdown />
     </div>
   )
 }

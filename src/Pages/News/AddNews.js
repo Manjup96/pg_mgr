@@ -5,7 +5,7 @@ const AddNewsModal = ({ onClose, onAdd, managerEmail, buildingName }) => {
   const [formData, setFormData] = useState({
     news_type: '',
     news_description: '',
-    created_at: new Date().toISOString().split('T')[0] // Format as YYYY-MM-DD
+    created_at: new Date().toISOString().split('T')[0] 
   });
 
   const handleChange = (e) => {
@@ -32,8 +32,8 @@ const AddNewsModal = ({ onClose, onAdd, managerEmail, buildingName }) => {
 
       if (response.ok) {
         alert("News Registered Successfully");
-        onAdd(); // Call onAdd prop to refresh news list
-        onClose(); // Close modal
+        onAdd(); 
+        onClose(); 
       } else {
         console.error('Failed to add news');
         alert("Failed to add news item.");
