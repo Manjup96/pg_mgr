@@ -153,7 +153,7 @@ const TenantEditForm = ({ tenant, onClose, setTenants, tenants }) => {
     tenant_address: tenant ? tenant.tenant_address : "",
     comments: tenant ? tenant.comments : "",
     joining_date: tenant ? tenant.joining_date : "",
-    building_name: "building 1",
+    building_name: "Bhadra",
     manager_email: "ssy.balu@gmail.com",
     manager_mobile_no: 8106517443,
     password: tenant ? tenant.password : "abc123", // Default password for new tenants
