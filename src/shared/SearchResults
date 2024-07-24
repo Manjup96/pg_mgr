@@ -1,0 +1,36 @@
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+const SearchResults = () => {
+  const [results, setResults] = useState([]);
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get('query') || '';
+
+  useEffect(() => {
+    // Mock search logic - replace with actual search implementation
+    const fetchResults = async () => {
+      // Simulate an API call to fetch search results
+      const fetchedResults = await new Promise(resolve =>
+        setTimeout(() => resolve([`Result 1 for "${query}"`, `Result 2 for "${query}"`]), 1000)
+      );
+      setResults(fetchedResults);
+    };
+
+    fetchResults();
+  }, [query]);
+
+  return (
+    <div>
+      <h1>Search Results for "{query}"</h1>
+      <ul>
+        {results.length > 0 ? (
+          results.map((result, index) => <li key={index}>{result}</li>)
+        ) : (
+          <li>No results found</li>
+        )}
+      </ul>
+    </div>
+  );
+};
+
+export default SearchResults;

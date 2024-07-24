@@ -16,6 +16,8 @@ import Enquiry from './Pages/Enquiry/EnquiryDetails';
 import Setup from './Pages/Setup/SetupDetails';
 import { AuthProvider } from './context/AuthContext';
 
+
+
 function App() {
   return (
     <AuthProvider>
@@ -37,6 +39,8 @@ function App() {
           <Route path="/setup" element={<Setup />} />
           {/* Redirect any unknown routes to the home page */}
           <Route path="*" element={<Navigate to="/" />} />
+          
+
         </Routes>
       </BrowserRouter>
     </AuthProvider>
@@ -44,3 +48,6 @@ function App() {
 }
 
 export default App;
+
+
+
