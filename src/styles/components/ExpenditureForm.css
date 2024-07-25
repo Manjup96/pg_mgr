@@ -1,0 +1,62 @@
+.expenditure-form-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.expenditure-form-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+.expenditure-form-container .form-group {
+  margin-bottom: 5px;
+}
+.expenditure-form-container .form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #555;
+}
+.expenditure-form-container .form-group input,
+.expenditure-form-container .form-group textarea {
+  width: calc(100% - 20px);
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.expenditure-form-container .form-group textarea {
+  resize: vertical;
+}
+.expenditure-form-container .form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.expenditure-form-container .form-actions button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.expenditure-form-container .form-actions button:disabled {
+  cursor: not-allowed;
+}
+.expenditure-form-container .form-actions button:first-child {
+  background: #007bff;
+  color: #fff;
+}
+.expenditure-form-container .form-actions button:first-child:hover {
+  background: #0056b3;
+}
+.expenditure-form-container .form-actions button:last-child {
+  background: #6c757d;
+  color: #fff;
+}
+.expenditure-form-container .form-actions button:last-child:hover {
+  background: #5a6268;
+}/*# sourceMappingURL=ExpenditureForm.css.map */

@@ -1,5 +1,3 @@
-
-
 .App {
   text-align: center;
 }
@@ -16,26 +14,22 @@
   text-decoration: none;
 }
 
-.Dashboad_card {
+.card {
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 200px;
   text-align: center;
-  height: 180px;
 }
 
-.Dashboad_card h2 {
+.card h2 {
   font-size: 1.2rem;
   margin-bottom: 10px;
-  color: black;
 }
 
-.Dashboad_card p {
+.card p {
   font-size: 1rem;
-  color: black;
-
 }
 
 .dashboard_heading {
@@ -62,75 +56,48 @@
 }
 
 .chart-container {
-  margin-top: 30px;
-  margin-left: 30%;
+  margin-top: 20px;
 }
 
 @media (max-width: 767px) {
   .Dashboard_select_building .building-label {
-      font-size: 17px;
-      font-weight: bold;
+    font-size: 17px;
+    font-weight: bold;
   }
-  
   .Dashboard_select_building .building-select {
-      padding: 2px;
-      font-size: 12px;
-      width: 155px;
-      margin-top: -2px;
-      border-radius: 5px;
+    padding: 2px;
+    font-size: 12px;
+    width: 155px;
+    margin-top: -2px;
+    border-radius: 5px;
   }
-
-  .App .card-container .Dashboad_card {
-    width: 250px;
-    height: auto;
+  .App .card-container .card {
+    width: 80%;
+    max-width: 250px;
   }
-  
   .App .card-container {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
-  .App
-  .chart-container {
-    margin-top: 30px;
-    margin-left: -11%;
-    margin-bottom: 50px;
-    overflow: scroll;
-    margin-right: 10px;
 }
-
-}
-
 @media (max-width: 768px) {
   .card-container {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
-
-  .Dashboad_card {
-    width: 330px;
-    height: auto;
+  .card {
+    width: 80%;
+    max-width: 350px;
   }
-
   .building-label {
-      font-size: 24px;
-      font-weight: bold;
+    font-size: 24px;
+    font-weight: bold;
   }
-
   .building-select {
-      padding: 5px;
-      font-size: 20px;
-      width: 250px;
-      margin-top: -2px;
-      border-radius: 6px;
+    padding: 5px;
+    font-size: 20px;
+    width: 250px;
+    margin-top: -2px;
+    border-radius: 6px;
   }
-
-  .chart-container {
-    margin-top: 30px;
-    margin-left: 8%;
-    margin-bottom: 50px;
-}
-}
-
-
-
-
+}/*# sourceMappingURL=BuildingDropdown.css.map */

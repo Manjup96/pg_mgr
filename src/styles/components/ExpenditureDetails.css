@@ -1,0 +1,555 @@
+.heading-expenditure {
+  text-align: center;
+}
+
+.expenditure-card-header {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  padding: 1px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.expenditure-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding: 16px;
+}
+
+.expenditure-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.expenditure-card .expenditure-actions {
+  justify-content: center;
+  gap: 10px;
+  width: 120px;
+  margin-left: 200px;
+}
+.expenditure-card .expenditure-export-button,
+.expenditure-card .expenditure-eye-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+.expenditure-card .expenditure-export-button:hover,
+.expenditure-card .expenditure-eye-button:hover {
+  color: #000;
+}
+.expenditure-card .expenditure-export-button,
+.expenditure-card .expenditure-eye-button {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+.expenditure-card .expenditure-export-button:hover,
+.expenditure-card .expenditure-eye-button:hover {
+  color: #0056b3;
+}
+
+.expenditure-form-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-group {
+  margin-bottom: 15px;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #555;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-group input,
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-group textarea {
+  width: calc(100% - 20px);
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-group textarea {
+  resize: vertical;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-actions button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-actions button:disabled {
+  cursor: not-allowed;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-actions button:first-child {
+  background: #007bff;
+  color: #fff;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-actions button:first-child:hover {
+  background: #0056b3;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-actions button:last-child {
+  background: #6c757d;
+  color: #fff;
+}
+.expenditure-form-modal-overlay .expenditure-form-modal-container .form-actions button:last-child:hover {
+  background: #5a6268;
+}
+
+.expenditure-table-list {
+  margin: 20px 0;
+}
+.expenditure-table-list .expenditure-table {
+  width: 90%;
+  border-collapse: collapse;
+  font-size: 15px;
+  margin: 0 auto;
+  text-align: left;
+}
+.expenditure-table-list .expenditure-table th, .expenditure-table-list .expenditure-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+.expenditure-table-list .expenditure-table thead {
+  background-color: #f4f4f4;
+}
+.expenditure-table-list .expenditure-table thead th {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.expenditure-table-list .expenditure-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.expenditure-table-list .expenditure-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.expenditure-table-list .expenditure-table tbody tr td.expenditure-actions {
+  justify-content: center;
+  gap: 10px;
+  width: 120px;
+}
+.expenditure-table-list .expenditure-table tbody tr td.expenditure-actions .expenditure-export-button,
+.expenditure-table-list .expenditure-table tbody tr td.expenditure-actions .expenditure-eye-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+.expenditure-table-list .expenditure-table tbody tr td.expenditure-actions .expenditure-export-button:hover,
+.expenditure-table-list .expenditure-table tbody tr td.expenditure-actions .expenditure-eye-button:hover {
+  color: #000;
+}
+.expenditure-table-list .expenditure-table tbody tr td.expenditure-actions .expenditure-export-button,
+.expenditure-table-list .expenditure-table tbody tr td.expenditure-actions .expenditure-eye-button {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+.expenditure-table-list .expenditure-table tbody tr td.expenditure-actions .expenditure-export-button:hover,
+.expenditure-table-list .expenditure-table tbody tr td.expenditure-actions .expenditure-eye-button:hover {
+  color: #0056b3;
+}
+
+.expenditure-pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.expenditure-pagination .page-link {
+  display: block;
+  padding: 10px 15px;
+  color: #007bff;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.expenditure-pagination .page-link-1 {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: #555;
+}
+
+.expenditure-pagination .page-link-2 {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.expenditure-pagination .page-link:hover {
+  background-color: #e9ecef;
+  color: #0056b3;
+}
+
+.expenditure-pagination .page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.expenditure-pagination .page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.expenditure-pagination .page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.expenditure-exportall-button {
+  background-color: #007bff;
+  color: rgb(248, 240, 240);
+  border: none;
+  margin-left: 78px;
+  padding: 11px 20px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  position: relative; /* Added for positioning the hover text */
+  display: inline-flex; /* Flex for alignment */
+  align-items: center; /* Center alignment */
+  justify-content: center; /* Center alignment */
+}
+
+.expenditure-exportall-button:hover {
+  background-color: #0056b3; /* Replace with the actual $secondary-color value */
+}
+
+.expenditure-switch-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 7px 11px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 17px;
+  width: 58px;
+  height: 40px;
+}
+
+.expenditure-switch-button:hover {
+  background-color: #0056b3; /* Replace with the actual $secondary-color value */
+}
+
+.expenditure-all-buttons {
+  display: flex;
+}
+
+.expenditure-add-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 32px;
+  margin-right: 14px;
+  cursor: pointer;
+  font-size: 17px;
+  border-radius: 5px;
+  margin-left: 1054px;
+}
+
+.expenditure-search-input {
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+  padding: 0 10px;
+  margin-bottom: 26px;
+  margin-top: 10px;
+  min-width: 15%;
+  margin-left: 1214px;
+  height: 26px;
+  padding: 6px;
+  border-radius: 7px;
+  border: 1px solid #ccc;
+}
+
+.expenditure-count {
+  margin-left: 1230px;
+}
+
+.expenditure-exportall-button {
+  position: relative;
+}
+.expenditure-exportall-button:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+.expenditure-switch-button {
+  position: relative;
+}
+.expenditure-switch-button:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+@media (min-width: 1025px) and (max-width: 1399px) {
+  .expenditure-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 21%;
+    max-width: 265px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .expenditure-add-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 32px;
+    margin-right: 14px;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 5px;
+    margin-left: 915px;
+  }
+  .expenditure-exportall-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 65px;
+    padding: 11px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .expenditure-search-input {
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    min-width: 15%;
+    margin-left: 1086px;
+    height: 26px;
+    padding: 6px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+  }
+  .expenditure-table-list .expenditure-table {
+    width: 91%;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .expenditure-count {
+    margin-left: 1140px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .expenditure-exportall-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 44px;
+    padding: 9px 20px;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 5px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .expenditure-switch-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 7px 11px;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 17px;
+    width: 57px;
+    height: 39px;
+  }
+  .expenditure-add-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 32px;
+    margin-right: 14px;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 5px;
+    margin-left: 359px;
+  }
+  .expenditure-search-input {
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    min-width: 30%;
+    margin-left: 482px;
+    height: 26px;
+    padding: 6px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+  }
+  .expenditure-table-list .expenditure-table {
+    width: 89%;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .expenditure-table-list .expenditure-table tbody tr td.expenditure-actions {
+    justify-content: center;
+    gap: 10px;
+    width: 75px;
+  }
+  .expenditure-count {
+    margin-left: 530px;
+  }
+}
+@media (max-width: 767px) {
+  .expenditure-exportall-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 32px;
+    padding: 6px 17px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .expenditure-switch-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 7px 11px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    width: 53px;
+    height: 36px;
+  }
+  .expenditure-add-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 3px 18px;
+    margin-right: 14px;
+    cursor: pointer;
+    width: 40%;
+    font-size: 15px;
+    border-radius: 5px;
+    margin-left: 58px;
+  }
+  .expenditure-search-input {
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    min-width: 15%;
+    margin-left: 185px;
+    height: 20px;
+    padding: 6px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+  }
+  .expenditure-table-list {
+    margin: 20px 0;
+    overflow-x: scroll;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .expenditure-table-list .expenditure-table {
+    width: 120%;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .expenditure-count {
+    margin-left: 125px;
+  }
+}/*# sourceMappingURL=ExpenditureDetails.css.map */

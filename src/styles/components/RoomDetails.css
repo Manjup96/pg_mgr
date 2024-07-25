@@ -1,0 +1,131 @@
+.rooms-heading {
+  text-align: center;
+}
+
+.rooms-table-list {
+  margin: 20px 0;
+}
+.rooms-table-list .rooms-table {
+  width: 90%;
+  border-collapse: collapse;
+  font-size: 15px;
+  margin: 0 auto;
+  text-align: left;
+}
+.rooms-table-list .rooms-table th, .rooms-table-list .rooms-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+.rooms-table-list .rooms-table thead {
+  background-color: #f4f4f4;
+}
+.rooms-table-list .rooms-table thead th {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.rooms-table-list .rooms-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.rooms-table-list .rooms-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.rooms-table-list .rooms-table tbody tr td.complaints-actions {
+  justify-content: center;
+  gap: 10px;
+  width: 120px;
+}
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .complaints-icon-button,
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .complaints-export-button,
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .complaints-eye-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .complaints-icon-button:hover,
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .complaints-export-button:hover,
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .complaints-eye-button:hover {
+  color: #000;
+}
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .complaints-eye-button {
+  font-size: 1.2rem;
+}
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .complaints-icon-button,
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .complaints-export-button {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .complaints-icon-button:hover,
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .complaints-export-button:hover {
+  color: #0056b3;
+}
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .btn-delete-complaints {
+  color: #dc3545;
+}
+.rooms-table-list .rooms-table tbody tr td.complaints-actions .btn-delete-complaints:hover {
+  color: #c82333;
+}
+
+.complaints-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 91%;
+  margin: 0 auto;
+  gap: 16px;
+  justify-content: center;
+  padding: 16px;
+}
+
+.complaints-card-list .card-header {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  padding: 1px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.complaint-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.complaint-card .complaints-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+}
+.complaint-card .complaints-actions .complaints-icon-button,
+.complaint-card .complaints-actions .complaints-export-button,
+.complaint-card .complaints-actions .complaints-eye-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+.complaint-card .complaints-actions .complaints-icon-button:hover,
+.complaint-card .complaints-actions .complaints-export-button:hover,
+.complaint-card .complaints-actions .complaints-eye-button:hover {
+  color: #000;
+}
+.complaint-card .complaints-actions .complaints-eye-button {
+  font-size: 1.2rem;
+}
+.complaint-card .complaints-actions .complaints-icon-button,
+.complaint-card .complaints-actions .complaints-export-button {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+.complaint-card .complaints-actions .complaints-icon-button:hover,
+.complaint-card .complaints-actions .complaints-export-button:hover {
+  color: #0056b3;
+}/*# sourceMappingURL=RoomDetails.css.map */

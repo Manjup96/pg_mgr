@@ -1,0 +1,564 @@
+.meals-heading {
+  text-align: center;
+}
+
+.meals-search-input {
+  width: 17%;
+  height: 37px;
+  border-radius: 5px;
+  margin-left: 977px;
+  border: 1px solid #ccc;
+}
+
+.meals-pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.meals-pagination .page-link {
+  display: block;
+  padding: 10px 15px;
+  color: #007bff;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.meals-pagination .page-link-1 {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: #555;
+}
+
+.meals-pagination .page-link-2 {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.meals-pagination .page-link:hover {
+  background-color: #e9ecef;
+  color: #0056b3;
+}
+
+.meals-pagination .page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.meals-pagination .page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.meals-pagination .page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.meals-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 91%;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 16px;
+}
+
+.meal-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.meals-card-list .card-header {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  padding: 1px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.meal-card .meals-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+}
+.meal-card .meals-actions .meals-eye-button,
+.meal-card .meals-actions .meals-export-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+.meal-card .meals-actions .meals-eye-button:hover,
+.meal-card .meals-actions .meals-export-button:hover {
+  color: #000;
+}
+.meal-card .meals-actions .meals-eye-button {
+  font-size: 1.2rem;
+}
+.meal-card .meals-actions .meals-export-button {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+.meal-card .meals-actions .meals-export-button:hover {
+  color: #0056b3;
+}
+
+.view-close-button {
+  background: #6c757d;
+  color: #fff;
+  border-radius: 5px;
+  padding: 7px 13px;
+  border: 1px solid #ccc;
+}
+
+.meals-table-list {
+  margin: 20px 0;
+}
+.meals-table-list .meals-table {
+  width: 90%;
+  border-collapse: collapse;
+  font-size: 15px;
+  margin: 0 auto;
+  text-align: left;
+}
+.meals-table-list .meals-table th, .meals-table-list .meals-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+.meals-table-list .meals-table thead {
+  background-color: #f4f4f4;
+}
+.meals-table-list .meals-table thead th {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.meals-table-list .meals-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.meals-table-list .meals-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.meals-table-list .meals-table tbody tr td.meals-actions {
+  justify-content: center;
+  gap: 10px;
+}
+.meals-table-list .meals-table tbody tr td.meals-actions .meals-eye-button,
+.meals-table-list .meals-table tbody tr td.meals-actions .meals-export-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+.meals-table-list .meals-table tbody tr td.meals-actions .meals-eye-button:hover,
+.meals-table-list .meals-table tbody tr td.meals-actions .meals-export-button:hover {
+  color: #000;
+}
+.meals-table-list .meals-table tbody tr td.meals-actions .meals-eye-button {
+  font-size: 1.2rem;
+}
+.meals-table-list .meals-table tbody tr td.meals-actions .meals-export-button {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+.meals-table-list .meals-table tbody tr td.meals-actions .meals-export-button:hover {
+  color: #0056b3;
+}
+.meals-table-list .meals-table tbody tr td.meals-actions .btn-delete-complaints {
+  color: #dc3545;
+}
+.meals-table-list .meals-table tbody tr td.meals-actions .btn-delete-complaints:hover {
+  color: #c82333;
+}
+
+.meal-card .read-more-link {
+  cursor: pointer;
+  color: #007bff;
+}
+
+.meals-table .read-more-link {
+  cursor: pointer;
+  color: #007bff;
+}
+
+/* Meals.scss */
+.meals-count {
+  margin-left: 1288px;
+}
+
+.modal-meals {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure modal is on top of other content */
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.meals-all-buttons {
+  display: flex;
+}
+
+.meals-exportall-button {
+  background-color: #007bff;
+  color: rgb(248, 240, 240);
+  border: none;
+  margin-left: 79px;
+  padding: 11px 20px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  position: relative; /* Added for positioning the hover text */
+  display: inline-flex; /* Flex for alignment */
+  align-items: center; /* Center alignment */
+  justify-content: center; /* Center alignment */
+}
+
+.meals-exportall-button:hover {
+  background-color: #0056b3; /* Replace with the actual $secondary-color value */
+}
+
+.meal-switch-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 7px 11px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 17px;
+  width: 58px;
+  height: 40px;
+}
+
+.meal-switch-button:hover {
+  background-color: #0056b3; /* Replace with the actual $secondary-color value */
+}
+
+.meals-exportall-button {
+  position: relative;
+}
+.meals-exportall-button:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+.meal-switch-button {
+  position: relative;
+}
+.meal-switch-button:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+@media (min-width: 1025px) and (max-width: 1399px) {
+  .meal-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 21%;
+    max-width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .meals-exportall-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 71px;
+    padding: 11px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .meals-search-input {
+    width: 17%;
+    height: 37px;
+    border-radius: 5px;
+    margin-left: 852px;
+    border: 1px solid #ccc;
+  }
+  .meals-count {
+    margin-left: 1170px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .meal-card .meals-actions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+    margin-left: 155px;
+  }
+  .meals-search-input {
+    width: 28%;
+    height: 38px;
+    border-radius: 5px;
+    margin-left: 325px;
+    border: 1px solid #ccc;
+  }
+  .meals-card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    width: 95%;
+    margin: 0 auto;
+    justify-content: center;
+    padding: 16px;
+  }
+  .meals-exportall-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 43px;
+    padding: 11px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .meals-actions {
+    justify-content: center;
+    gap: 10px;
+    width: 68px;
+  }
+  .meals-table-list .meals-table {
+    width: 125%;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .meals-exportall-button {
+    position: relative;
+  }
+  .meals-exportall-button:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.8;
+    font-size: 12px;
+  }
+  .meal-switch-button {
+    position: relative;
+  }
+  .meal-switch-button:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.8;
+    font-size: 12px;
+  }
+  .meals-count {
+    margin-left: 600px;
+  }
+  .meals-table-list {
+    margin: 20px 0;
+    overflow-x: scroll;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+@media (max-width: 767px) {
+  .meals-table-list .meals-table {
+    width: 280%;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .meal-card .meals-actions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+    margin-left: 155px;
+  }
+  .meals-search-input {
+    width: 42%;
+    height: 31px;
+    border-radius: 5px;
+    margin-left: 49px;
+    border: 1px solid #ccc;
+  }
+  .meals-actions {
+    gap: 3px;
+    width: 70px;
+  }
+  .meals-exportall-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 30px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .meal-switch-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 7px;
+    width: 52px;
+    height: 35px;
+  }
+  .ml-page {
+    margin-bottom: 20px;
+  }
+  .meals-table-list {
+    width: 95%;
+    overflow-x: scroll;
+    margin-left: 9px;
+  }
+  .meals-exportall-button {
+    position: relative;
+  }
+  .meals-exportall-button:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.8;
+    font-size: 12px;
+  }
+  .meal-switch-button {
+    position: relative;
+  }
+  .meal-switch-button:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.8;
+    font-size: 12px;
+  }
+  .meals-count {
+    margin-left: 145px;
+  }
+}/*# sourceMappingURL=Meals.css.map */

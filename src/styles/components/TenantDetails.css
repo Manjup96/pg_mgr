@@ -1,0 +1,707 @@
+.TenantDetails-title {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.TenantDetails-table {
+  width: 90%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  font-size: 16px;
+  text-align: left;
+}
+.TenantDetails-table th, .TenantDetails-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+.TenantDetails-table thead {
+  background-color: #f4f4f4;
+}
+.TenantDetails-table thead th {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.TenantDetails-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.TenantDetails-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.TenantDetails-table tbody tr td.table-actions {
+  gap: 10px;
+  width: 100px;
+}
+.TenantDetails-table tbody tr td.table-actions .edit-icon, .TenantDetails-table tbody tr td.table-actions .delete-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+.TenantDetails-table tbody tr td.table-actions .edit-icon:hover, .TenantDetails-table tbody tr td.table-actions .delete-icon:hover {
+  color: #000;
+}
+.TenantDetails-table tbody tr td.table-actions .edit-icon {
+  color: #007bff;
+}
+.TenantDetails-table tbody tr td.table-actions .edit-icon:hover {
+  color: #0056b3;
+}
+.TenantDetails-table tbody tr td.table-actions .delete-icon {
+  color: #dc3545;
+}
+.TenantDetails-table tbody tr td.table-actions .delete-icon:hover {
+  color: #c82333;
+}
+.TenantDetails-table tbody tr td.table-actions .tenant-eye-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #555;
+  transition: color 0.3s ease;
+}
+.TenantDetails-table tbody tr td.table-actions .tenant-eye-button:hover {
+  color: #000;
+}
+
+.tenant_switch_button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 7px 11px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 19px;
+  width: 57px;
+  height: 40px;
+  outline: none;
+}
+
+.Tenant-add-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 32px;
+  margin-right: 14px;
+  cursor: pointer;
+  font-size: 17px;
+  border-radius: 5px;
+  margin-left: 1100px;
+  margin-bottom: 21px;
+  outline: none;
+}
+
+.tenants_export_switch_add_button .tenant-export-button {
+  background-color: #007bff;
+  color: rgb(248, 240, 240);
+  border: none;
+  margin-left: 76px;
+  padding: 11px 20px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  width: 57px;
+  height: 40px;
+  position: relative; /* Added for positioning the hover text */
+  display: inline-flex; /* Flex for alignment */
+  align-items: center; /* Center alignment */
+  justify-content: center; /* Center alignment */
+  outline: none;
+}
+
+.tenants_export_switch_add_button {
+  display: flex;
+}
+
+.tenant_search_bar {
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+  padding: 0 10px;
+  margin-bottom: 26px;
+  margin-top: -1px;
+  min-width: 15%;
+  margin-left: 1215px;
+  height: 26px;
+  padding: 6px;
+  border-radius: 7px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.TenantEditForm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.TenantEditForm-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.TenantEditForm-content h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.TenantEditForm-content label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #555;
+}
+
+.TenantEditForm-content input,
+.TenantEditForm-content textarea {
+  width: calc(100% - 20px);
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.TenantEditForm-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.TenantEditForm-buttons button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.TenantEditForm-buttons button:disabled {
+  cursor: not-allowed;
+}
+
+.TenantEditForm-buttons button:first-child {
+  background: #007bff;
+  color: #fff;
+}
+
+.TenantEditForm-buttons button:first-child:hover {
+  background: #0056b3;
+}
+
+.TenantEditForm-buttons button:last-child {
+  background: #6c757d;
+  color: #fff;
+}
+
+.TenantEditForm-buttons button:last-child:hover {
+  background: #5a6268;
+}
+
+.tenant_pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.tenant_pagination .page-link {
+  display: block;
+  padding: 10px 15px;
+  color: #007bff;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tenant_pagination .tenant_page-link-1 {
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  color: #555;
+}
+
+.tenant_pagination .tenant_page-link-2 {
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+.tenant_pagination .page-link:hover {
+  background-color: #e9ecef;
+  color: #0056b3;
+}
+
+.tenant_pagination .page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.tenant_pagination .page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.tenant_pagination .page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.tenant-card-view {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding: 16px;
+  margin-top: -21px;
+}
+
+.tenant-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tenant-card-body .tenant-card-header {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.tenant-card .tenant-card-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+}
+.tenant-card .tenant-card-actions .edit-icon {
+  color: #007bff;
+  border: none;
+  font-size: 18px;
+  background: none;
+  cursor: pointer;
+}
+.tenant-card .tenant-card-actions .edit-icon:hover {
+  color: #0056b3;
+}
+.tenant-card .tenant-card-actions .delete-icon {
+  color: #dc3545;
+  border: none;
+  font-size: 18px;
+  background: none;
+  cursor: pointer;
+}
+.tenant-card .tenant-card-actions .delete-icon:hover {
+  color: #c82333;
+}
+.tenant-card .tenant-card-actions .tenant-eye-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #555;
+  transition: color 0.3s ease;
+}
+.tenant-card .tenant-card-actions .tenant-eye-button:hover {
+  color: #000;
+}
+
+.tenants-count {
+  margin-left: 1300px;
+  margin-right: 0px;
+  margin-top: 15px;
+}
+
+.tenant-form-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.tenant-form-modal-overlay .tenant-form-modal-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.tenant-form-modal-overlay .tenant-view-close-button {
+  background: #6c757d;
+  color: #fff;
+  border-radius: 5px;
+  padding: 7px 13px;
+  border: 1px solid #ccc;
+}
+
+.tenant-export-button {
+  position: relative;
+}
+.tenant-export-button:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+.tenant_switch_button {
+  position: relative;
+}
+.tenant_switch_button:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+@media (min-width: 1025px) and (max-width: 1399px) {
+  .tenant-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 21%;
+    max-width: 265px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .Tenant-add-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 32px;
+    margin-right: 14px;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 5px;
+    margin-left: 960px;
+    margin-bottom: 21px;
+    outline: none;
+  }
+  .tenant_search_bar {
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+    padding: 0 10px;
+    margin-bottom: 26px;
+    margin-top: -1px;
+    min-width: 15%;
+    margin-left: 1086px;
+    height: 26px;
+    padding: 6px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    outline: none;
+  }
+  .tenants_export_switch_add_button .tenant-export-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 62px;
+    padding: 11px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    width: 57px;
+    height: 40px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+  }
+  .tenants-count {
+    margin-left: 1150px;
+    margin-right: 0px;
+    margin-top: 15px;
+  }
+  .TenantDetails-table {
+    width: 91%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 16px;
+    text-align: left;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .TenantDetails-table {
+    width: 149%;
+    border-collapse: collapse;
+    font-size: 16px;
+    text-align: left;
+  }
+  .TenantDetails-table th, .TenantDetails-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+  .TenantDetails-table thead {
+    background-color: #f4f4f4;
+  }
+  .TenantDetails-table thead th {
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  .TenantDetails-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  .TenantDetails-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  .TenantDetails-table tbody tr td.table-actions {
+    gap: 10px;
+    width: 100px;
+  }
+  .TenantDetails-table tbody tr td.table-actions .edit-icon, .TenantDetails-table tbody tr td.table-actions .delete-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+  }
+  .TenantDetails-table tbody tr td.table-actions .edit-icon:hover, .TenantDetails-table tbody tr td.table-actions .delete-icon:hover {
+    color: #000;
+  }
+  .TenantDetails-table tbody tr td.table-actions .edit-icon {
+    color: #007bff;
+  }
+  .TenantDetails-table tbody tr td.table-actions .edit-icon:hover {
+    color: #0056b3;
+  }
+  .TenantDetails-table tbody tr td.table-actions .delete-icon {
+    color: #dc3545;
+  }
+  .TenantDetails-table tbody tr td.table-actions .delete-icon:hover {
+    color: #c82333;
+  }
+  .tenants_export_switch_add_button .tenant-export-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 19px;
+    padding: 11px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    width: 57px;
+    height: 40px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tenant_switch_button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 7px 11px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 19px;
+    width: 57px;
+    height: 40px;
+  }
+  .Tenant-add-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 32px;
+    margin-right: 14px;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 5px;
+    margin-left: 54%;
+    margin-bottom: 21px;
+  }
+  .tenant_search_bar {
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+    padding: 0 10px;
+    margin-bottom: 26px;
+    margin-top: -1px;
+    min-width: 15%;
+    margin-left: 71%;
+    height: 26px;
+    padding: 6px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+  }
+  .TenantDetails-table-container {
+    overflow-x: scroll;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .tenants-count {
+    margin-left: 570px;
+    margin-right: 0px;
+    margin-top: 15px;
+  }
+}
+@media (max-width: 767px) {
+  .TenantDetails-table-container {
+    overflow-x: scroll;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .TenantDetails-table {
+    width: 300%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 16px;
+    text-align: left;
+  }
+  .TenantDetails-table th, .TenantDetails-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+  .TenantDetails-table thead {
+    background-color: #f4f4f4;
+  }
+  .TenantDetails-table thead th {
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  .TenantDetails-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  .TenantDetails-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  .TenantDetails-table tbody tr td.table-actions {
+    gap: 10px;
+    width: 100px;
+  }
+  .TenantDetails-table tbody tr td.table-actions .edit-icon, .TenantDetails-table tbody tr td.table-actions .delete-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+  }
+  .TenantDetails-table tbody tr td.table-actions .edit-icon:hover, .TenantDetails-table tbody tr td.table-actions .delete-icon:hover {
+    color: #000;
+  }
+  .TenantDetails-table tbody tr td.table-actions .edit-icon {
+    color: #007bff;
+  }
+  .TenantDetails-table tbody tr td.table-actions .edit-icon:hover {
+    color: #0056b3;
+  }
+  .TenantDetails-table tbody tr td.table-actions .delete-icon {
+    color: #dc3545;
+  }
+  .TenantDetails-table tbody tr td.table-actions .delete-icon:hover {
+    color: #c82333;
+  }
+  .tenants_export_switch_add_button .tenant-export-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 10px;
+    padding: 11px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    width: 57px;
+    height: 40px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tenant_switch_button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 7px 11px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 19px;
+    width: 57px;
+    height: 40px;
+  }
+  .Tenant-add-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 32px;
+    margin-right: 14px;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 5px;
+    margin-left: 16%;
+    margin-bottom: 21px;
+  }
+  .tenant_search_bar {
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+    padding: 0 10px;
+    margin-bottom: 26px;
+    margin-top: -1px;
+    min-width: 15%;
+    margin-left: 47%;
+    height: 26px;
+    padding: 6px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+  }
+  .tenants-count {
+    margin-left: 145px;
+  }
+}/*# sourceMappingURL=TenantDetails.css.map */

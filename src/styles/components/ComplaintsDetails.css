@@ -1,0 +1,615 @@
+/* ComplaintsDetails.scss */
+.complaints-heading {
+  text-align: center;
+}
+
+.complaints-search-input {
+  width: 17%;
+  height: 37px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-left: 978px;
+}
+
+.complaints-pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.complaints-pagination .page-link {
+  display: block;
+  padding: 10px 15px;
+  color: #007bff;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.complaints-pagination .page-link-1 {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: #555;
+}
+
+.complaints-pagination .page-link-2 {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.complaints-pagination .page-link:hover {
+  background-color: #e9ecef;
+  color: #0056b3;
+}
+
+.complaints-pagination .page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.complaints-pagination .page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.complaints-pagination .page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.view-close-button {
+  background: #6c757d;
+  color: #fff;
+  border-radius: 5px;
+  padding: 7px 13px;
+  border: 1px solid #ccc;
+}
+
+.complaints-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 91%;
+  margin: 0 auto;
+  gap: 16px;
+  justify-content: center;
+  padding: 16px;
+}
+
+.complaints-card-list .card-header {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  padding: 1px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.complaint-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.complaint-card .complaints-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+}
+.complaint-card .complaints-actions .complaints-icon-button,
+.complaint-card .complaints-actions .complaints-export-button,
+.complaint-card .complaints-actions .complaints-eye-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+.complaint-card .complaints-actions .complaints-icon-button:hover,
+.complaint-card .complaints-actions .complaints-export-button:hover,
+.complaint-card .complaints-actions .complaints-eye-button:hover {
+  color: #000;
+}
+.complaint-card .complaints-actions .complaints-eye-button {
+  font-size: 1.2rem;
+}
+.complaint-card .complaints-actions .complaints-icon-button,
+.complaint-card .complaints-actions .complaints-export-button {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+.complaint-card .complaints-actions .complaints-icon-button:hover,
+.complaint-card .complaints-actions .complaints-export-button:hover {
+  color: #0056b3;
+}
+
+.complaints-table-list {
+  margin: 20px 0;
+}
+.complaints-table-list .complaints-table {
+  width: 90%;
+  border-collapse: collapse;
+  font-size: 15px;
+  margin: 0 auto;
+  text-align: left;
+}
+.complaints-table-list .complaints-table th, .complaints-table-list .complaints-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+.complaints-table-list .complaints-table thead {
+  background-color: #f4f4f4;
+}
+.complaints-table-list .complaints-table thead th {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.complaints-table-list .complaints-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.complaints-table-list .complaints-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.complaints-table-list .complaints-table tbody tr td.complaints-actions {
+  justify-content: center;
+  gap: 10px;
+  width: 120px;
+}
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .complaints-icon-button,
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .complaints-export-button,
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .complaints-eye-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .complaints-icon-button:hover,
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .complaints-export-button:hover,
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .complaints-eye-button:hover {
+  color: #000;
+}
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .complaints-eye-button {
+  font-size: 1.2rem;
+}
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .complaints-icon-button,
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .complaints-export-button {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .complaints-icon-button:hover,
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .complaints-export-button:hover {
+  color: #0056b3;
+}
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .btn-delete-complaints {
+  color: #dc3545;
+}
+.complaints-table-list .complaints-table tbody tr td.complaints-actions .btn-delete-complaints:hover {
+  color: #c82333;
+}
+
+.Complaints-count {
+  justify-content: end;
+  margin-left: 1288px;
+}
+
+.complaints-all-buttons {
+  display: flex;
+}
+
+.complaints-exportall-button {
+  background-color: #007bff;
+  color: rgb(248, 240, 240);
+  border: none;
+  margin-left: 78px;
+  padding: 11px 20px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  position: relative; /* Added for positioning the hover text */
+  display: inline-flex; /* Flex for alignment */
+  align-items: center; /* Center alignment */
+  justify-content: center; /* Center alignment */
+}
+
+.complaints-exportall-button:hover {
+  background-color: #0056b3; /* Replace with the actual $secondary-color value */
+}
+
+.complaints-switch-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 7px 11px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 17px;
+  width: 58px;
+  height: 40px;
+}
+
+.complaints-switch-button:hover {
+  background-color: #0056b3; /* Replace with the actual $secondary-color value */
+}
+
+.complaint-card .read-more-link {
+  cursor: pointer;
+  color: #007bff;
+}
+
+.complaints-table .read-more-link {
+  cursor: pointer;
+  color: #007bff;
+}
+
+.complaint-form-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.complaint-form-modal-overlay .complaint-form-modal-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container .form-group {
+  margin-bottom: 15px;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container .form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #555;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container .form-group input,
+.complaint-form-modal-overlay .complaint-form-modal-container .form-group textarea {
+  width: calc(100% - 20px);
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container .form-group textarea {
+  resize: vertical;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container .form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container .form-actions button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container .form-actions button:disabled {
+  cursor: not-allowed;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container .form-actions button:first-child {
+  background: #007bff;
+  color: #fff;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container .form-actions button:first-child:hover {
+  background: #0056b3;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container .form-actions button:last-child {
+  background: #6c757d;
+  color: #fff;
+}
+.complaint-form-modal-overlay .complaint-form-modal-container .form-actions button:last-child:hover {
+  background: #5a6268;
+}
+
+.complaints-exportall-button {
+  position: relative;
+}
+.complaints-exportall-button:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+.complaints-switch-button {
+  position: relative;
+}
+.complaints-switch-button:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+@media (min-width: 1025px) and (max-width: 1399px) {
+  .complaints-card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    padding: 16px;
+  }
+  .complaints-search-input {
+    width: 17%;
+    height: 37px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 978px;
+  }
+  .complaint-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 21%;
+    max-width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .complaints-search-input {
+    width: 17%;
+    height: 37px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 853px;
+  }
+  .complaints-exportall-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 70px;
+    padding: 11px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .Complaints-count {
+    justify-content: end;
+    margin-left: 1135px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .complaints-table-list .complaints-table tbody tr td.complaints-actions {
+    justify-content: center;
+    gap: 10px;
+    width: 100px;
+  }
+  .complaints-search-input {
+    width: 32%;
+    height: 37px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 295px;
+  }
+  .complaints-exportall-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 43px;
+    padding: 11px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .complaints-table-list .complaints-table {
+    width: 150%;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .complaints-exportall-button {
+    position: relative;
+  }
+  .complaints-exportall-button:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.8;
+    font-size: 12px;
+  }
+  .complaints-switch-button {
+    position: relative;
+  }
+  .complaints-switch-button:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.8;
+    font-size: 12px;
+  }
+  .complaint-card .complaints-actions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: end;
+    margin-left: 168px;
+    gap: 8px;
+  }
+  .Complaints-count {
+    justify-content: end;
+    margin-left: 560px;
+  }
+  .complaints-table-list {
+    overflow-x: scroll;
+    width: 95%;
+    margin-left: 17px;
+  }
+}
+@media (max-width: 767px) {
+  .complaints-table-list .complaints-table {
+    width: 300%;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .complaints-table-list .complaints-table tbody tr td.complaints-actions {
+    justify-content: center;
+    gap: 10px;
+    width: 100px;
+  }
+  .complaints-search-input {
+    width: 39%;
+    height: 31px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 61px;
+  }
+  .complaints-exportall-button {
+    background-color: #007bff;
+    color: rgb(248, 240, 240);
+    border: none;
+    margin-left: 29px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .complaints-switch-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 7px 11px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 7px;
+    width: 53px;
+    height: 35px;
+  }
+  .complaints-table-list {
+    overflow-x: scroll;
+    width: 95%;
+    margin-left: 10px;
+  }
+  .complaint-card .complaints-actions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: end;
+    margin-left: 150px;
+    gap: 8px;
+  }
+  .complaints-exportall-button {
+    position: relative;
+  }
+  .complaints-exportall-button:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.8;
+    font-size: 12px;
+  }
+  .complaints-switch-button {
+    position: relative;
+  }
+  .complaints-switch-button:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.8;
+    font-size: 12px;
+  }
+  .Complaints-count {
+    justify-content: end;
+    margin-left: 130px;
+  }
+}/*# sourceMappingURL=ComplaintsDetails.css.map */

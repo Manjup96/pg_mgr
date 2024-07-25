@@ -22,6 +22,7 @@
   background-color: rgb(149, 150, 155);
   padding: 10px 20px;
   color: white;
+  overflow: hidden;
 }
 .navbar .top-row, .navbar .bottom-row {
   display: flex;
@@ -31,6 +32,7 @@
   justify-content: space-between;
   margin-bottom: 10px;
   width: 100%;
+  overflow: hidden;
 }
 .navbar .logo-container {
   display: flex;
@@ -60,7 +62,7 @@
   margin-right: 10px; /* Reduce the space between menu items */
   color: black;
   text-decoration: none;
-  padding: 5px 10px;
+  padding: 5px 9px;
 }
 .navbar .menu a:hover {
   background-color: white;
@@ -111,22 +113,47 @@
   .navbar .right-side .search {
     display: none;
   }
+  .navbar .logout-nav {
+    margin-right: -420px;
+  }
+  .navbar .menu.show {
+    display: flex;
+    /* align-items: center; */
+    width: 100vw;
+    margin-left: 81px;
+    background: white;
+  }
+  .navbar .menu-toggle {
+    display: block;
+    margin-left: 33px;
+    margin-top: -25px;
+  }
+  .navbar .navbar {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(149, 150, 155);
+    padding: 10px 20px;
+    color: white;
+    margin-right: 310px;
+    width: 100vw;
+  }
+  .navbar .logout-button {
+    margin-right: 450px;
+  }
 }
 @media (max-width: 768px) {
   .navbar .menu {
-    display: none;
+    display: none; /* Initially hide menu on smaller screens */
     flex-direction: column;
     width: 100%;
   }
   .navbar .menu.show {
     display: flex;
   }
-  .navbar .menu-toggle {
-    display: block;
-  }
   .navbar .bottom-row {
     flex-direction: column;
-    width: 100%;
+    /* width: 100%; */
+    margin-left: 40px;
   }
   .navbar .right-side {
     flex-direction: column;
@@ -136,4 +163,32 @@
     width: 100%;
     margin-bottom: 5px;
   }
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.nav-link:hover .dropdown {
+  display: block;
+}
+
+.dropdown a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {
+  background-color: #ddd;
 }/*# sourceMappingURL=Navbar.css.map */
