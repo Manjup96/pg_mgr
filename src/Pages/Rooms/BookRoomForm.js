@@ -29,7 +29,7 @@ const BookRoomForm = ({ room, onClose }) => {
         e.preventDefault();
         try {
             const response = await fetch('https://iiiqbets.com/pg-management/Alloting-Bed-to-Tenant-PUT-API.php', {
-                method: 'PUT',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
