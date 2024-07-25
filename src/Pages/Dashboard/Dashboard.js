@@ -18,7 +18,7 @@ const Dashboard = () => {
         <Navbar />
       
       <div >
-      <h2>Dashboard</h2>
+      <h1 className='dashboard_heading'>Dashboard</h1>
       <BuildingDropdown onSelectBuilding={handleSelectBuilding}/>
       <BuildingDetails selectedBuilding={selectedBuilding}/>
       </div>

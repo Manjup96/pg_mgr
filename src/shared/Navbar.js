@@ -37,21 +37,6 @@ const Navbar = () => {
             <span>PG Manager</span>
           </div>
         </div>
-        <div className="right-side">
-          <form className="search" onSubmit={handleSearch}>
-            <input 
-              type="text" 
-              placeholder="Search everything" 
-              value={searchQuery} 
-              onChange={(e) => setSearchQuery(e.target.value)} 
-            />
-            <button type="submit"><i className="fas fa-search"></i></button>
-          </form>
-          <div className="icons">
-            <i className="fas fa-bell"></i>
-            <i className="fas fa-user-circle"></i>
-          </div>
-        </div>
         <div className='logout-nav'>
           <div className="logout-button" data-tooltip="Log out">
             <Logout />
