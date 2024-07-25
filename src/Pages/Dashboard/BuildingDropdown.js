@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import "../../styles/components/BuildingDropdown.scss"
+import '../../styles/components/BuildingDropdown.scss'
 
-const BuildingDropdown = () => {
+const BuildingDropdown = ({ onSelectBuilding }) => {
   const [buildings, setBuildings] = useState([]);
   const [selectedBuilding, setSelectedBuilding] = useState('');
 
@@ -9,20 +9,19 @@ const BuildingDropdown = () => {
     const fetchBuildings = async () => {
       try {
         const response = await fetch('https://iiiqbets.com/pg-management/GET-Building-details-API.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "manager_email":"asaikrishna@gmail.com",
-                
-             })
-          });
-          const data = await response.json();
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "manager_email": "ssy.balu@gmail.com",
+          })
+        });
+        const data = await response.json();
         if (Array.isArray(data)) {
           setBuildings(data);
         } else {
-          console.error('Unexpected response data:', response.data);
+          console.error('Unexpected response data:', data);
           setBuildings([]); // Set an empty array in case of unexpected response
         }
       } catch (error) {
@@ -35,7 +34,9 @@ const BuildingDropdown = () => {
   }, []);
 
   const handleChange = (e) => {
-    setSelectedBuilding(e.target.value);
+    const selectedBuildingName = e.target.value;
+    setSelectedBuilding(selectedBuildingName);
+    onSelectBuilding(selectedBuildingName);
   };
 
   return (

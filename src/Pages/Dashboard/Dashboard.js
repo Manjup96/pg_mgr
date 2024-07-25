@@ -1,23 +1,27 @@
-import React,{ useEffect } from 'react'
+import React, { useState } from 'react'
 // import Sidebar from "../../shared/Sidebar";
  import Navbar from "../../shared/Navbar";
 // import { useManagerAuth } from "../../context/AuthContext";
 import { useManagerAuth } from "../../context/AuthContext";
 import BuildingDropdown from './BuildingDropdown';
+import BuildingDetails from './BuildingDetails'
 
 const Dashboard = () => {
-  const { manager } = useManagerAuth();
-  useEffect(() => {
-      if (!manager) {
-      }
+  const [selectedBuilding, setSelectedBuilding] = useState('');
 
-  }, [manager]);
+  const handleSelectBuilding = (buildingName) => {
+    setSelectedBuilding(buildingName);
+  };
   return (
     <div>
         {/* <Sidebar /> */}
         <Navbar />
+      
+      <div >
       <h2>Dashboard</h2>
-      <BuildingDropdown />
+      <BuildingDropdown onSelectBuilding={handleSelectBuilding}/>
+      <BuildingDetails selectedBuilding={selectedBuilding}/>
+      </div>
     </div>
   )
 }
