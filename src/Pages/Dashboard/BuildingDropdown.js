@@ -40,10 +40,10 @@ const BuildingDropdown = ({ onSelectBuilding }) => {
   };
 
   return (
-    <div>
-      <label htmlFor="building">Select Building:</label>
-      <select id="building" value={selectedBuilding} onChange={handleChange}>
-        <option value="">Select the building</option>
+    <div className='Dashboard_select_building'>
+      <label  htmlFor="building" className="building-label">Select Building :&nbsp;</label>
+      <select id="building" value={selectedBuilding} onChange={handleChange} className="building-select">
+        <option value=""> Select Building Name</option>
         {buildings.map((building, index) => (
           <option key={index} value={building.building_name}>
             {building.building_name}

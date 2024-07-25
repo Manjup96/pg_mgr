@@ -1,45 +1,120 @@
-/* src/App.css */
 
+  
 .App {
-    text-align: center;
+  text-align: center;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit; /* Ensures text color is inherited */
+}
+
+.Dashboad_card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  text-decoration: none;
+  height: 155px;
+}
+
+.Dashboad_card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.Dashboad_card p {
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.dashboard_heading {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.Dashboard_select_building {
+  display: flex;
+  justify-content: center;
+}
+
+.building-label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.building-select {
+  padding: 4px;
+  font-size: 16px;
+  width: 200px;
+  margin-top: -2px;
+  border-radius: 5px;
+}
+
+@media (max-width: 767px) {
+
+  .Dashboard_select_building
+  .building-label {
+    font-size: 17px;
+    font-weight: bold;
   }
   
+  .Dashboard_select_building
+  .building-select {
+    padding: 2px;
+    font-size: 12px;
+    width: 155px;
+    margin-top: -2px;
+    border-radius: 5px;
+  }
+
+  .App
+  .card-container
+  .Dashboad_card {
+    width: 250px;
+    height: auto;
+  }
+  
+  .App
   .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 200px;
-    text-align: center;
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .card h2 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+
+  .Dashboad_card {
+    
+    width: 330px;
+    height: auto; 
+   }
+
+  .building-label {
+    font-size: 24px;
+    font-weight: bold;
   }
-  
-  .card p {
-    font-size: 1rem;
+
+  .building-select {
+    padding: 5px;
+    font-size: 20px;
+    width: 250px;
+    margin-top: -2px;
+    border-radius: 6px;
   }
-  
-  @media (max-width: 768px) {
-    .card-container {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .card {
-      width: 80%;
-      max-width: 300px;
-    }
-  }
-  
-  
+}
