@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from "../../shared/Navbar";
 import { useManagerAuth } from "../../context/AuthContext";
-import { ExportPDFSingle, ExportPDFAll } from './RoomsExportPDF'; // Update the path according to your file structure
+import { ExportPDFSingle, ExportPDFAll } from './RoomsExportPDF';
 import '../../styles/components/RoomDetails.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThList, faThLarge, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons'; // Added faTrashAlt for vacate icon
+import { faThList, faThLarge, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import BookRoomForm from './BookRoomForm';
 
 const RoomDetails = () => {
     const { manager } = useManagerAuth();
@@ -13,8 +14,10 @@ const RoomDetails = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [viewMode, setViewMode] = useState('table'); // Add state for view mode
-    const [viewRoom, setViewRoom] = useState(null); // For viewing room details in modal
+    const [viewMode, setViewMode] = useState('table');
+    const [viewRoom, setViewRoom] = useState(null);
+    const [showBookModal, setShowBookModal] = useState(false);
+    const [selectedRoom, setSelectedRoom] = useState(null);
 
     useEffect(() => {
         const fetchRoomDetails = async () => {
@@ -41,7 +44,7 @@ const RoomDetails = () => {
                     setRoomDetails(data);
                     setFilteredRoomDetails(data);
                 } else if (typeof data === 'object' && data !== null) {
-                    setRoomDetails([data]); // Assuming data is a single object
+                    setRoomDetails([data]);
                     setFilteredRoomDetails([data]);
                 } else {
                     setError('Unexpected response format');
@@ -76,7 +79,7 @@ const RoomDetails = () => {
     const handleVacate = async (room) => {
         const vacateData = {
             tenant_mobile: room.tenant_mobile,
-            tenant_email: room.tenant_email, // assuming tenant_email exists in room object
+            tenant_email: room.tenant_email,
             paid_amount: room.paid_amount,
             due: room.due
         };
@@ -97,7 +100,6 @@ const RoomDetails = () => {
             const result = await response.json();
             console.log(result);
 
-            // Remove the vacated tenant from the state
             const updatedRoomDetails = roomDetails.map((r) =>
                 r.tenant_mobile === room.tenant_mobile ? { ...r, Available: 'yes', tenant_name: '', tenant_mobile: '' } : r
             );
@@ -107,6 +109,16 @@ const RoomDetails = () => {
             console.error('Error vacating tenant:', error);
             alert('Error vacating tenant: ' + error.message);
         }
+    };
+
+    const handleBook = (room) => {
+        setSelectedRoom(room);
+        setShowBookModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowBookModal(false);
+        setSelectedRoom(null);
     };
 
     const renderTable = () => (
@@ -142,28 +154,27 @@ const RoomDetails = () => {
                             <td>{room.paid_amount}</td>
                             <td>{room.due}</td>
                             <td>
-    {room.Available === '' ? '' : (
-        <>
-            {room.tenant_name ? (
-                <button
-                    className="vacate-button"
-                    onClick={() => handleVacate(room)}
-                    disabled={!room.tenant_name}
-                >
-                    Vacate
-                </button>
-            ) : (
-                <button
-                    className="book-button"
-                   
-                >
-                    Book
-                </button>
-            )}
-        </>
-    )}
-</td>
-
+                                {room.Available === '' ? '' : (
+                                    <>
+                                        {room.tenant_name ? (
+                                            <button
+                                                className="vacate-button"
+                                                onClick={() => handleVacate(room)}
+                                                disabled={!room.tenant_name}
+                                            >
+                                                Vacate
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="book-button"
+                                                onClick={() => handleBook(room)}
+                                            >
+                                                Book
+                                            </button>
+                                        )}
+                                    </>
+                                )}
+                            </td>
                             <td>
                                 <ExportPDFSingle room={room} />
                             </td>
@@ -193,21 +204,21 @@ const RoomDetails = () => {
                     <p><strong>Available:</strong> {room.Available === '' ? '' : (
                         <>
                             {room.tenant_name ? (
-                <button
-                    className="vacate-button"
-                    onClick={() => handleVacate(room)}
-                    disabled={!room.tenant_name}
-                >
-                    Vacate
-                </button>
-            ) : (
-                <button
-                    className="book-button"
-                   
-                >
-                    Book
-                </button>
-            )}
+                                <button
+                                    className="vacate-button"
+                                    onClick={() => handleVacate(room)}
+                                    disabled={!room.tenant_name}
+                                >
+                                    Vacate
+                                </button>
+                            ) : (
+                                <button
+                                    className="book-button"
+                                    onClick={() => handleBook(room)}
+                                >
+                                    Book
+                                </button>
+                            )}
                         </>
                     )}</p>
                     <div className="rooms-actions">
@@ -225,7 +236,8 @@ const RoomDetails = () => {
             <div className='rooms-all-buttons'>
                 <ExportPDFAll rooms={roomDetails} />
                 <button
-                    className="rooms-switch-button" data-tooltip={viewMode === 'table' ? 'Switch to Cards View' : 'Switch to Table View'}
+                    className="rooms-switch-button"
+                    data-tooltip={viewMode === 'table' ? 'Switch to Cards View' : 'Switch to Table View'}
                     onClick={() => setViewMode(viewMode === 'table' ? 'cards' : 'table')}
                 >
                     <FontAwesomeIcon icon={viewMode === 'table' ? faThLarge : faThList} />
@@ -239,6 +251,7 @@ const RoomDetails = () => {
                 />
             </div>
             {viewMode === 'table' ? renderTable() : renderCards()}
+            {showBookModal && <BookRoomForm room={selectedRoom} onClose={handleCloseModal} />}
         </div>
     );
 };
