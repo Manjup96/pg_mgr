@@ -56,7 +56,7 @@ const fetchTenants = async () => {
       },
       body: JSON.stringify({
         manager_email: "ssy.balu@gmail.com",
-        building_name: "Building 1",
+        building_name: "Bhadra",
       }),
     }
   );
