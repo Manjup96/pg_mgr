@@ -5,13 +5,14 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBed, faProcedures, faCheckCircle, faDollarSign, faMoneyBillWave, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import BarChart from './BarChart'; // Import the BarChart component
 import '../../styles/components/BuildingDropdown.scss';
+import '../../styles/components/BarChart.scss'; // Import the CSS file
 
 const API_DATA = [
   { name: 'Total Rooms', url: 'https://iiiqbets.com/pg-management/total-rooms-GET-API.php', route: '/rooms', icon: faBed, color: '#007bff' },
-  { name: 'Total Beds', url: 'https://iiiqbets.com/pg-management/total-no-of-beds-GET-API.php', route: '/beds', icon: faProcedures, color: '#28a745' },
-  { name: 'Available Beds', url: 'https://iiiqbets.com/pg-management/GET-Tenant-API-total-AVAILABLE-Beds.php', route: '/available-beds', icon: faCheckCircle, color: '#20c997' },
+  { name: 'Total Beds', url: 'https://iiiqbets.com/pg-management/total-no-of-beds-GET-API.php', route: '/setup', icon: faProcedures, color: '#28a745' },
+  { name: 'Available Beds', url: 'https://iiiqbets.com/pg-management/GET-Tenant-API-total-AVAILABLE-Beds.php', route: '/setup', icon: faCheckCircle, color: '#20c997' },
   { name: 'Total Income', url: 'https://iiiqbets.com/pg-management/total-income-mulitple-buildings-GET-API.php', route: '/incomedetails', icon: faDollarSign, color: '#ffc107' },
   { name: 'Total Expenditure', url: 'https://iiiqbets.com/pg-management/total-expenditure-manager-mail-buidling-GET-API.php', route: '/expenditure', icon: faMoneyBillWave, color: '#dc3545' },
   { name: 'Total Complaints', url: 'https://iiiqbets.com/pg-management/total-no-of-complaints.php', route: '/complaints', icon: faExclamationTriangle, color: '#fd7e14' },
@@ -21,12 +22,12 @@ const MANAGER_EMAIL = 'ssy.balu@gmail.com';
 
 const BuildingDetails = ({ selectedBuilding }) => {
   const [data, setData] = useState({});
-  const [chartData, setChartData] = useState([]);
+  const [chartData, setChartData] = useState(null); // Initialize with null
 
   useEffect(() => {
     if (selectedBuilding) {
       let tempData = {};
-      let promises = API_DATA.map((api) => 
+      let promises = API_DATA.map((api) =>
         axios.post(api.url, { manager_email: MANAGER_EMAIL, building_name: selectedBuilding })
           .then((response) => {
             console.log(`Response for ${api.name}:`, response.data);
@@ -45,19 +46,67 @@ const BuildingDetails = ({ selectedBuilding }) => {
             console.error(`Error fetching data from ${api.url}:`, error);
           })
       );
-      
+
       Promise.all(promises).then(() => {
         setData(tempData);
-        setChartData(Object.keys(tempData).map((key) => {
-          let value = tempData[key];
-          if (typeof value === 'object') {
-            value = value.total;
-          }
-          return { name: key, value: Number(value) };
-        }));
+
+        // Prepare chart data
+        const relevantData = ['Total Rooms', 'Total Beds', 'Available Beds'];
+        setChartData({
+          labels: relevantData,
+          datasets: [
+            {
+              label: 'Count',
+              data: relevantData.map((key) => Number(tempData[key]) || 0),
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1,
+            },
+          ],
+        });
       });
     }
   }, [selectedBuilding]);
+
+  // Define chart options
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            let label = context.dataset.label || '';
+            if (label) {
+              label += ': ';
+            }
+            if (context.parsed.y !== null) {
+              label += `${context.parsed.y}`;
+            }
+            return label;
+          },
+        },
+      },
+    },
+    scales: {
+      x: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Categories',
+        },
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Count',
+        },
+      },
+    },
+  };
 
   return (
     <div className="App">
@@ -90,17 +139,9 @@ const BuildingDetails = ({ selectedBuilding }) => {
               </Link>
             ))}
           </div>
+
           <div className="chart-container">
-            <BarChart width={600} height={300} data={chartData} >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              {API_DATA.map((api) => (
-                <Bar key={api.name} dataKey="value" fill={api.color} />
-              ))}
-            </BarChart>
+            {chartData ? <BarChart data={chartData} options={chartOptions} /> : <p>Loading chart data...</p>}
           </div>
         </>
       ) : (
@@ -111,3 +152,5 @@ const BuildingDetails = ({ selectedBuilding }) => {
 };
 
 export default BuildingDetails;
+
+

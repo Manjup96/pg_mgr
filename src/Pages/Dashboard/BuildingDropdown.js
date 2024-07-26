@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/components/BuildingDropdown.scss'
+import '../../styles/components/BarChart.scss'; // Import the CSS file
+
 
 const BuildingDropdown = ({ onSelectBuilding }) => {
   const [buildings, setBuildings] = useState([]);

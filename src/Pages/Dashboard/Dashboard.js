@@ -5,6 +5,9 @@ import React, { useState } from 'react'
 import { useManagerAuth } from "../../context/AuthContext";
 import BuildingDropdown from './BuildingDropdown';
 import BuildingDetails from './BuildingDetails'
+import '../../styles/components/BarChart.scss'; // Import the CSS file
+
+
 
 const Dashboard = () => {
   const [selectedBuilding, setSelectedBuilding] = useState('');
@@ -21,6 +24,7 @@ const Dashboard = () => {
       <h1 className='dashboard_heading'>Dashboard</h1>
       <BuildingDropdown onSelectBuilding={handleSelectBuilding}/>
       <BuildingDetails selectedBuilding={selectedBuilding}/>
+     
       </div>
     </div>
   )
