@@ -21,8 +21,8 @@ const AddNewsModal = ({ onClose, onAdd, managerEmail, buildingName }) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          "building_name": buildingName,
-          "manager_email": managerEmail,
+          "building_name": "bhadra",
+          "manager_email": "ssy.balu@gmail.com",
           "manager_mobile": "8106517443",
           "news_type": formData.news_type,
           "created_at": formData.created_at,

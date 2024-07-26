@@ -47,8 +47,8 @@ const NewsDetails = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          "manager_email": "tanandbabu@yahoo.co.in",
-          "building_name": "ANB1"
+          "manager_email": "ssy.balu@gmail.com",
+          "building_name": "bhadra"
         })
       });
       const data = await response.json();

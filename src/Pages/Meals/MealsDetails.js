@@ -28,7 +28,7 @@ const MealsDetails = () => {
           },
           body: JSON.stringify({
             manager_email: 'ssy.balu@gmail.com',
-            building_name: 'building 2'
+            building_name: 'bhadra'
           }),
         });
 
