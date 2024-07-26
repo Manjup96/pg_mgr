@@ -4,7 +4,7 @@ import { useManagerAuth } from "../../context/AuthContext";
 import { ExportPDFSingle, ExportPDFAll } from './RoomsExportPDF';
 import '../../styles/components/RoomDetails.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThList, faThLarge, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faThList, faThLarge } from '@fortawesome/free-solid-svg-icons';
 import BookRoomForm from './BookRoomForm';
 
 const RoomDetails = () => {
@@ -15,9 +15,8 @@ const RoomDetails = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [viewMode, setViewMode] = useState('table');
-    const [viewRoom, setViewRoom] = useState(null);
-    const [showBookModal, setShowBookModal] = useState(false);
     const [selectedRoom, setSelectedRoom] = useState(null);
+    const [showBookModal, setShowBookModal] = useState(false);
 
     useEffect(() => {
         const fetchRoomDetails = async () => {
@@ -76,6 +75,13 @@ const RoomDetails = () => {
         setFilteredRoomDetails(filtered);
     };
 
+    const handleVacateClick = (room) => {
+        const isConfirmed = window.confirm('Are you sure you want to vacate this room?');
+        if (isConfirmed) {
+            handleVacate(room);
+        }
+    };
+
     const handleVacate = async (room) => {
         const vacateData = {
             tenant_mobile: room.tenant_mobile,
@@ -100,11 +106,20 @@ const RoomDetails = () => {
             const result = await response.json();
             console.log(result);
 
+            // Update room details with paid_amount and due set to 0
             const updatedRoomDetails = roomDetails.map((r) =>
-                r.tenant_mobile === room.tenant_mobile ? { ...r, Available: 'yes', tenant_name: '', tenant_mobile: '' } : r
+                r.tenant_mobile === room.tenant_mobile ? { 
+                    ...r, 
+                    Available: 'yes', 
+                    tenant_name: '', 
+                    tenant_mobile: '', 
+                    paid_amount: 0, 
+                    due: 0 
+                } : r
             );
             setRoomDetails(updatedRoomDetails);
             setFilteredRoomDetails(updatedRoomDetails);
+            alert('Vacated successfully');
         } catch (error) {
             console.error('Error vacating tenant:', error);
             alert('Error vacating tenant: ' + error.message);
@@ -152,14 +167,15 @@ const RoomDetails = () => {
                             <td>{room.bed_no}</td>
                             <td>{room.amount}</td>
                             <td>{room.paid_amount}</td>
-                            <td>{room.due}</td>
+                            <td>{room.amount - room.paid_amount}</td>
+
                             <td>
                                 {room.Available === '' ? '' : (
                                     <>
                                         {room.tenant_name ? (
                                             <button
                                                 className="vacate-button"
-                                                onClick={() => handleVacate(room)}
+                                                onClick={() => handleVacateClick(room)}
                                                 disabled={!room.tenant_name}
                                             >
                                                 Vacate
@@ -206,7 +222,7 @@ const RoomDetails = () => {
                             {room.tenant_name ? (
                                 <button
                                     className="vacate-button"
-                                    onClick={() => handleVacate(room)}
+                                    onClick={() => handleVacateClick(room)}
                                     disabled={!room.tenant_name}
                                 >
                                     Vacate
