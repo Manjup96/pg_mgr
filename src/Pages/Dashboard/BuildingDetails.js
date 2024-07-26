@@ -1,13 +1,15 @@
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBed, faProcedures, faCheckCircle, faDollarSign, faMoneyBillWave, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import BarChart from './BarChart'; // Import the BarChart component
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import '../../styles/components/BuildingDropdown.scss';
 import '../../styles/components/BarChart.scss'; // Import the CSS file
+
+// Register Chart.js components
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 const API_DATA = [
   { name: 'Total Rooms', url: 'https://iiiqbets.com/pg-management/total-rooms-GET-API.php', route: '/rooms', icon: faBed, color: '#007bff' },
@@ -50,14 +52,27 @@ const BuildingDetails = ({ selectedBuilding }) => {
       Promise.all(promises).then(() => {
         setData(tempData);
 
-        // Prepare chart data
-        const relevantData = ['Total Rooms', 'Total Beds', 'Available Beds'];
+        // Prepare dynamic chart data
+        const categories = Object.keys(tempData).filter(key =>
+          key !== 'Total Income' && key !== 'Total Expenditure' && key !== 'Total Complaints'
+        );
+
+        const values = categories.map(key => {
+          if (key === 'Total Rooms' || key === 'Total Beds' || key === 'Available Beds') {
+            if (typeof tempData[key] === 'object') {
+              return Object.values(tempData[key]).reduce((acc, val) => acc + Number(val), 0);
+            }
+            return Number(tempData[key]) || 0;
+          }
+          return 0; // Return 0 for categories that are not 'Total Rooms', 'Total Beds', or 'Available Beds'
+        });
+
         setChartData({
-          labels: relevantData,
+          labels: categories,
           datasets: [
             {
               label: 'Count',
-              data: relevantData.map((key) => Number(tempData[key]) || 0),
+              data: values,
               backgroundColor: 'rgba(75, 192, 192, 0.2)',
               borderColor: 'rgba(75, 192, 192, 1)',
               borderWidth: 1,
@@ -151,6 +166,12 @@ const BuildingDetails = ({ selectedBuilding }) => {
   );
 };
 
+const BarChart = ({ data, options }) => {
+  return (
+    <div className="bar-chart-container">
+      <Bar data={data} options={options} />
+    </div>
+  );
+};
+
 export default BuildingDetails;
-
-

@@ -43,7 +43,7 @@ const BuildingDropdown = ({ onSelectBuilding }) => {
 
   return (
     <div className='Dashboard_select_building'>
-      <label  htmlFor="building" className="building-label">Select Building :&nbsp;</label>
+      <label htmlFor="building" className="building-label">Select Building :&nbsp;</label>
       <select id="building" value={selectedBuilding} onChange={handleChange} className="building-select">
         <option value=""> Select Building Name</option>
         {buildings.map((building, index) => (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 // import Sidebar from "../../shared/Sidebar";
- import Navbar from "../../shared/Navbar";
+import Navbar from "../../shared/Navbar";
 // import { useManagerAuth } from "../../context/AuthContext";
 import { useManagerAuth } from "../../context/AuthContext";
 import BuildingDropdown from './BuildingDropdown';
@@ -17,14 +17,14 @@ const Dashboard = () => {
   };
   return (
     <div>
-        {/* <Sidebar /> */}
-        <Navbar />
-      
+      {/* <Sidebar /> */}
+      <Navbar />
+
       <div >
-      <h1 className='dashboard_heading'>Dashboard</h1>
-      <BuildingDropdown onSelectBuilding={handleSelectBuilding}/>
-      <BuildingDetails selectedBuilding={selectedBuilding}/>
-     
+        <h1 className='dashboard_heading'>Dashboard</h1>
+        <BuildingDropdown onSelectBuilding={handleSelectBuilding} />
+        <BuildingDetails selectedBuilding={selectedBuilding} />
+
       </div>
     </div>
   )
