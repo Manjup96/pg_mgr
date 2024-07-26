@@ -119,6 +119,9 @@ const BuildingDetails = ({ selectedBuilding }) => {
           display: true,
           text: 'Count',
         },
+        ticks: {
+          stepSize: 1, // Ensures y-axis increments by 1
+        },
       },
     },
   };
